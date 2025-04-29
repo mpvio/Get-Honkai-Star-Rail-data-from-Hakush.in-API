@@ -1,0 +1,44 @@
+{
+    "values_changed": {
+        "root['Kit']['Basic']['Name']": {
+            "new_value": "Wake Me Up When Slumber Ends",
+            "old_value": "Wake Me up When Slumber Ends"
+        },
+        "root['Kit']['Skill #2']['Desc']": {
+            "new_value": "Consumes 1 stack of 'Inspiration.' Deals Ice DMG equal to [40|80]% of The Herta's ATK to one designated enemy and inflicts 1 stack(s) of 'Interpretation.' Deals Ice DMG equal to [40|80]% of The Herta's ATK to the target hit by this instance of Skill and adjacent targets, repeating 2 times. Finally, deals Ice DMG equal to [20|40]% of The Herta's ATK to all enemies.",
+            "old_value": "Consumes 1 stack of 'Inspiration.' Deals Ice DMG equal to [40|80]% of The Herta's ATK to one designated enemy and inflicts 1 stack(s) of 'Interpretation.' Deals Ice DMG equal to [40|80]% of The Herta's ATK to the target that has been hit by this instance of Skill and their adjacent targets, repeating 2 times. Finally, deals Ice DMG equal to [20|40]% of The Herta's ATK to all enemy targets."
+        },
+        "root['Kit']['Ultimate']['Name']": {
+            "new_value": "<unbreak>Told Ya!</unbreak><unbreak>Magic Happens</unbreak>",
+            "old_value": "Told Ya! Magic Happens"
+        },
+        "root['Kit']['Ultimate']['Desc']": {
+            "new_value": "Rearranges the number of 'Interpretation' stacks on all enemies, prioritizing the transfer of a higher number of 'Interpretation' stacks to Elite-level targets and above. Then, deals Ice DMG equal to [100|200]% The Herta's ATK to all enemies. When using Ultimate, increases The Herta's ATK by [32|64]%, lasting for 2 turn(s). After using the Ultimate, The Herta immediately takes action and gains 1 stack of 'Inspiration.' 'Inspiration' can stack up to 2 time(s). While having 'Inspiration,' enhances Skill to 'Hear Me Out.'",
+            "old_value": "Rearranges the number of 'Interpretation' stacks on all enemies, prioritizing the transfer of the higher number of 'Interpretation' stacks to Elite level targets and above. And deals Ice DMG equal to [100|200]% The Herta's ATK to all enemies. When using Ultimate, increases The Herta's ATK by [32|64]%, lasting for 2 turn(s). After the use, The Herta immediately takes action and gains 1 stack of 'Inspiration.' 'Inspiration' can stack up to 2 time(s). When holding 'Inspiration,' enhances Skill to 'Hear Me Out.'"
+        },
+        "root['Kit']['Technique']['Name']": {
+            "new_value": "Vibe Checker",
+            "old_value": "Vibe Check"
+        },
+        "root['Kit']['Technique']['Desc']": {
+            "new_value": "After using Technique, increases The Herta's ATK by 40% at the start of the next battle for 2 turn(s). Applies 4 'Interpretation' stack(s) to all enemies at the start of each wave. If there are Basic Treasures in this current map, using Technique will mark up to 3 Basic Treasures' locations. After entering battle by using Technique in Simulated Universe or Divergent Universe, deals True DMG equal to 99% of the target's Max HP to enemy targets lower than Elite-level, and True DMG equal to 30% of the target's Max HP to enemy targets at Elite-level and above.",
+            "old_value": "After using Technique, increases The Herta's ATK by 40% at the start of the next battle, lasting for 2 turn(s). And at the start of each wave, inflicts 4 'Interpretation' stack(s) on all enemies. If there are Basic Treasures in this current map, using Technique will mark the locations of up to 3 Basic Treasure(s). After entering battle by using Technique in Simulated Universe or Divergent Universe, deals True DMG equal to 99% of the target's Max HP to enemy targets lower than Elite-level, and deals True DMG equal to 30% of the target's Max HP to enemy targets at Elite-level and above."
+        },
+        "root['Traces']['Branch 1']['Desc']": {
+            "new_value": "When ally targets attack, inflicts 1 stack of 'Interpretation' on the hit enemy target. After attacking, for every 1 target hit by this attack, regenerates 3 fixed Energy for The Herta, counting up to a maximum of 5 targets.",
+            "old_value": "When ally targets attack, inflicts 1 stack of 'Interpretation' on the hit enemy target. After attacking, for every 1 target hit by this attack, regenerates a fixed 3 Energy for The Herta, counting up to a maximum of 5 targets."
+        },
+        "root['Eidolons']['1']['Desc']": {
+            "new_value": "When Enhanced Skill calculates 'Interpretation,' additionally calculates 30% of the 'Interpretation' stacks on the 2 targets with the highest stacks out of the Skill's target and adjacent targets.",
+            "old_value": "When Enhanced Skill calculates the number of 'Interpretation' stacks, additionally counts 30% of the number of 'Interpretation' stacks on the 2 targets with the highest stacks among the Skill's target and adjacent targets."
+        },
+        "root['Eidolons']['2']['Desc']": {
+            "new_value": "After an ally attacks, applies 1 stack(s) of 'Interpretation' to the enemy target hit that has the highest 'Interpretation' stacks. When enemy target are afflicted with 'Interpretation' and should the stacks reach 42, The Herta will gain 1 stack of 'Inspiration.' This effect can only trigger once per enemy target.",
+            "old_value": "After an ally attacks, applies 1 stack(s) of 'Interpretation' to the target that has the highest 'Interpretation' stacks among the hit enemy targets. When an enemy target gets inflicted with 'Interpretation' and if their number of stacks reach 42, The Herta gains 1 stack of 'Inspiration.' This effect can only trigger once per enemy target."
+        },
+        "root['Eidolons']['6']['Desc']": {
+            "new_value": "Every stack of 'Starved Landscape of Vacua' additionally increases Ultimate's DMG multiplier by 4%, up to a max increase of 396%. The Trace 'Starved Landscape of Vacua' needs to be unlocked first.",
+            "old_value": "In 'Starved Landscape of Vacua,' each stack additionally increases Ultimate's DMG multiplier by 4%, up to a max additional increase of 396%. The Trace 'Starved Landscape of Vacua' needs to be unlocked first."
+        }
+    }
+}

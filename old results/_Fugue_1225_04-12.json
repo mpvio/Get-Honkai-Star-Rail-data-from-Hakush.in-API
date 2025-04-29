@@ -1,0 +1,98 @@
+{
+    "dictionary_item_added": [
+        "root['Name']",
+        "root['Kit']['Basic']['Name']",
+        "root['Kit']['Skill']['Name']",
+        "root['Kit']['Ultimate']['Name']",
+        "root['Kit']['Talent']['Name']",
+        "root['Kit']['Technique']['Name']"
+    ],
+    "values_changed": {
+        "root['Stats']['Energy']": {
+            "new_value": 130,
+            "old_value": 150
+        },
+        "root['Kit']['Skill']['Desc']": {
+            "new_value": "Grants one designated ally 'Foxian Prayer'. Enters the 'Torrid Scorch' state, lasting for 3 turn(s). The duration reduces by 1 at the start of Fugue's every turn. 'Foxian Prayer' only takes effect on the most recent target of Fugue's Skill. The ally target with 'Foxian Prayer' increases their Break Effect by [15|30]% and can also reduce Toughness even when attacking enemies that don't have the corresponding Weakness Type, with the effect equivalent to 50% of the original Toughness Reduction value. This cannot stack with other Toughness Reduction effects that also ignore Weakness Type. While in the 'Torrid Scorch' state, Fugue enhances her Basic ATK. Every time an ally target with 'Foxian Prayer' attacks, Fugue has a 100% base chance to reduce the attacked enemy target's DEF by [8|18]%, lasting for 2 turn(s).",
+            "old_value": "Grants 'Foxian Prayer' to one designated ally and causes this unit to enter the 'Torrid Scorch' state, lasting for 3 turn(s). The duration of this state reduces by 1 turn at the start of Fugue's each turn. Ally target with 'Foxian Prayer' has their Break Effect increased by [20|40]%. And every time after they attack, Fugue has a 100% base chance to reduce the attacked enemy target's DEF by [8|18]%, lasting for 2 turn(s). While in the 'Torrid Scorch' state, Fugue cannot use Skill and her Basic ATK 'Radiant Streak' is enhanced to 'Fiery Caress.'"
+        },
+        "root['Kit']['Ultimate']['Desc']": {
+            "new_value": "Deals Fire DMG equal to [100|200]% of Fugue's ATK to all enemies. This attack ignores Weakness Type to reduce all enemies' Toughness. And when breaking Weakness, triggers the Fire Weakness Break effect.",
+            "old_value": "Deals Fire DMG equal to [100|200]% of Fugue's ATK to all enemies. This instance of attack ignores Weakness Type to Reduce the Toughness of all enemies. Trigger the Fire Weakness Break effect when enemies become Weakness Broken in this way."
+        },
+        "root['Kit']['Talent']['Desc']": {
+            "new_value": "While Fugue is on the field, enemy targets will get additionally afflicted with 'Cloudflame Luster,' equal to 40% of their Max Toughness. When the initial Toughness is reduced to 0, 'Cloudflame Luster' can further be reduced. When 'Cloudflame Luster' is reduced to 0, the enemy will receive Weakness Break DMG again. While Fugue is on the field and after allies attack Weakness Broken enemy targets, converts the Toughness Reduction of this attack into 1 instance of [50|100]% Super Break DMG.",
+            "old_value": "While Fugue is on the field, enemy targets will get afflicted with Exo-Toughness, defaulting to an Exo-Toughness value equal to 50% of their respective Max Toughness. While Fugue is on the field and after Weakness Broken enemy targets are attacked by allies, converts the Toughness Reduction of this attack into 1 instance of [50|100]% Super Break DMG."
+        },
+        "root['Kit']['Technique']['Desc']": {
+            "new_value": "After using Technique, inflicts Daze on enemies within a certain area, lasting for 10 second(s). While Dazed, enemies will not actively attack ally targets. After entering battle via actively attacking Dazed enemies, Fugue's action advances by 40%, with a 100% base chance to inflict each enemy target with the same DEF Reduction state as that applied by Fugue's Skill, lasting for 2 turn(s).",
+            "old_value": "After using Technique, inflicts Daze on enemies within a certain area, lasting for 10 second(s). While Dazed, enemies will not actively attack ally targets. After entering battle via actively attacking Dazed enemies, Fugue's action advances by 40%, with a 100% base chance to inflict each enemy target with the same debuff as that applied by Fugue's Skill, lasting for 2 turn(s)."
+        },
+        "root['Traces']['Branch 1']['Desc']": {
+            "new_value": "After ally targets break weakness, additionally delays the action of the enemy target by 15%.",
+            "old_value": "After ally targets break enemy weakness, additionally delays the action of the enemy target by 15%."
+        },
+        "root['Traces']['Branch 1']['Unlocks'][0]['Unlocks'][0]['Name']": {
+            "new_value": "SPD Boost",
+            "old_value": "Effect Hit Rate Boost"
+        },
+        "root['Traces']['Branch 2']['Unlocks'][0]['Name']": {
+            "new_value": "SPD Boost",
+            "old_value": "Effect Hit Rate Boost"
+        },
+        "root['Traces']['Branch 2']['Unlocks'][0]['Value']": {
+            "new_value": 3,
+            "old_value": 6
+        },
+        "root['Traces']['Branch 2']['Unlocks'][0]['Unlocks'][0]['Value']": {
+            "new_value": 8,
+            "old_value": 6
+        },
+        "root['Traces']['Branch 3']['Desc']": {
+            "new_value": "When an enemy target's Weakness gets broken, increases teammates' (i.e., excluding this unit) Break Effect by 6%. If Fugue's Break Effect is 220% or higher, the Break Effect increase is boosted by an additional 12%, lasting for 2 turn(s). This effect can stack up to 2 time(s).",
+            "old_value": "When an enemy target's Weakness gets broken, increases all allies' Break Effect by 15%, lasting for 2 turn(s). This effect can stack up to 2 time(s)."
+        },
+        "root['Traces']['Branch 4']['Name']": {
+            "new_value": "SPD Boost",
+            "old_value": "Effect Hit Rate Boost"
+        },
+        "root['Traces']['Branch 4']['Unlocks'][0]['Name']": {
+            "new_value": "SPD Boost",
+            "old_value": "Effect Hit Rate Boost"
+        },
+        "root['Traces']['Branch 4']['Unlocks'][0]['Value']": {
+            "new_value": 4,
+            "old_value": 8
+        },
+        "root['Eidolons']['2']['Desc']": {
+            "new_value": "When an enemy target's Weakness gets broken, Fugue regenerates 3 Energy. After using Ultimate, advances the action of all allies by 24%.",
+            "old_value": "When an enemy target's Weakness gets broken, Fugue regenerates 5 Energy. After using Ultimate, advances the action of all allies by 24%."
+        },
+        "root['Eidolons']['4']['Desc']": {
+            "new_value": "Ally target with 'Foxian Prayer' increases their Break DMG dealt by 20%.",
+            "old_value": "After every attack used by the ally with 'Foxian Prayer,' Fugue has a 100% base chance to increase the DMG taken by the attacked enemy target by 15%, lasting for 2 turn(s)."
+        },
+        "root['Eidolons']['6']['Desc']": {
+            "new_value": "Increases Fugue's Weakness Break Efficiency by 50%. While Fugue is in the 'Torrid Scorch' state, 'Foxian Prayer' takes effect on all allies.",
+            "old_value": "Fugue's Weakness Break Efficiency increases by 50%. While there is an ally target that has 'Foxian Prayer' on the field, all allies are considered as having 'Foxian Prayer.'"
+        }
+    },
+    "iterable_item_added": {
+        "root['Traces']['Branch 2']['Unlocks'][0]['Unlocks'][0]['Unlocks'][0]": {
+            "Id": 1225207,
+            "Root": false,
+            "Name": "SPD Boost",
+            "Value": 3,
+            "Unlocks": []
+        }
+    },
+    "iterable_item_removed": {
+        "root['Traces']['Branch 2']['Unlocks'][0]['Unlocks'][0]['Unlocks'][0]": {
+            "Id": 1225207,
+            "Root": false,
+            "Name": "Effect Hit Rate Boost",
+            "Value": 6,
+            "Unlocks": []
+        }
+    }
+}

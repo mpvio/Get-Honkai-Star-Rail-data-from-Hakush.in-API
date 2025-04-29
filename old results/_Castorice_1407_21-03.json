@@ -1,0 +1,134 @@
+{
+    "dictionary_item_added": [
+        "root['Kit']['Unique'][1]"
+    ],
+    "dictionary_item_removed": [
+        "root['Kit']['Unique']['1']"
+    ],
+    "values_changed": {
+        "root['Kit']['Basic']['Name']": {
+            "new_value": "Lament, Nethersea's Ripple",
+            "old_value": "Lament Is the Dead Sea's Ripple"
+        },
+        "root['Kit']['Skill']['Name']": {
+            "new_value": "Silence, Wraithfly's Caress",
+            "old_value": "Silence Is the Butterfly's Caress"
+        },
+        "root['Kit']['Skill']['Desc']": {
+            "new_value": "Consumes 30% of all allies' current HP. Deals Quantum DMG equal to [25|50|55]% of Castorice's Max HP to one designated enemy and Quantum DMG equal to [15|30|33]% of Castorice's Max HP to adjacent targets. If current HP is insufficient, this ability will reduce HP to 1. If Netherwing is on the battlefield, this Skill becomes 'Boneclaw, Doomdrake's Embrace' instead.",
+            "old_value": "Consumes 30% of all allies' current HP. Deals Quantum DMG equal to [25|50|55]% of Castorice's Max HP to one designated enemy and Quantum DMG equal to [15|30|33]% of Castorice's Max HP to adjacent targets. If current HP is insufficient, this ability will reduce HP to 1. If Dead Dragon is on the battlefield, this Skill becomes 'Skeleclaw, the Doomdrake's Embrace' instead."
+        },
+        "root['Kit']['Skill #2']['Name']": {
+            "new_value": "Boneclaw, Doomdrake's Embrace",
+            "old_value": "Skeleclaw, the Doomdrake's Embrace"
+        },
+        "root['Kit']['Skill #2']['Desc']": {
+            "new_value": "Consumes 40% of all allies' (except Netherwing) current HP. Castorice and Netherwing launch a Joint ATK on the target and deal Quantum DMG equal to [15|30|33]% and [25|50|55]% of Castorice's Max HP to all enemies. If current HP is insufficient, using the ability will reduce HP to 1.",
+            "old_value": "Consumes 40% of all allies' (except Dead Dragon) current HP. Castorice and Dead Dragon launch a Joint ATK on the target and deal Quantum DMG equal to [12|24|26.4]% and [21|42|46.2]% of Castorice's Max HP. If current HP is insufficient, using the ability will reduce HP to 1."
+        },
+        "root['Kit']['Ultimate']['Name']": {
+            "new_value": "Doomshriek, Dawn's Chime",
+            "old_value": "Death's Roar Becomes Renascence's Bell"
+        },
+        "root['Kit']['Ultimate']['Desc']": {
+            "new_value": "Summons the memosprite Netherwing and advances its action by 100%. At the same time, creates the Territory 'Lost Netherland,' which decreases all enemies' All-Type RES by [10|20|22]%. If the DMG Boost effect from Castorice's Talent is active, the effect is extended to Netherwing. Netherwing has an initial SPD of 165 and a set Max HP equal to 100% of max 'Newbud.' After Netherwing acts for 3 turns or when its HP is 0, it disappears and dispels the Territory 'Lost Netherland.'",
+            "old_value": "Summons the memosprite Dead Dragon and advances its action by 100%. At the same time, creates the Territory 'Lost Netherland,' which decreases all enemies' All-Type RES by [10|20|22]%. If the DMG Boost effect from Castorice's Talent is active, the effect is extended to Dead Dragon. Dead Dragon has 165 SPD and a set Max HP equal to 100% of max 'Stamen Nova.' After Dead Dragon acts 3 times or when its HP is 0, it disappears and dispels the Territory 'Lost Netherland.'"
+        },
+        "root['Kit']['Talent']['Name']": {
+            "new_value": "Desolation Across Palms",
+            "old_value": "Desolation That Traverses Her Palms"
+        },
+        "root['Kit']['Talent']['Desc']": {
+            "new_value": "Max 'Newbud' is based on all characters' levels on the battlefield. For each point of HP lost by all allies, Castorice gains 1 point of 'Newbud.' When 'Newbud' reaches its maximum, Castorice's Ultimate can be used. When allies lose HP, Castorice's and Netherwing's DMG dealt increase by [10|20|22]%. This effect can stack up to 3 times, lasting for 3 turn(s). When Netherwing is on the field, 'Newbud' cannot be gained through Talent, and HP lost by all allies (except Netherwing) will be converted to an equal amount of HP for Netherwing.",
+            "old_value": "Max 'Newbud' is based on all characters' levels on the battlefield. For each point of HP lost by all allies, Castorice gains 1 point of 'Newbud.' When 'Newbud' reaches its maximum, Castorice's Ultimate can be used. When allies lose HP, Castorice's and Netherwing's DMG dealt increase by [10|20|22]%. This effect can stack up to 3 times, lasting for 3 turn(s). When Netherwing is on the field, 'Newbud' cannot be gained, and HP lost by all allies (except Netherwing) will be converted to an equal amount of HP for Netherwing."
+        },
+        "root['Kit']['Technique']['Name']": {
+            "new_value": "Wail, Death's Herald",
+            "old_value": "Wail, the Prelude to Demise"
+        },
+        "root['Kit']['Technique']['Desc']": {
+            "new_value": "After using Technique, enters the 'Netherveil' state that lasts for 20 seconds. While 'Netherveil' is active, enemies are unable to approach Castorice on their own. While in the 'Netherveil' state, attacking will cause all enemies within range to enter combat. At the same time, summons the memosprite Netherwing. Netherwing starts with current HP equal to 50% of max 'Newbud.' After entering battle, consumes 40% of all allies' current HP and advances Netherwing's action by 100%. After entering battle and before summoning Netherwing, Castorice gains 'Newbud' equal to 30% of maximum 'Newbud.'",
+            "old_value": "After using Technique, enters the 'Death Addle' state that lasts for 20 seconds. While 'Death Addle' is active, enemies are unable to approach Castorice on their own. While in the 'Death Addle' state, attacking will cause all enemies within range to enter combat. At the same time, summons the memosprite Dead Dragon. Dead Dragon starts with current HP equal to 50% of max 'Stamen Nova.' After entering battle, consumes 40% of all allies' current HP and advances Dead Dragon's action by 100%. After entering battle and before summoning Dead Dragon, Castorice gains 'Stamen Nova' equal to 30% of maximum 'Stamen Nova.'"
+        },
+        "root['Memosprite']['Name']": {
+            "new_value": "Netherwing: Pollux",
+            "old_value": "Dead Dragon: Pollux"
+        },
+        "root['Memosprite']['Kit']['Skill']['Name']": {
+            "new_value": "Claw Splits the Veil",
+            "old_value": "Rend The Realm Beneath"
+        },
+        "root['Memosprite']['Kit']['Skill']['Desc']": {
+            "new_value": "Deals Quantum DMG equal to [20|40|44]% of Castorice's Max HP to all enemies.",
+            "old_value": "Deals Quantum DMG equal to [12|24|26.4]% of Castorice's Max HP to all enemies."
+        },
+        "root['Memosprite']['Kit']['Skill #2']['Name']": {
+            "new_value": "Breath Scorches the Shadow",
+            "old_value": "Dimscorch Breath"
+        },
+        "root['Memosprite']['Kit']['Skill #2']['Desc']": {
+            "new_value": "Activating 'Breath Scorches the Shadow' will consume 25% of Netherwing's Max HP to deal Quantum DMG equal to [12|24|26.4]% of Castorice's Max HP to all enemies. In one attack, 'Breath Scorches the Shadow' can be activated repeatedly, with the DMG multiplier increasing respectively to [14|28|30.8]% / [17|34|37.4]%, until [17|34|37.4]%. The DMG Multiplier Boost effect will not be reduced before Netherwing disappears. When HP is at 25% or lower, activating the ability will reduce HP to 1, and then trigger the ability effect equal to that of the Talent 'Wings Sweep the Ruins.'",
+            "old_value": "Consumes HP equal to 25% of Netherwing's max HP in each usage and deals Quantum DMG to all enemies equal to [12|24|26.4]% of Castorice's Max HP. When HP is insufficient, it will drop to a limit of 1 and using this ability will not end the turn. When using this ability repeatedly, increases DMG multiplier to [14|28|30.8]% / [17|34|37.4]%, lasting until Netherwing disappears. When HP is less than or equal to 25%, using this ability will actively reduce HP to 1 point, then trigger the Talent ability effect of 'Wings Sweep the Ruins.'"
+        },
+        "root['Memosprite']['Kit']['Skill #3']['Name']": {
+            "new_value": "Breath Scorches the Shadow",
+            "old_value": "Dimscorch Breath"
+        },
+        "root['Memosprite']['Kit']['Skill #4']['Name']": {
+            "new_value": "Breath Scorches the Shadow",
+            "old_value": "Dimscorch Breath"
+        },
+        "root['Memosprite']['Kit']['Skill #5']['Name']": {
+            "new_value": "Wings Sweep the Ruins",
+            "old_value": "Ebon Wings Over Scorched Ruins"
+        },
+        "root['Memosprite']['Kit']['Talent']['Name']": {
+            "new_value": "Mooncocoon Shrouds the Form",
+            "old_value": "Moon-Shelled Vessel"
+        },
+        "root['Memosprite']['Kit']['Talent']['Desc']": {
+            "new_value": "When Netherwing is on the field, it acts as backup for allies. When allies take DMG or consumes HP, their current HP can be reduced to a minimum of 1, after which Netherwing will consume HP at 500% of the original value until Netherwing disappears.",
+            "old_value": "When Dead Dragon is on the field, it acts as backup for allies. When allies take DMG, their current HP can be reduced to a minimum of 1, after which Dead Dragon will bear the DMG received at 500% of the original DMG until Dead Dragon disappears."
+        },
+        "root['Memosprite']['Kit']['Talent #2']['Name']": {
+            "new_value": "Roar Rumbles the Realm",
+            "old_value": "Desolation Broken By Bellows"
+        },
+        "root['Memosprite']['Kit']['Talent #2']['Desc']": {
+            "new_value": "When Netherwing is summoned, increases DMG dealt by all allies by 10% for 3 turn(s).",
+            "old_value": "When Dead Dragon is summoned, decreases DMG dealt by all allies by 10% for 3 turn(s)"
+        },
+        "root['Memosprite']['Kit']['Talent #3']['Name']": {
+            "new_value": "Wings Sweep the Ruins",
+            "old_value": "Ebon Wings Over Scorched Ruins"
+        },
+        "root['Memosprite']['Kit']['Talent #3']['Desc']": {
+            "new_value": "When Netherwing disappears, deals 6 instance(s) of DMG, with every instance dealing Quantum DMG equal to [20|40|44]% of Castorice's Max HP to one random enemy units. At the same time, restores HP equal to [3|6|6.6]% of Castorice's Max HP plus [400|800|880] to all allies.",
+            "old_value": "When Netherwing disappears, deals 6 instance(s) of DMG, with every instance dealing Quantum DMG equal to [20|40|44]% of Castorice's Max HP to one random enemy unit. At the same time, restores HP equal to [3|6|6.6]% of Castorice's Max HP plus [400|800|880] to all allies."
+        },
+        "root['Traces']['Branch 1']['Desc']": {
+            "new_value": "After ally targets (excluding Netherwing) receive healing, converts 100% of healed value into 'Newbud.' If Netherwing is on the battlefield, the healing is instead converted into Netherwing's HP. The converted value for each ally target cannot exceed 12% of 'Newbud''s maximum limit. The accumulated conversion value from all units resets after any unit takes action.",
+            "old_value": "After ally targets (excluding Netherwing) receive healing, converts 100% of healed value into 'Newbud.' If Netherwing is on the battlefield, the healing is instead converted into Netherwing's HP. The converted value for each ally target cannot exceed 12% of 'Newbud''s maximum limit or Netherwing's Max HP. The accumulated conversion value resets after any unit takes action."
+        },
+        "root['Traces']['Branch 2']['Desc']": {
+            "new_value": "While Castorice's current HP is equal to 50% of her Max HP or higher, increases her SPD by 40%.",
+            "old_value": "While Castorice current HP is equal to 50% of her Max HP or higher, increases her SPD by 40%."
+        },
+        "root['Traces']['Branch 3']['Desc']": {
+            "new_value": "Each time Netherwing uses 'Breath Scorches the Shadow,' increases its DMG dealt by 30%. This effect stacks up to 6 and lasts until the end of this turn.",
+            "old_value": "The lower the enemy's current HP, the higher the DMG dealt to it by Netherwing. When the enemy's HP is 30% or lower, the DMG Boost effect reaches its maximum, up to 40%."
+        },
+        "root['Eidolons']['1']['Desc']": {
+            "new_value": "When the target enemies' HP is 80%/50% or lower, the DMG dealt with 'Boneclaw, Doomdrake's Embrace,' 'Claw Splits the Veil,' 'Breath Scorches the Shadow,' and 'Wings Sweep the Ruins' is 120%/140% of the original DMG.",
+            "old_value": "Each time the Dead Dragon uses 'Dimscorch Breath,' increases its DMG dealt by 20%. This effect stacks up to 6 and lasts until the end of this turn."
+        },
+        "root['Eidolons']['2']['Desc']": {
+            "new_value": "After summoning memosprite Netherwing, Castorice gains 2 stack(s) of 'Ardent Will.' A maximum of 2 stacks of 'Ardent Will' can be possessed at any given time, and can be used to offset Netherwing's HP consumption when using Memosprite Skill 'Breath Scorches the Shadow' while advancing Castorice's action by 100%. In the next usage of Enhanced Skill, Castorice gains 30% of maximum 'Newbud' points.",
+            "old_value": "After summoning memosprite Netherwing, Castorice gains 2 stack(s) of 'Ardent Will.' A maximum of 2 stacks of 'Ardent Will' can be possessed at any given time, and can be used to offset Netherwing's HP consumption when using Memosprite Skill 'Breath Scorches the Shadow' while advancing Castorice's action by 100%. In the next usage of Enhanced Skill, Castorice recovers 20% of maximum 'Newbud' points."
+        },
+        "root['Eidolons']['6']['Desc']": {
+            "new_value": "When Castorice or Netherwing deals DMG, increases Quantum RES PEN by 20%, and additionally increases the Bounce count for Netherwing's Talent 'Wings Sweep the Ruins' by 3 time(s).",
+            "old_value": "When Castorice and Netherwing deals DMG, increases Quantum RES PEN by 20%, and additionally increases the Bounce count for Netherwing's Talent 'Wings Sweep the Ruins' by 3 time(s)."
+        }
+    }
+}

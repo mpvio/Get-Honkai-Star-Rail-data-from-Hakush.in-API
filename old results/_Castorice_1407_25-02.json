@@ -1,0 +1,14 @@
+{
+    "dictionary_item_added": [
+        "root['Kit']['Unique'][1]"
+    ],
+    "dictionary_item_removed": [
+        "root['Kit']['Unique']['1']"
+    ],
+    "values_changed": {
+        "root['Kit']['Ultimate']['Desc']": {
+            "new_value": "Summons the memosprite Dead Dragon and advances its action by 100%. At the same time, creates the Territory 'Lost Netherland,' which decreases all enemies' All-Type RES by [10|20|22]%. If the DMG Boost effect from Castorice's Talent is active, the effect is extended to Dead Dragon. Dead Dragon has 140 SPD and a set Max HP equal to 100% of max 'Stamen Nova.' After Dead Dragon acts 3 times or when its HP is 0, it disappears and dispels the Territory 'Lost Netherland.'",
+            "old_value": "Summons the memosprite Dead Dragon and advances its action by 100%. At the same time, creates the Territory 'Lost Netherland,' which decreases all enemies' All-Type RES by [1000|2000|2200]%. If the DMG Boost effect from Castorice's Talent is active, the effect is extended to Dead Dragon. Dead Dragon has 140 SPD and a set Max HP equal to 10000% of max 'Stamen Nova.' After Dead Dragon acts 3 times or when its HP is 0, it disappears and dispels the Territory 'Lost Netherland.'"
+        }
+    }
+}

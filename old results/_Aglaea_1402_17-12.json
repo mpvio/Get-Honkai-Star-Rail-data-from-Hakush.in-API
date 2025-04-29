@@ -1,0 +1,84 @@
+{
+    "values_changed": {
+        "root['Kit']['Basic #2']['Desc']": {
+            "new_value": "Aglaea and Garmentmaker launch a Joint ATK on the target, respectively dealing Lightning DMG equal to [100|140]% of Aglaea's ATK and [100|140]% of Garmentmaker's ATK to the target. Also, deal Lightning DMG equal to [40|56]% of Aglaea's ATK and [40|56]% of Garmentmaker's ATK to adjacent targets. 'Slash by a Thousandfold Kiss' cannot recover Skill Points.",
+            "old_value": "Aglaea and Garmentmaker launch a Joint ATK on the target, dealing Lightning DMG equal to [110|140]% of Aglaea's ATK and [110|140]% of Garmentmaker's ATK to the target. Also, deal Lightning DMG equal to [44|56]% of Aglaea's ATK and [44|56]% of Garmentmaker's ATK to adjacent targets."
+        },
+        "root['Kit']['Ultimate']['Desc']": {
+            "new_value": "Summons the memosprite Garmentmaker. If Garmentmaker is already on the field, then restores its HP to max. Aglaea enters the 'Supreme Stance' state and immediately takes action. While in the 'Supreme Stance' state, Aglaea gains the SPD Boost stacks from Garmentmaker's Memosprite Talent, with each stack increasing her SPD by [10|15]%. Enhances Basic ATK to 'Slash by a Thousandfold Kiss,' and cannot use Skill. Garmentmaker is immune to Crowd Control debuffs. A countdown appears on the Action Order, with its own SPD set at 100. Using Ultimate again when the countdown is on the Action Order will reset the countdown. When the countdown's turn starts, Garmentmaker self-destructs. When Garmentmaker disappears, Aglaea's 'Supreme Stance' state is dispelled.",
+            "old_value": "Summons the memosprite Garmentmaker. If Garmentmaker is already on the field, then restores its HP to max. Aglaea enters the 'Supreme Stance' state and immediately takes action. While in the 'Supreme Stance' state, Aglaea gains the SPD Boost stacks from Garmentmaker's Memosprite Talent, with each stack increasing her SPD by [10|15]%. Enhances Basic ATK to 'Slash by a Thousandfold Kiss,' and cannot use Skill. Garmentmaker is immune to Crowd Control debuffs. A countdown appears on the Action Order, with its own SPD set at 100. When the countdown's turn starts, Garmentmaker self-destructs. When Garmentmaker disappears, Aglaea's 'Supreme Stance' state is dispelled."
+        },
+        "root['Kit']['Talent']['Desc']": {
+            "new_value": "The memosprite Garmentmaker has an initial SPD equal to 35% of Aglaea's base SPD and a Max HP equal to [44|66]% of Aglaea's Max HP plus [180|720]. While Garmentmaker is on the field, Aglaea's attacks inflict the target with the 'Seam Stitch' state. After attacking enemies in the 'Seam Stitch' state, further deals an Additional DMG equal to [12|30]% of Aglaea's ATK. 'Seam Stitch' only takes effect on the most recently inflicted target.",
+            "old_value": "The memosprite Garmentmaker has an initial SPD of 40 and a Max HP equal to [44|66]% of Aglaea's Max HP plus [180|720]. While Garmentmaker is on the field, Aglaea's attacks inflict the target with the 'Seam Stitch' state. 'Seam Stitch' only takes effect on the most recently inflicted target."
+        },
+        "root['Kit']['Technique']['Desc']": {
+            "new_value": "Summons the memosprite Garmentmaker and launches a forward joint attack. After entering battle, regenerates 30 Energy and deals Lightning DMG equal to 100% of Aglaea's ATK to all enemy targets. Then, randomly inflicts the 'Seam Stitch' state to a random enemy target.",
+            "old_value": "Summons the memosprite Garmentmaker and launches a forward joint attack. After entering battle, deals Lightning DMG equal to 100% Aglaea's ATK to all enemy targets and randomly inflicts the 'Seam Stitch' state."
+        },
+        "root['Memosprite']['BaseSpeed']": {
+            "new_value": "0",
+            "old_value": "40"
+        },
+        "root['Memosprite']['BonusSpeed']": {
+            "new_value": "35%",
+            "old_value": "0%"
+        },
+        "root['Memosprite']['Kit']['Skill']['Desc']": {
+            "new_value": "Deals Lightning DMG equal to [55|110]% ATK to one enemy and Lightning DMG equal to [33|66]% ATK to adjacent targets.",
+            "old_value": "Deals Lightning DMG equal to [55|110]% ATK to one enemy and Lightning DMG equal to [33|66]% ATK to adjacent enemies."
+        },
+        "root['Memosprite']['Kit']['Skill']['Weakness Break']['Single Target']": {
+            "new_value": 30,
+            "old_value": 60
+        },
+        "root['Memosprite']['Kit']['Skill']['Weakness Break']['Blast']": {
+            "new_value": 15,
+            "old_value": 30
+        },
+        "root['Memosprite']['Kit']['Talent']['Desc']": {
+            "new_value": "After attacking an enemy afflicted with 'Seam Stitch,' increases this unit's SPD by [40|50], stacking up to 6 time(s). During Garmentmaker's turn, automatically uses 'Thorned Snare,' prioritizing enemies under the 'Seam Stitch' state.",
+            "old_value": "After attacking an enemy afflicted with 'Seam Stitch,' increases this unit's SPD by [48|60], stacking up to 6 time(s)."
+        },
+        "root['Memosprite']['Kit']['Talent #2']['Desc']": {
+            "new_value": "When Garmentmaker is summoned, this unit's action advances by 100%.",
+            "old_value": "When Garmentmaker is summoned, immediately advances this unit's action by 100%."
+        },
+        "root['Materials'][2]": {
+            "new_value": "Bīja of Consciousness",
+            "old_value": "Seed of Thought"
+        },
+        "root['Materials'][3]": {
+            "new_value": "Seedling of Manas",
+            "old_value": "Mana Seedling"
+        },
+        "root['Materials'][4]": {
+            "new_value": "Flower of Ālaya",
+            "old_value": "Alayawah"
+        },
+        "root['Traces']['Branch 1']['Desc']": {
+            "new_value": "While in 'Supreme Stance,' increases Aglaea and Garmentmaker's ATK by an amount equal to 720% of Aglaea's SPD plus 360% of Garmentmaker's SPD.",
+            "old_value": "While in 'Supreme Stance,' increases ATK of Aglaea and Garmentmaker by an amount equal to 720% of Aglaea's SPD plus 360% of Garmentmaker's SPD."
+        },
+        "root['Traces']['Branch 3']['Desc']": {
+            "new_value": "At the start of battle, if this unit's Energy is lower than 50%, regenerates this unit's Energy until 50%.",
+            "old_value": "When using Skill or when entering combat, increases DMG dealt by Garmentmaker by 30%, lasting for 5 turn(s). While Aglaea is in 'Supreme Stance', Garmentmaker will keep this DMG Boost effect."
+        },
+        "root['Eidolons']['1']['Desc']": {
+            "new_value": "When Aglaea or Garmentmaker takes action, the DMG dealt by Aglaea and Garmentmaker ignores 14% of the target's DEF. This effect stacks up to 3 time(s) and lasts until any unit, other than Aglaea or Garmentmaker, actively uses an ability.",
+            "old_value": "When Aglaea or Garmentmaker takes consecutive action, the DMG dealt ignores 25% of the target's DEF. This effect stacks up to 2 time(s) and lasts until any unit, other than Aglaea or Garmentmaker, actively uses an ability."
+        },
+        "root['Eidolons']['2']['Desc']": {
+            "new_value": "Enemies afflicted with 'Seam Stitch' take 8% increased DMG. After Aglaea or Garmentmaker attacks this target, Aglaea additionally regenerates 20 Energy.",
+            "old_value": "The SPD Boost effect from the Memosprite Talent has its max stack limit increased by 1. After Aglaea uses an attack, Garmentmaker can also gain the SPD Boost effect from the Memosprite Talent."
+        },
+        "root['Eidolons']['4']['Desc']": {
+            "new_value": "The SPD Boost effect from the Memosprite Talent has its max stack limit increased by 1. After Aglaea uses an attack, Garmentmaker can also gain the SPD Boost effect from the Memosprite Talent.",
+            "old_value": "Enemies afflicted with 'Seam Stitch' take 8% increased DMG. After Aglaea's or Garmentmaker's attack hits this target, Aglaea additionally regenerates 20 Energy."
+        },
+        "root['Eidolons']['6']['Desc']": {
+            "new_value": "While Aglaea is in 'Supreme Stance,' increases her and Garmentmaker's Lightning RES PEN by 20%. When Aglaea or Garmentmaker's SPD is greater than 160/240/320, the DMG dealt by Joint ATK increases by 10%/30%/60%.",
+            "old_value": "While Aglaea is in 'Supreme Stance,' increases her and Garmentmaker's Lightning RES PEN by 20%. When Aglaea or Garmentmaker gains an action advance effect, the multiplier of the DMG dealt by the next use of 'Slash by a Thousandfold Kiss' additionally increases by an amount equal to 0.4% of their respective SPD."
+        }
+    }
+}

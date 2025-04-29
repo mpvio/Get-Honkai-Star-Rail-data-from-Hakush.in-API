@@ -1,0 +1,233 @@
+{
+    "Name": "Aglaea",
+    "Stats": {
+        "HP": 1242,
+        "ATK": 699,
+        "DEF": 485,
+        "Speed": 102,
+        "Aggro": 100,
+        "Rarity": 5,
+        "Energy": 350,
+        "Path": "Remembrance",
+        "Element": "Lightning"
+    },
+    "Kit": {
+        "Basic": {
+            "Name": "Thorned Nectar",
+            "Desc": "Deals Lightning DMG equal to [50|100|110]% of Aglaea's ATK to one designated enemy.",
+            "Tag": "SingleAttack",
+            "Energy": 20,
+            "Weakness Break": {
+                "Single Target": 30
+            }
+        },
+        "Basic #2": {
+            "Name": "Slash by a Thousandfold Kiss",
+            "Desc": "Aglaea and Garmentmaker launch a Joint ATK on the target, respectively dealing Lightning DMG equal to [100|140|140]% of Aglaea's ATK and [100|140|140]% of Garmentmaker's ATK to the target. Also, deal Lightning DMG equal to [45|56|56]% of Aglaea's ATK and [45|56|56]% of Garmentmaker's ATK to adjacent targets. 'Slash by a Thousandfold Kiss' cannot recover Skill Points.",
+            "Tag": "Blast",
+            "Energy": 20,
+            "Weakness Break": {
+                "Single Target": 60,
+                "Blast": 30
+            }
+        },
+        "Skill": {
+            "Name": "Rise, Exalted Renown",
+            "Desc": "Restores HP to Garmentmaker by [25|50|55]% of its Max HP. If Garmentmaker is absent, summons the memosprite Garmentmaker and this unit immediately takes action.",
+            "Tag": "Summon",
+            "Energy": 20
+        },
+        "Skill #2": {
+            "Name": "Rise, Exalted Renown",
+            "Desc": "Restores HP for the mannequin equal to [25|50|55]% of Max HP and enhances them.",
+            "Tag": "Restore",
+            "Energy": 20
+        },
+        "Ultimate": {
+            "Name": "Dance, <unbreak>Destined Weaveress</unbreak>",
+            "Desc": "Summons the memosprite Garmentmaker. If Garmentmaker is already on the field, then restores its HP to max. Aglaea enters the 'Supreme Stance' state and immediately takes action. While in the 'Supreme Stance' state, Aglaea gains the SPD Boost stacks from Garmentmaker's Memosprite Talent, with each stack increasing her SPD by [10|15|16]%. Enhances Basic ATK to 'Slash by a Thousandfold Kiss,' and cannot use Skill. Garmentmaker is immune to Crowd Control debuffs. A countdown appears on the Action Order, with its own SPD set at 100. Using Ultimate again when the countdown is on the Action Order will reset the countdown. When the countdown's turn starts, Garmentmaker self-destructs. When Garmentmaker disappears, Aglaea's 'Supreme Stance' state is dispelled.",
+            "Tag": "Enhance",
+            "Energy": 5
+        },
+        "Talent": {
+            "Name": "Rosy-Fingered",
+            "Desc": "The memosprite Garmentmaker has an initial SPD equal to 35% of Aglaea's SPD and a Max HP equal to [44|66|70.4]% of Aglaea's Max HP plus [180|720|828]. While Garmentmaker is on the field, Aglaea's attacks inflict the target with the 'Seam Stitch' state. After attacking enemies in the 'Seam Stitch' state, further deals Lightning Additional DMG equal to [12|30|33.6]% of Aglaea's ATK. 'Seam Stitch' only takes effect on the most recently inflicted target.",
+            "Tag": "Enhance",
+            "Energy": 10
+        },
+        "Technique": {
+            "Name": "Meteoric Sunder",
+            "Desc": "Summons the memosprite Garmentmaker and launches a forward joint attack. After entering battle, regenerates 30 Energy and deals Lightning DMG equal to 100% of Aglaea's ATK to all enemy targets. Then, randomly inflicts the 'Seam Stitch' state to a random enemy target.",
+            "Tag": "MazeAttack",
+            "Weakness Break": {
+                "Single Target": 60
+            }
+        }
+    },
+    "Memosprite": {
+        "Name": "Garmentmaker",
+        "BaseHP": "[180|720|828]",
+        "BonusHP": "[44|66|70.4]%",
+        "BaseSpeed": "0",
+        "BonusSpeed": "35%",
+        "Aggro": 125,
+        "Kit": {
+            "Skill": {
+                "Name": "Thorned Snare",
+                "Desc": "Deals Lightning DMG equal to [55|110|121]% ATK to one enemy and Lightning DMG equal to [33|66|72.6]% ATK to adjacent targets.",
+                "Tag": "Blast",
+                "Energy": 10,
+                "Weakness Break": {
+                    "Single Target": 30,
+                    "Blast": 15
+                }
+            },
+            "Talent": {
+                "Name": "A Body Brewed by Tears",
+                "Desc": "After attacking an enemy afflicted with 'Seam Stitch,' increases this unit's SPD by [44|55|57.2], stacking up to 6 time(s). During Garmentmaker's turn, automatically uses 'Thorned Snare,' prioritizing enemies under the 'Seam Stitch' state.",
+                "Tag": "Enhance"
+            },
+            "Talent #2": {
+                "Name": "The Speeding Summer",
+                "Desc": "When Garmentmaker is summoned, this unit's action advances by 100%.",
+                "Tag": "Enhance"
+            },
+            "Talent #3": {
+                "Name": "Bloom of Drying Grass",
+                "Desc": "When Garmentmaker disappears, regenerates 20 Energy for Aglaea.",
+                "Tag": "Enhance"
+            }
+        }
+    },
+    "Materials": [
+        "Credit",
+        "Tracks of Destiny",
+        "Bīja of Consciousness",
+        "Seedling of Manas",
+        "Flower of Ālaya",
+        "Nail of the Beast Coffin",
+        "Auspice Sliver",
+        "Fear-Stomped Flesh",
+        "Courage-Torn Chest",
+        "Glory-Aspersed Torso"
+    ],
+    "Traces": {
+        "Branch 1": {
+            "Id": 1402101,
+            "Root": true,
+            "Name": "A2",
+            "Desc": "While in 'Supreme Stance,' increases Aglaea and Garmentmaker's ATK by an amount equal to 720% of Aglaea's SPD plus 360% of Garmentmaker's SPD.",
+            "Unlocks": [
+                {
+                    "Id": 1402204,
+                    "Root": false,
+                    "Name": "DEF Boost",
+                    "Value": 5,
+                    "Unlocks": []
+                },
+                {
+                    "Id": 1402205,
+                    "Root": false,
+                    "Name": "DMG Boost: Lightning",
+                    "Value": 4.8,
+                    "Unlocks": []
+                }
+            ]
+        },
+        "Branch 2": {
+            "Id": 1402102,
+            "Root": true,
+            "Name": "A4",
+            "Desc": "When Garmentmaker disappears, up to 1 stack(s) of the SPD Boost from the Memosprite Talent can be retained. When Garmentmaker is summoned again, gains the corresponding number of SPD Boost stacks.",
+            "Unlocks": [
+                {
+                    "Id": 1402206,
+                    "Root": false,
+                    "Name": "CRIT Rate Boost",
+                    "Value": 4,
+                    "Unlocks": []
+                },
+                {
+                    "Id": 1402207,
+                    "Root": false,
+                    "Name": "DMG Boost: Lightning",
+                    "Value": 4.8,
+                    "Unlocks": []
+                }
+            ]
+        },
+        "Branch 3": {
+            "Id": 1402103,
+            "Root": true,
+            "Name": "A6",
+            "Desc": "At the start of battle, if this unit's Energy is lower than 50%, regenerates this unit's Energy until 50%.",
+            "Unlocks": [
+                {
+                    "Id": 1402208,
+                    "Root": false,
+                    "Name": "DEF Boost",
+                    "Value": 7.5,
+                    "Unlocks": [
+                        {
+                            "Id": 1402209,
+                            "Root": false,
+                            "Name": "CRIT Rate Boost",
+                            "Value": 5.3,
+                            "Unlocks": [
+                                {
+                                    "Id": 1402210,
+                                    "Root": false,
+                                    "Name": "DMG Boost: Lightning",
+                                    "Value": 6.4,
+                                    "Unlocks": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "Branch 4": {
+            "Id": 1402201,
+            "Root": true,
+            "Name": "DMG Boost: Lightning",
+            "Value": 3.2,
+            "Unlocks": [
+                {
+                    "Id": 1402202,
+                    "Root": false,
+                    "Name": "CRIT Rate Boost",
+                    "Value": 2.7,
+                    "Unlocks": []
+                },
+                {
+                    "Id": 1402203,
+                    "Root": false,
+                    "Name": "DMG Boost: Lightning",
+                    "Value": 3.2,
+                    "Unlocks": []
+                }
+            ]
+        }
+    },
+    "Eidolons": {
+        "1": {
+            "Desc": "Enemies afflicted with 'Seam Stitch' take 15% increased DMG. After Aglaea or Garmentmaker attacks this target, Aglaea additionally regenerates 20 Energy."
+        },
+        "2": {
+            "Desc": "When Aglaea or Garmentmaker takes action, the DMG dealt by Aglaea and Garmentmaker ignores 14% of the target's DEF. This effect stacks up to 3 time(s) and lasts until any unit, other than Aglaea or Garmentmaker, actively uses an ability."
+        },
+        "3": {
+            "Desc": "Skill Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10. Memosprite Talent Lv. +1, up to a maximum of Lv. 10."
+        },
+        "4": {
+            "Desc": "The SPD Boost effect from the Memosprite Talent has its max stack limit increased by 1. After Aglaea uses an attack, Garmentmaker can also gain the SPD Boost effect from the Memosprite Talent."
+        },
+        "5": {
+            "Desc": "Ultimate Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15. Memosprite Skill Lv. +1, up to a maximum of Lv. 10."
+        },
+        "6": {
+            "Desc": "While Aglaea is in 'Supreme Stance,' increases her and Garmentmaker's Lightning RES PEN by 20%. When Aglaea or Garmentmaker's SPD is greater than 160/240/320, the DMG dealt by Joint ATK increases by 10%/30%/60%."
+        }
+    }
+}

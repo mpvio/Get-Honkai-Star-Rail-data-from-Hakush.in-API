@@ -1,0 +1,44 @@
+{
+    "values_changed": {
+        "root['Desc']": {
+            "new_value": "Increases the wearer's CRIT Rate by [12|20]%. When the wearer's memosprite is on the field, increases the wearer and their memosprite's DMG dealt by [24|40]%.",
+            "old_value": "Increases the wearer's CRIT DMG by [12|24]%. When the wearer's memosprite uses an ability on ally targets, increases all ally targets' DMG dealt by [8|16]%, lasting for 3 turn(s)."
+        },
+        "root['Stats']['HP']": {
+            "new_value": 1058,
+            "old_value": 847
+        },
+        "root['Stats']['ATK']": {
+            "new_value": 529,
+            "old_value": 476
+        },
+        "root['Stats']['DEF']": {
+            "new_value": 198,
+            "old_value": 397
+        },
+        "root['Materials'][1]": {
+            "new_value": "Bīja of Consciousness",
+            "old_value": "Seed of Thought"
+        },
+        "root['Materials'][2]": {
+            "new_value": "Seedling of Manas",
+            "old_value": "Mana Seedling"
+        },
+        "root['Materials'][3]": {
+            "new_value": "Flower of Ālaya",
+            "old_value": "Alayawah"
+        },
+        "root['Materials'][4]": {
+            "new_value": "Fear-Stomped Flesh",
+            "old_value": "Thief's Instinct"
+        },
+        "root['Materials'][5]": {
+            "new_value": "Courage-Torn Chest",
+            "old_value": "Usurper's Scheme"
+        },
+        "root['Materials'][6]": {
+            "new_value": "Glory-Aspersed Torso",
+            "old_value": "Conqueror's Will"
+        }
+    }
+}

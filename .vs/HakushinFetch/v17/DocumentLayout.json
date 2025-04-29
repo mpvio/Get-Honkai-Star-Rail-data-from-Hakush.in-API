@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\surya\\source\\repos\\HakushinFetch\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A5D0C923-D267-458D-8832-6CB0F99BAE77}|Solution Items{A5D0C923-D267-458D-8832-6CB0F99BAE77}|C:\\Users\\surya\\source\\repos\\HakushinFetch\\main.py||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A5D0C923-D267-458D-8832-6CB0F99BAE77}|Solution Items{A5D0C923-D267-458D-8832-6CB0F99BAE77}|solutionrelative:main.py||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "main.py",
+              "DocumentMoniker": "C:\\Users\\surya\\source\\repos\\HakushinFetch\\main.py",
+              "RelativeDocumentMoniker": "main.py",
+              "ToolTip": "C:\\Users\\surya\\source\\repos\\HakushinFetch\\main.py",
+              "RelativeToolTip": "main.py",
+              "ViewState": "AQIAAI0AAAAAAAAAAAAAAIsAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-05-23T16:56:07.448Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

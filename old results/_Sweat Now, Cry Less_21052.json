@@ -1,0 +1,20 @@
+{
+    "Name": "Sweat Now, Cry Less",
+    "Rarity": 4,
+    "Path": "Remembrance",
+    "Desc": "Increases the wearer's CRIT Rate by [12|20]%. When the wearer's memosprite is on the field, increases the wearer and their memosprite's DMG dealt by [24|36]%.",
+    "Stats": {
+        "HP": 1058,
+        "ATK": 529,
+        "DEF": 198
+    },
+    "Materials": [
+        "Credit",
+        "Bīja of Consciousness",
+        "Seedling of Manas",
+        "Flower of Ālaya",
+        "Fear-Stomped Flesh",
+        "Courage-Torn Chest",
+        "Glory-Aspersed Torso"
+    ]
+}

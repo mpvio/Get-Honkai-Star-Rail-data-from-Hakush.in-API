@@ -1,0 +1,16 @@
+{
+    "values_changed": {
+        "root['Materials'][1]": {
+            "new_value": "Bīja of Consciousness",
+            "old_value": "Seed of Thought"
+        },
+        "root['Materials'][2]": {
+            "new_value": "Seedling of Manas",
+            "old_value": "Mana Seedling"
+        },
+        "root['Materials'][3]": {
+            "new_value": "Flower of Ālaya",
+            "old_value": "Alayawah"
+        }
+    }
+}

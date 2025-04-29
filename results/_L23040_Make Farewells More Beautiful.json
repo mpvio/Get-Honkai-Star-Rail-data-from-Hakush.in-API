@@ -1,0 +1,20 @@
+{
+    "Name": "Make Farewells More Beautiful",
+    "Rarity": 5,
+    "Path": "Remembrance",
+    "Desc": "Increases the wearer's Max HP by [30|60]%. When the wearer or their memosprite loses HP during their own turn, the wearer gains 'Death Flower.' 'Death Flower' allows the wearer and their memosprite to ignore [30|50]% of the target's DEF when dealing DMG, lasting for 2 turn(s). When the wearer's memosprite disappears, advances the wearer's action by [12|24]%. This effect can only trigger up to 1 time, and the trigger count resets every time the wearer uses Ultimate.",
+    "Stats": {
+        "HP": 1270,
+        "ATK": 529,
+        "DEF": 397
+    },
+    "Materials": [
+        "Credit",
+        "Bīja of Consciousness",
+        "Seedling of Manas",
+        "Flower of Ālaya",
+        "Ethereal Omen",
+        "Echoing Wail",
+        "Eternal Lament"
+    ]
+}

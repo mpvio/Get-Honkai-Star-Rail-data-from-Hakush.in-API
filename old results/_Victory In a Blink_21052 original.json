@@ -1,0 +1,20 @@
+{
+    "Name": "Victory In a Blink",
+    "Rarity": 4,
+    "Path": "Remembrance",
+    "Desc": "Increases the wearer's CRIT Rate by [12|20]%. When the wearer's memosprite is on the field, increases the wearer and their memosprite's DMG dealt by [24|40]%.",
+    "Stats": {
+        "HP": 1058,
+        "ATK": 529,
+        "DEF": 198
+    },
+    "Materials": [
+        "Credit",
+        "Seed of Thought",
+        "Mana Seedling",
+        "Alayawah",
+        "Fear-Stomped Flesh",
+        "Courage-Torn Chest",
+        "Glory-Aspersed Torso"
+    ]
+}

@@ -1,0 +1,28 @@
+{
+    "values_changed": {
+        "root['Kit']['Skill']['Desc']": {
+            "new_value": "Deals Ice DMG equal to [35|70]% of The Herta's ATK to one designated enemy, and inflicts 1 stack(s) of 'Interpretation.' Deals Ice DMG equal to [35|70]% of The Herta's ATK to the targets hit by this instance of Skill and their respective adjacent targets. This effect can repeat 2 times.",
+            "old_value": "Deals Ice DMG equal to [35|70]% of The Herta's ATK to one designated enemy, and inflicts 1 stack(s) of 'Interpretation.' Deals Ice DMG equal to [35|70]% of The Herta's ATK to the target that has been hit by this instance of Skill and adjacent targets, repeating 2 times."
+        },
+        "root['Kit']['Skill']['Tag']": {
+            "new_value": "Blast",
+            "old_value": "AoEAttack"
+        },
+        "root['Kit']['Ultimate']['Name']": {
+            "new_value": "<unbreak>Told Ya! </unbreak><unbreak>Magic Happens</unbreak>",
+            "old_value": "<unbreak>Told Ya!</unbreak><unbreak>Magic Happens</unbreak>"
+        },
+        "root['Traces']['Branch 2']['Desc']": {
+            "new_value": "When entering battle, if the team has at least 2 characters following the Path of Erudition, then increases all allies' CRIT DMG by 80%, calculates at least 3 targets when the Trace 'Aloofly Honest' calculates hit targets, applies 1 stack(s) of 'Interpretation' to the target that has the highest current 'Interpretation' stacks among the hit enemy targets after attacking, and additionally applies 2 stack(s) of 'Interpretation' if they are a character following the Path of Erudition.",
+            "old_value": "When entering battle, if the team has at least 2 characters following the Path of Erudition, then increases all allies' CRIT DMG by 80%, calculates at least 3 targets when the Trace 'Aloofly Honest' calculates hit targets, applies 1 stacks of 'Interpretation' to the target that has the highest existing stacks of 'Interpretation' among the hit enemy targets after attacking, and additionally applies 2 stacks of 'Interpretation' if they are a character following the Path of Erudition."
+        },
+        "root['Traces']['Branch 3']['Desc']": {
+            "new_value": "For every 1 stack of 'Interpretation' inflicted on enemy targets, The Herta gains 1 stack of 'Answer' up to 99 stack(s). When using the Ultimate, every stack of 'Answer' increases the Ultimate's DMG multiplier by 1%.",
+            "old_value": "For every 1 stack of 'Interpretation' inflicted on enemy targets, The Herta increases her Ultimate's DMG multiplier by 1%, stacking up to 99 time(s)."
+        },
+        "root['Eidolons']['1']['Desc']": {
+            "new_value": "When Enhanced Skill calculates 'Interpretation,' additionally calculates 30% of the 'Interpretation' stacks on the 2 targets with the highest stacks out of the primary target and adjacent targets. When using Enhanced Skill to reset 'Interpretation' and if the primary target's current 'Interpretation' stack is 10 or higher, reset the stack number to 10 instead.",
+            "old_value": "When Enhanced Skill calculates 'Interpretation,' additionally calculates 30% of the 'Interpretation' stacks on the 2 targets with the highest stacks out of the Skill's target and adjacent targets. When using Enhanced Skill to reset 'Interpretation' and if the primary target's current 'Interpretation' stack is 10 or higher, reset the stack number to 10 instead."
+        }
+    }
+}

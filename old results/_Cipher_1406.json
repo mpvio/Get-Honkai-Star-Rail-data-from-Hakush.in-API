@@ -1,0 +1,189 @@
+{
+    "Name": "Cipher",
+    "Stats": {
+        "HP": 931,
+        "ATK": 640,
+        "DEF": 509,
+        "Speed": 106,
+        "Aggro": 100,
+        "Rarity": 5,
+        "Energy": 130,
+        "Path": "Nihility",
+        "Element": "Quantum"
+    },
+    "Kit": {
+        "Basic": {
+            "Desc": "Deals Quantum DMG equal to [50|100|110]% of Cipher's ATK to one designated enemy.",
+            "Tag": "SingleAttack",
+            "Energy": 20,
+            "BP": 1,
+            "Weakness Break": {
+                "Single Target": 30
+            }
+        },
+        "Skill": {
+            "Desc": "There is a 120% base chance to Weaken one designated enemy and adjacent targets, decreasing their DMG dealt by 10% and increasing Cipher's ATK by 30%, lasting for 2 turn(s). At the same time, deals Quantum DMG equal to [100|200|220]% of Cipher's ATK to one designated enemy, and Quantum DMG equal to [50|100|110]% of Cipher's ATK to its adjacent targets.",
+            "Tag": "Blast",
+            "Energy": 30,
+            "BP": -1,
+            "Weakness Break": {
+                "Single Target": 60,
+                "Blast": 30
+            }
+        },
+        "Ultimate": {
+            "Desc": "Deals Quantum DMG equal to [144|240|259.2]% of Cipher's ATK to one designated enemy. Then, deals True DMG equal to 25% of the currently recorded Talent value to one designated enemy, Quantum DMG equal to [72|120|129.6]% of Cipher's ATK to one designated enemy and its adjacent targets, and True DMG equal to 75% of the current Talent's recorded value. This True DMG is Distributed to all Skill targets.",
+            "Tag": "Blast",
+            "Energy": 5,
+            "Weakness Break": {
+                "Single Target": 90,
+                "Blast": 60
+            }
+        },
+        "Talent": {
+            "Desc": "When there are no enemy targets in 'Patron' state on the battlefield, Cipher immediately causes one enemy target with the highest Max HP on the battlefield to become the 'Patron.' When using Skill and Ultimate, the primary target becomes the 'Patron.' The 'Patron' state only takes effect on the latest target. After the 'Patron' is attacked by other ally targets, Cipher immediately launches a Follow-up ATK against the 'Patron,' dealing Quantum DMG equal to [150|300|330]% of Cipher's ATK. This Follow-up ATK can only be triggered 1 time(s) each turn. Cipher will record 12% of the non-True DMG ally targets dealt to 'Patron,' but the Overflow DMG will not be recorded. The recorded value is cleared after using Ultimate.",
+            "Tag": "SingleAttack",
+            "Energy": 5,
+            "Weakness Break": {
+                "Single Target": 60
+            }
+        },
+        "Technique": {
+            "Desc": "Obtains 'Zagreus's Blessing' for 15 second(s). During this time, Cipher will be undetectable by enemies and her movement speed increases by 50%. When approaching an enemy in the overworld/Simulated Universe/Divergent Universe, there is a chance of immediately obtaining a random Consumable. You can obtain Consumables up to 50 time(s) in each Earth day. When entering battle with 'Zagreus's Blessing' active, deals Quantum DMG equal to 100% of Cipher's ATK to all enemies. Increases the recorded DMG Cipher obtains from this instance of DMG by 200%.",
+            "Tag": "Enhance"
+        }
+    },
+    "Materials": [
+        "Credit",
+        "Tracks of Destiny",
+        "Fiery Spirit",
+        "Starfire Essence",
+        "Heaven Incinerator",
+        "Darkveil Moonlight",
+        "???",
+        "Ethereal Omen",
+        "Echoing Wail",
+        "Eternal Lament"
+    ],
+    "Traces": {
+        "Branch 1": {
+            "Id": 1406101,
+            "Root": true,
+            "Name": "A2",
+            "Desc": "When Cipher's SPD is greater or equal to 140/170, increases CRIT Rate by 25%/50%, and recorded value by 50%/100%.",
+            "Unlocks": [
+                {
+                    "Id": 1406202,
+                    "Root": false,
+                    "Name": "DMG Boost: Quantum",
+                    "Value": 3.2,
+                    "Unlocks": [
+                        {
+                            "Id": 1406203,
+                            "Root": false,
+                            "Name": "SPD Boost",
+                            "Value": 2,
+                            "Unlocks": [
+                                {
+                                    "Id": 1406204,
+                                    "Root": false,
+                                    "Name": "Effect Hit Rate Boost",
+                                    "Value": 4,
+                                    "Unlocks": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "Branch 2": {
+            "Id": 1406102,
+            "Root": true,
+            "Name": "A4",
+            "Desc": "Cipher will record 8% of the non-True DMG ally targets dealt to the enemy targets aside from the 'Patron.' Overflow DMG is not recorded.",
+            "Unlocks": [
+                {
+                    "Id": 1406205,
+                    "Root": false,
+                    "Name": "SPD Boost",
+                    "Value": 3,
+                    "Unlocks": [
+                        {
+                            "Id": 1406206,
+                            "Root": false,
+                            "Name": "DMG Boost: Quantum",
+                            "Value": 4.8,
+                            "Unlocks": [
+                                {
+                                    "Id": 1406207,
+                                    "Root": false,
+                                    "Name": "SPD Boost",
+                                    "Value": 3,
+                                    "Unlocks": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "Branch 3": {
+            "Id": 1406103,
+            "Root": true,
+            "Name": "A6",
+            "Desc": "Increases the CRIT DMG dealt by the Talent's Follow-up ATK by 100%. When Cipher is on the battlefield, DMG received by all enemy targets increases by 40%.",
+            "Unlocks": [
+                {
+                    "Id": 1406208,
+                    "Root": false,
+                    "Name": "Effect Hit Rate Boost",
+                    "Value": 6,
+                    "Unlocks": []
+                },
+                {
+                    "Id": 1406209,
+                    "Root": false,
+                    "Name": "DMG Boost: Quantum",
+                    "Value": 6.4,
+                    "Unlocks": []
+                }
+            ]
+        },
+        "Branch 4": {
+            "Id": 1406201,
+            "Root": true,
+            "Name": "SPD Boost",
+            "Value": 2,
+            "Unlocks": [
+                {
+                    "Id": 1406210,
+                    "Root": false,
+                    "Name": "SPD Boost",
+                    "Value": 4,
+                    "Unlocks": []
+                }
+            ]
+        }
+    },
+    "Eidolons": {
+        "1": {
+            "Desc": "Cipher's recorded DMG is 150% of the original recorded DMG value. When using a Follow-up ATK caused by her Talent, increases Cipher's ATK by 200% for 2 turn(s)."
+        },
+        "2": {
+            "Desc": "When Cipher hits an enemy target, there is a 120% base chance of causing them to receive 30% more DMG, lasting 2 turn(s)."
+        },
+        "3": {
+            "Desc": "Ultimate Lv. +2, up to a maximum of Lv. 15. Basic ATK Lv. +1, up to a maximum of Lv. 10."
+        },
+        "4": {
+            "Desc": "After 'Patron' is attacked by an ally target, Cipher deals Quantum Additional DMG equal to 50% of Cipher's ATK to it."
+        },
+        "5": {
+            "Desc": "Skill Lv. +2, up to a maximum of Lv. 15. Talent Lv. +2, up to a maximum of Lv. 15."
+        },
+        "6": {
+            "Desc": "Increases DMG dealt by Follow-up ATKs caused by Cipher's Talent by 350%. After resetting the record upon using her Ultimate, returns 20% of the reset record."
+        }
+    }
+}

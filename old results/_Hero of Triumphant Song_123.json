@@ -1,0 +1,7 @@
+{
+    "Name": "Hero of Triumphant Song",
+    "Relic Effect/s": {
+        "2": "Increases ATK by 12%.",
+        "4": "While the wearer's memosprite is on the field, increases the wearer's SPD by 6%. When the wearer's memosprite attacks, increases the wearer and memosprite's CRIT DMG by 30% for 2 turn(s)."
+    }
+}

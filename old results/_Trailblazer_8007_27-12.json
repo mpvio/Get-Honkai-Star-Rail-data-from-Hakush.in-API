@@ -1,0 +1,12 @@
+{
+    "values_changed": {
+        "root['Memosprite']['Aggro']": {
+            "new_value": 100,
+            "old_value": 200
+        },
+        "root['Traces']['Branch 1']['Desc']": {
+            "new_value": "When the battle starts, Trailblazer's action advances by 30%. When Mem is first summoned, grants Mem 40% Charge.",
+            "old_value": "When the battle starts, Trailblazer's action advances by 30%. When Mem first enters the field, additionally grants Mem 40% Charge."
+        }
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "values_changed": {
+        "root['Desc']": {
+            "new_value": "Increases the wearer's ATK by [16|32]%. After the wearer uses their Ultimate, additionally increases the wearer and their memosprite's Basic ATK DMG dealt by [20|40]% for 3 turn(s).",
+            "old_value": "Increases the wearer's ATK by [16|32]%. After the wearer uses their Ultimate, additionally increases the wearer and their memosprite's ATK by [20|40]% for 3 turn(s)."
+        },
+        "root['Materials'][1]": {
+            "new_value": "Bīja of Consciousness",
+            "old_value": "Seed of Thought"
+        },
+        "root['Materials'][2]": {
+            "new_value": "Seedling of Manas",
+            "old_value": "Mana Seedling"
+        },
+        "root['Materials'][3]": {
+            "new_value": "Flower of Ālaya",
+            "old_value": "Alayawah"
+        }
+    }
+}
