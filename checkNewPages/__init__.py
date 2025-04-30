@@ -1,9 +1,9 @@
-from .check_new_pages_json import getAll_, compareOneItem, write_items_to_file, read_items_from_file, selector
+from .check_new_pages_json import getAll, compareListsToManualInput, write_items_to_file, readShortlist, selector
 
 __all__ = [
-    "getAll_",
-    "compareOneItem",
+    "getAll",
+    "compareListsToManualInput",
     "write_items_to_file",
-    "read_items_from_file",
+    "readShortlist",
     "selector"
 ]

@@ -4,7 +4,7 @@ import sys
 from typing import List
 import requests
 from hakushinParsing import character_funcs as cf
-from checkNewPages import read_items_from_file
+from checkNewPages import readShortlist, compareListsToManualInput
 from fileIO.extra_classes_and_funcs import get_material_names, write_to_file
 
 path_map : defaultdict = {
@@ -29,7 +29,7 @@ element_map : defaultdict = {
 }
 
 def get_shortlist():
-    return read_items_from_file("shortlist")
+    return readShortlist("shortlist")
 
 def relic(param):
     req_string = f"https://api.hakush.in/hsr/data/en/relicset/{param}.json"
@@ -52,11 +52,11 @@ def relic(param):
             new_desc = cf.add_params_to_desc(old_desc, params)
             my_data["Relic Effect/s"][effect] = new_desc
 
-        return write_to_file(f"{param}", my_data)
+        return True, write_to_file(f"{param}", my_data)
     else: 
         output = f"Relic Set {param} not found."
         #print(output)
-        return output
+        return False, output
 
 def lightcone(param):
     req_string = f"https://api.hakush.in/hsr/data/en/lightcone/{param}.json"
@@ -94,11 +94,11 @@ def lightcone(param):
                 material_set.add(material["ItemID"])
         my_data["Materials"] = get_material_names(material_set)
         
-        return write_to_file(f"{param}", my_data)
+        return True, write_to_file(f"{param}", my_data)
     else: 
         output = f"Light Cone {param} not found."
         #print(output)
-        return output
+        return False, output
 
 def character(param):
     req_string = f"https://api.hakush.in/hsr/data/en/character/{param}.json"
@@ -127,11 +127,11 @@ def character(param):
         my_data["Stats"]["Path"] = path_map[data["BaseType"]] if data["BaseType"] in path_map else data["BaseType"]
         my_data["Stats"]["Element"] = "Lightning" if data["DamageType"] == "Thunder" else data["DamageType"]
         
-        return write_to_file(f"{param}", my_data)
+        return True, write_to_file(f"{param}", my_data)
     else: 
         output = f"Character {param} not found."
         #print(output)
-        return output
+        return False, output
 
 def get_stats(my_dict : dict, data : dict, character : bool):
      stat_dict : dict = {}
@@ -153,16 +153,20 @@ def get_stats(my_dict : dict, data : dict, character : bool):
           stat_dict["Aggro"] = stats["BaseAggro"]
      my_dict["Stats"] = stat_dict
 
-def main(args):
+def main(args: List[str]):
      outputs : List[str] = []
+     manualChecks : List[str] = []
      if len(args) < 1: 
           try: args = get_shortlist() #["1301"]  #["1304", "1305", "1308", "1309", "1310", "1314", "23025"] #
           except: args = ["8001", "1308", "1310"]
      for arg in args:
-          if len(arg) == 3: outputs.append(relic(arg))
-          elif len(arg) == 4: outputs.append(character(arg))
-          elif len(arg) == 5: outputs.append(lightcone(arg))
-          #check_new_pages_json.manual_add_id(arg)
+        if len(arg) == 3: func = relic
+        elif len(arg) == 4: func = character
+        elif len(arg) == 5: func = lightcone
+        valid, result = func(arg)
+        if valid: manualChecks.append(arg)
+        outputs.append(result)
+     compareListsToManualInput(manualChecks)
      return outputs
 
 if __name__ == "__main__":

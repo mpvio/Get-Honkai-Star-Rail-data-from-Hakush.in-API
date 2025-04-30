@@ -99,10 +99,11 @@ def write_to_file(item_id: str, dictionary):
         else:
             deepdiff_converter(difference)
             date = datetime.today().strftime('%y-%m-%d')
-            diff_title = c.formatDataLocation(f"{fileName}_{date}.json")
+            diffName = f"{fileName}_{date}.json"
+            diff_title = c.formatDataLocation(diffName)
             with open(diff_title, "w+", encoding="utf8") as diff_file:
                 json.dump(difference, diff_file, indent=4, ensure_ascii=False)
-            output = f"{fileName} updated and {diff_title} created."
+            output = f"{fileName} updated and {diffName} created."
     new_file = open(title, "w+", encoding="utf8")
     json.dump(dictionary, new_file, indent=4, ensure_ascii=False)
     #print(json.dumps(dictionary, indent=4, ensure_ascii=False))
