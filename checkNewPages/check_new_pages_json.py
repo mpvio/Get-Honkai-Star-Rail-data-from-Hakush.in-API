@@ -52,11 +52,13 @@ def updateListsForManualInputs(page : str, items: List[str]):
 		manualUpdatesFileName = c.formatListLocation(f"__manualUpdates.txt")
 		try:
 			with open(manualUpdatesFileName, 'a+', encoding="UTF-8") as file:
+				file.seek(0)
 				tempList: List[str] = []
 				while line := file.readline():
 					tempList.append(line.strip())
 				for diff in differences:
-					if tempList.__contains__(diff) == False: file.write(f"{diff}\n")
+					if diff not in tempList: 
+						file.write(f"{diff}\n")
 		except: pass
 
 def compare_lists(page: str, items: dict, via_ui = False):
@@ -93,39 +95,7 @@ def readShortlist(page):
 		pass
 	return entries
 
-# def list_diffs(old_list, new_list):
-# 	diffs = list(set(new_list).difference(old_list))
-# 	return diffs
-
-# def compare_lists(page, item_ids, via_ui = False):
-# 	old_list = read_items_from_file(page)
-# 	diffs = list_diffs(old_list, item_ids)
-# 	if not diffs: 
-# 		#print(f"No changes in {page} page.")
-# 		return []
-# 	else:
-# 		#print(f"Change(s) to {page} page: {diffs}")
-# 		write_items_to_file(f"new_{page}", diffs)
-# 		write_items_to_file(page, item_ids)
-# 		if not via_ui:
-# 			check_haku = input("Check new items on Hakush.in?: ")
-# 			if check_haku not in ["n", "N"]: 
-# 				return hf.main(diffs)
-# 			else: return diffs
-# 		else: return diffs
-
-# def manual_add_id(item_id: str):
-# 	if len(item_id) == 3: page = "__relicset.json"
-# 	elif len(item_id) == 4: page = "__character.json"
-# 	else: page = "__lightcone.json"
-# 	items = read_items_from_file(page)
-# 	if items.__contains__(item_id) == False:
-# 		bisect.insort(items, item_id)
-# 		write_items_to_file(page, items)
-# 		write_items_to_file(f"__manual_{page}", [item_id])
-
-
-url_map = {
+URL_MAP = {
 	0: "character",
 	1: "relicset",
 	2: "lightcone",
@@ -140,9 +110,9 @@ url_map = {
 def selector(args, via_ui=False):
 	result = {}
 	if len(args) < 1:
-		args = [url_map[x] for x in range (3)]
+		args = [URL_MAP[x] for x in range (3)]
 	for arg in args:
-		arg = url_map[arg] if arg in url_map else arg
+		arg = URL_MAP[arg] if arg in URL_MAP else arg
 		results_temp = getAll(arg, via_ui)
 		if results_temp != None:
 			result.update(results_temp)
