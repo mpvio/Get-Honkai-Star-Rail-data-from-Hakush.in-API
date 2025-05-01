@@ -6,3 +6,6 @@ def formatListLocation(location: str):
 
 def formatDataLocation(fileName: str):
     return f"results/{fileName}"
+
+def formatChangesLocation(fileName: str):
+    return f"changes/{fileName}"
