@@ -7,7 +7,7 @@ from hakushinParsing import character_funcs as cf
 from checkNewPages import readShortlist, compareListsToManualInput
 from fileIO.extra_classes_and_funcs import get_material_names, write_to_file
 
-path_map : defaultdict = {
+path_map : dict[str, str] = {
     "Warrior": "Destruction",
     "Priest": "Abundance",
     "Knight": "Preservation",
@@ -18,7 +18,7 @@ path_map : defaultdict = {
     "Memory": "Remembrance"
 }
 
-element_map : defaultdict = {
+element_map : dict[str, str] = {
     "Fire": "Fire",
     "Thunder": "Lightning",
     "Quantum": "Quantum",
@@ -163,7 +163,7 @@ def main(args: List[str]):
         if len(arg) == 3: func = relic
         elif len(arg) == 4: func = character
         elif len(arg) == 5: func = lightcone
-        valid, result = func(arg)
+        valid, result = func(arg) # type: ignore
         if valid: manualChecks.append(arg)
         outputs.append(result)
      compareListsToManualInput(manualChecks)

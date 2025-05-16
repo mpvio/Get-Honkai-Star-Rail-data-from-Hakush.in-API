@@ -61,8 +61,9 @@ def get_material_names(materials : set):
      for material in material_list:
           try: 
                matString = str(material)
-               if matString.startswith('1105') and matString not in weeklyBossMats: item_name = "???"
-               else: item_name = items_dict[str(material)]["ItemName"]
+               item_name = items_dict[str(material)]["ItemName"]
+               if matString.startswith('1105') and matString not in weeklyBossMats and item_name != "...": item_name = "???"
+               #else: item_name = items_dict[str(material)]["ItemName"]
                material_names.append(item_name)
           except: pass
      return material_names
@@ -92,7 +93,7 @@ def write_to_file(item_id: str, dictionary):
         output = f"{fileName}.json created."
     else:
         old_as_json = json.loads(old_file)
-        difference = DeepDiff(old_as_json, dictionary, ignore_type_in_groups=[dict, TreeNode]).to_dict()
+        difference = DeepDiff(old_as_json, dictionary, ignore_type_in_groups=[dict, TreeNode]).to_dict() # type: ignore
         if difference == {}:
             output = f"No changes for {fileName}."
             return output
