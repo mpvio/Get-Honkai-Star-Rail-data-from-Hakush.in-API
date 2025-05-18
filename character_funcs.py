@@ -1,7 +1,7 @@
 import traceback
 from typing import List
 
-from fileIO.extra_classes_and_funcs import Skill_Counter, TreeNode, get_material_names
+from extra_classes_and_funcs import Skill_Counter, TreeNode, get_material_names
 
 skill_names = {
     "Normal": "Basic",

@@ -2,7 +2,7 @@ import json
 import requests
 from deepdiff import DeepDiff
 from datetime import datetime
-from hakushinParsing import constants as c
+import constants as c
 
 class TreeNode(dict):
     def __init__(self, id, root=True, trace=None, value=None, children=None, params=None):

@@ -1,11 +1,10 @@
 #hakushin json
-from collections import defaultdict
 import sys
 from typing import List
 import requests
-from hakushinParsing import character_funcs as cf
-from checkNewPages import readShortlist, compareListsToManualInput
-from fileIO.extra_classes_and_funcs import get_material_names, write_to_file
+import character_funcs as cf
+from check_new_pages_json import readShortlist, compareListsToManualInput
+from extra_classes_and_funcs import get_material_names, write_to_file
 
 path_map : dict[str, str] = {
     "Warrior": "Destruction",

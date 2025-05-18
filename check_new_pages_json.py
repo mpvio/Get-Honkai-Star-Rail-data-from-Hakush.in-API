@@ -3,8 +3,8 @@ import json
 import sys
 from typing import List
 import requests
-from fileIO.extra_classes_and_funcs import read_from_file
-from hakushinParsing import hakushin_json_fetcher as hf, constants as c
+from extra_classes_and_funcs import read_from_file
+import hakushin_json_fetcher as hf, constants as c
 import bisect
 
 def getAll(type : str, via_ui = False):
@@ -77,7 +77,7 @@ def compare_lists(page: str, items: dict, via_ui = False):
 			if not via_ui:
 				check_haku = input("Check new items on Hakush.in?: ")
 				if check_haku not in ["n", "N"]: 
-					return hf.main(differences)
+					return hf.main(differences) # type: ignore
 		return differences
 		
 def write_items_to_file(page, items):
@@ -115,7 +115,7 @@ def selector(args, via_ui=False):
 		arg = URL_MAP[arg] if arg in URL_MAP else arg
 		results_temp = getAll(arg, via_ui)
 		if results_temp != None:
-			result.update(results_temp)
+			result.update(results_temp) # type: ignore
 			#result = [*result, *results_temp]
 	return result
 
