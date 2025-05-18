@@ -7,7 +7,7 @@ from hakushinParsing import character_funcs as cf
 from checkNewPages import readShortlist, compareListsToManualInput
 from fileIO.extra_classes_and_funcs import get_material_names, write_to_file
 
-path_map : dict[str, str] = {
+path_map : defaultdict = {
     "Warrior": "Destruction",
     "Priest": "Abundance",
     "Knight": "Preservation",
@@ -18,7 +18,7 @@ path_map : dict[str, str] = {
     "Memory": "Remembrance"
 }
 
-element_map : dict[str, str] = {
+element_map : defaultdict = {
     "Fire": "Fire",
     "Thunder": "Lightning",
     "Quantum": "Quantum",
