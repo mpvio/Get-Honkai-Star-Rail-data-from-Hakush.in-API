@@ -1,4 +1,4 @@
-WEEKLY_BOSSES = 6
+WEEKLY_BOSSES = 7
 FIRST_WEEKLY_BOSS = 110501
 
 def formatListLocation(location: str):
