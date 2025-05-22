@@ -114,6 +114,12 @@ def character(param):
         my_data["Kit"] = {}
         summoner_talent_id = None
 
+        if data["Enhanced"] != {}:
+            enhancements : dict = data["Enhanced"]
+            latestEnh : dict = enhancements.get(list(enhancements)[-1])
+            for key in latestEnh.keys():
+                data[key] = latestEnh[key]
+
         if data["Memosprite"] != {}:
             my_data["Memosprite"], summoner_talent_id = cf.parse_memosprite(data)
 
