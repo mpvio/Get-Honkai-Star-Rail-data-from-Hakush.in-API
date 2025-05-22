@@ -2,6 +2,7 @@ import traceback
 from typing import List
 
 from fileIO.extra_classes_and_funcs import Skill_Counter, TreeNode, get_material_names
+from . import nameAbbreviations as na
 
 skill_names = {
     "Normal": "Basic",
@@ -161,7 +162,7 @@ def parse_weakness_breaks(wb_list : List[int]):
 def parse_memosprite(data: dict):
     #data_memosprite = data["Memosprite"]
     memosprite: dict = {}
-    #memosprite["Name"] = data["Memosprite"]["Name"]
+    memosprite["Name"] = na.abbreviate_string(data["Memosprite"]["Name"])
     summoner_talent_id = data["Memosprite"]["HPSkill"]
     if summoner_talent_id == None: summoner_talent_id = data["Memosprite"]["SpeedSkill"]
     talent : dict = data["Skills"][str(summoner_talent_id)]
@@ -239,7 +240,7 @@ def uniqueSkills(my_data: dict, data: dict):
             my_data["Kit"]["Unique"][strCounter] = {}
             skillPointer = my_data["Kit"]["Unique"][strCounter]
         #my_data["Kit"]["Unique"][strCounter] = {}
-        #skillPointer["Name"] = skill["Name"] #my_data["Kit"]["Unique"][strCounter] 
+        skillPointer["Name"] = na.abbreviate_string(skill["Name"]) #my_data["Kit"]["Unique"][strCounter] 
         skillPointer[desc] = skill[desc] #my_data["Kit"]["Unique"][strCounter]
         skillPointer["Tag"] = skill["Tag"] #my_data["Kit"]["Unique"][strCounter]
         counter += 1
@@ -279,8 +280,8 @@ def mainskills(my_data : dict, data : dict, summonSkillNum : str = None):
         else:
             new_desc = create_parameter_tuple_without_desc(level1_params, levelmax_params, whale_params)
 
-        #my_data["Kit"][skill_type]["Name"] = skill["Name"]
-        my_data["Kit"][skill_type][desc] = new_desc
+        my_data["Kit"][skill_type]["Name"] = na.abbreviate_string(skill["Name"])
+        my_data["Kit"][skill_type][desc] = na.abbreviate_quoted_text(new_desc)
         my_data["Kit"][skill_type]["Tag"] = skill["Tag"]
         energy = skill["SPBase"]
         if energy != None:
@@ -315,7 +316,7 @@ def skilltrees(my_data : dict, data : dict):
                 if "ParamList" in skill:
                     trace_params = parse_params(skill["PointDesc"], skill["ParamList"])
                     new_desc = add_params_to_desc(skill_description, trace_params)
-                    my_data["SkillTrees"][pointId][desc] = new_desc
+                    my_data["SkillTrees"][pointId][desc] = na.abbreviate_quoted_text(new_desc)
                 else:
                     my_data["SkillTrees"][pointId][desc] = skill_description
             else:
@@ -357,7 +358,7 @@ def eidolons(character_dict : dict, json_dict : dict):
             parse_params(description, parameters)
             new_desc = add_params_to_desc(description, parameters)
             eidolon_dict : dict = {
-                desc: new_desc
+                desc: na.abbreviate_quoted_text(new_desc)
             }
         character_dict["Eidolons"][str(e_num)] = eidolon_dict
 
