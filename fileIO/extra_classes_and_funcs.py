@@ -61,7 +61,7 @@ def get_material_names(materials : set):
      for material in material_list:
           try: 
                matString = str(material)
-               item_name = items_dict[str(material)]["ItemName"]
+               item_name = items_dict[matString]["ItemName"]
                if matString.startswith('1105') and matString not in weeklyBossMats and item_name != "...": item_name = "???"
                #else: item_name = items_dict[str(material)]["ItemName"]
                material_names.append(item_name)

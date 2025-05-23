@@ -163,8 +163,8 @@ def blackListedItem(param: str, data: dict):
     abridgedData["Stats"] = data["Stats"]
     if "Memosprite" in data: abridgedData["Memosprite"] = True
     abridgedData["Materials"] = data["Materials"]
-    abridgedData["Relics"] = data["Relics"]
     abridgedData["Minor Traces"] = data["Minor Traces"]
+    abridgedData["Relics"] = data["Relics"]
     return write_to_file(f"{param}", abridgedData, True)
 
 def get_stats(my_dict : dict, data : dict, character : bool):
