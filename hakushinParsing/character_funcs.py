@@ -110,7 +110,7 @@ def skill_tree_rework(my_data : dict):
             else:
                 trace = skilltrees[skilltree]["PointName"]
                 if "Status" in skilltrees[skilltree]:
-                    if trace == "SPD Boost": value = skilltrees[skilltree]["Status"]
+                    if trace == "SPD Boost" or trace == "SPD": value = skilltrees[skilltree]["Status"]
                     else: value = formatNumber(round(skilltrees[skilltree]["Status"] * 100, 1))
                 else: value = None
                 new_tree_node = TreeNode(id=skilltree, root=root, trace=trace, value=value, children=None, params=None) #skilltrees[skilltree]["Unlocks"]
@@ -350,10 +350,19 @@ def skilltrees(my_data : dict, data : dict):
                     my_data["SkillTrees"][pointId][desc] = skill_description
             else:
             #if i > 8: 
-                my_data["SkillTrees"][pointId]["PointName"] = skill["PointName"]
-                try:
+                if skill["StatusAddList"] == []:
+                    my_data["SkillTrees"][pointId]["PointName"] = skill["PointName"]
+                else:
+                    my_data["SkillTrees"][pointId]["PointName"] = skill["StatusAddList"][0]["Name"]
                     my_data["SkillTrees"][pointId]["Status"] = skill["StatusAddList"][0]["Value"]
-                except: pass
+                # try:
+                #     my_data["SkillTrees"][pointId]["Status"] = skill["StatusAddList"][0]["Value"]
+                #     name = skill["StatusAddList"][0]["Name"]
+                #     value = skill["StatusAddList"][0]["Value"]
+                #     print(f"{pointId} -> {name}: {value}")
+                # except: 
+                #     print(f"{pointId} -> {name}")
+                #     pass
             prepoint : List[int] = skill["PrePoint"]
             my_data["SkillTrees"][pointId]["Requires"] = prepoint #prepoint
 

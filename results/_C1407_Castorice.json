@@ -127,6 +127,11 @@
             }
         }
     },
+    "Minor Traces": {
+        "CRIT DMG": 13.3,
+        "CRIT Rate": 18.7,
+        "Quantum DMG Boost": 14.4
+    },
     "Materials": [
         "Credit",
         "Tracks of Destiny",
@@ -149,14 +154,14 @@
                 {
                     "Id": 1407204,
                     "Root": false,
-                    "Name": "CRIT DMG Boost",
+                    "Name": "CRIT DMG",
                     "Value": 5.3,
                     "Unlocks": []
                 },
                 {
                     "Id": 1407205,
                     "Root": false,
-                    "Name": "CRIT Rate Boost",
+                    "Name": "CRIT Rate",
                     "Value": 4,
                     "Unlocks": []
                 }
@@ -171,14 +176,14 @@
                 {
                     "Id": 1407206,
                     "Root": false,
-                    "Name": "DMG Boost: Quantum",
+                    "Name": "Quantum DMG Boost",
                     "Value": 4.8,
                     "Unlocks": []
                 },
                 {
                     "Id": 1407207,
                     "Root": false,
-                    "Name": "CRIT Rate Boost",
+                    "Name": "CRIT Rate",
                     "Value": 4,
                     "Unlocks": []
                 }
@@ -193,19 +198,19 @@
                 {
                     "Id": 1407208,
                     "Root": false,
-                    "Name": "CRIT DMG Boost",
+                    "Name": "CRIT DMG",
                     "Value": 8,
                     "Unlocks": [
                         {
                             "Id": 1407209,
                             "Root": false,
-                            "Name": "DMG Boost: Quantum",
+                            "Name": "Quantum DMG Boost",
                             "Value": 6.4,
                             "Unlocks": [
                                 {
                                     "Id": 1407210,
                                     "Root": false,
-                                    "Name": "CRIT Rate Boost",
+                                    "Name": "CRIT Rate",
                                     "Value": 5.3,
                                     "Unlocks": []
                                 }
@@ -218,30 +223,25 @@
         "Branch 4": {
             "Id": 1407201,
             "Root": true,
-            "Name": "CRIT Rate Boost",
+            "Name": "CRIT Rate",
             "Value": 2.7,
             "Unlocks": [
                 {
                     "Id": 1407202,
                     "Root": false,
-                    "Name": "DMG Boost: Quantum",
+                    "Name": "Quantum DMG Boost",
                     "Value": 3.2,
                     "Unlocks": []
                 },
                 {
                     "Id": 1407203,
                     "Root": false,
-                    "Name": "CRIT Rate Boost",
+                    "Name": "CRIT Rate",
                     "Value": 2.7,
                     "Unlocks": []
                 }
             ]
         }
-    },
-    "Minor Traces": {
-        "CRIT DMG Boost": 13.3,
-        "CRIT Rate Boost": 18.7,
-        "DMG Boost: Quantum": 14.4
     },
     "Eidolons": {
         "1": {

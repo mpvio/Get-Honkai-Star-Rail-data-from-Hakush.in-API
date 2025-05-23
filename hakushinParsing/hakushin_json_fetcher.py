@@ -131,7 +131,8 @@ def character(param):
             my_data["Memosprite"], summoner_talent_id = cf.parse_memosprite(data)
 
         cf.mainskills(my_data, data, str(summoner_talent_id))
-        cf.uniqueSkills(my_data, data)    
+        cf.uniqueSkills(my_data, data)   
+        my_data["Materials"] = {}
         my_data["Minor Traces"] = {}
         cf.skilltrees(my_data, data)
         my_data["Minor Traces"] = cf.abbreviateTraces(my_data["Traces"])
