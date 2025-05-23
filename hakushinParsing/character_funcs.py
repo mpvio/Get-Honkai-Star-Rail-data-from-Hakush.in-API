@@ -1,3 +1,4 @@
+from collections import defaultdict
 import traceback
 from typing import List
 
@@ -145,6 +146,34 @@ def find_node(trees : List[TreeNode], nodeId):
         if tree.Id == nodeId: return tree
         pass
     return None
+
+def abbreviateTraces(data: dict):
+    newDict = defaultdict(float)
+
+    if isinstance(data, dict):
+        # Check if this is a node with both Name and Value
+        if "Name" in data and "Value" in data:
+            name = data["Name"]
+            value = data["Value"]
+            #print(f"-> {name}: {value}")
+            newDict[name] += float(value)
+        
+        # Recursively process all values in the dictionary
+        for value in data.values():
+            if isinstance(value, (dict, list)):
+                nested_results = abbreviateTraces(value)
+                for name, val in nested_results.items():
+                    newDict[name] += val
+    
+    elif isinstance(data, list):
+        for item in data:
+            nested_results = abbreviateTraces(item)
+            for name, val in nested_results.items():
+                newDict[name] += val
+    
+    for key, value in newDict.items():
+        newDict[key] = round(value, 1)
+    return newDict
 
 def formatNumber(num):
   if num % 1 == 0:

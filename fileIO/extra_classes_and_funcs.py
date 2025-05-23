@@ -85,8 +85,9 @@ def getTagFromID(itemID: str):
         case 5: return "_L"
         case _: return "_X"
 
-def write_to_file(item_id: str, dictionary):
-    fileName = getTagFromID(item_id) + item_id + "_" + dictionary["Name"]
+def write_to_file(item_id: str, dictionary, blackListed = False):
+    prefix = "_X" if blackListed else getTagFromID(item_id)
+    fileName = prefix + item_id + "_" + dictionary["Name"]
     title = c.formatDataLocation(fileName + ".json")
     old_file = read_from_file(title)
     if old_file == '':

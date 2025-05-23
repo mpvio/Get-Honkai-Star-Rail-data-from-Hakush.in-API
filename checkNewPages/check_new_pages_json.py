@@ -7,6 +7,11 @@ from fileIO.extra_classes_and_funcs import read_from_file
 from hakushinParsing import hakushin_json_fetcher as hf, constants as c
 import bisect
 
+character = "character"
+lightcone = "lightcone"
+relicset = "relicset"
+
+
 def getAll(type : str, via_ui = False):
 	req_string = f"https://api.hakush.in/hsr/data/{type}.json"
 	response = requests.get(req_string)
@@ -39,13 +44,33 @@ def compareListsToManualInput(items: List[str]):
 			case 3: relics.append(item)
 			case 4: chars.append(item)
 			case 5: cones.append(item)
-	if chars != []: updateListsForManualInputs("character", chars)
-	if cones != []: updateListsForManualInputs("lightcone", chars)
-	if relics != []: updateListsForManualInputs("relicset", chars)
+	if chars != []: updateListsForManualInputs(character, chars)
+	if cones != []: updateListsForManualInputs(lightcone, chars)
+	if relics != []: updateListsForManualInputs(relicset, chars)
+
+characterList : dict = {}
+relicList : dict = {}
+lightconeList : dict = {}
+
+def getOldList(page: str):
+	if page == character:
+		global characterList
+		current : dict = characterList
+	elif page == lightcone:
+		global lightconeList
+		current : dict  = lightconeList
+	else:
+		global relicList
+		current : dict  = relicList
+	pageName = f"__{page}.json"	
+	if current == {}:
+		current = json.loads(read_from_file(c.formatListLocation(pageName)))
+	return current
+
 
 def updateListsForManualInputs(page : str, items: List[str]):
-	pageName = f"__{page}.json"
-	old_list: dict = json.loads(read_from_file(c.formatListLocation(pageName)))
+	#pageName = f"__{page}.json"
+	old_list: dict = getOldList(page)
 	differences = {id for id in items if id not in old_list}
 	if differences != {}:
 		getAll(page, True)
@@ -85,14 +110,14 @@ def write_items_to_file(page, items):
 		json.dump(items, newFile, indent=4, ensure_ascii=False)
 		newFile.close()
           
-def readShortlist(page):
+def readList(page):
 	entries = []
 	try:
 		with open(f"{page}.txt", 'r', encoding='UTF-8') as file:
 			while line := file.readline():
 				entries.append(line.strip())
-	except:
-		pass
+	except Exception as e:
+		print(e)
 	return entries
 
 URL_MAP = {

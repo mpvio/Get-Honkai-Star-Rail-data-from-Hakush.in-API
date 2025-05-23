@@ -4,7 +4,8 @@ import sys
 from typing import List
 import requests
 from hakushinParsing import character_funcs as cf
-from checkNewPages import readShortlist, compareListsToManualInput
+from hakushinParsing import buildRecommendations as br
+from checkNewPages import readList, compareListsToManualInput
 from fileIO.extra_classes_and_funcs import get_material_names, write_to_file
 
 path_map : defaultdict = {
@@ -28,8 +29,14 @@ element_map : defaultdict = {
     "Physical": "Physical"
 }
 
+blackList : list[str] = []
+
 def get_shortlist():
-    return readShortlist("shortlist")
+    return readList("shortlist")
+
+def set_blackList():
+    global blackList
+    blackList = readList("blacklist")
 
 def relic(param):
     req_string = f"https://api.hakush.in/hsr/data/en/relicset/{param}.json"
@@ -124,20 +131,40 @@ def character(param):
             my_data["Memosprite"], summoner_talent_id = cf.parse_memosprite(data)
 
         cf.mainskills(my_data, data, str(summoner_talent_id))
-        cf.uniqueSkills(my_data, data)      
+        cf.uniqueSkills(my_data, data)    
+        my_data["Minor Traces"] = {}
         cf.skilltrees(my_data, data)
+        my_data["Minor Traces"] = cf.abbreviateTraces(my_data["Traces"])
         cf.eidolons(my_data, data)
+
+        my_data["Relics"] = br.buildRecommendations(data["Relics"])
 
         my_data["Stats"]["Rarity"] = 5 if data["Rarity"] == "CombatPowerAvatarRarityType5" else 4
         my_data["Stats"]["Energy"] = data["SPNeed"]
         my_data["Stats"]["Path"] = path_map[data["BaseType"]] if data["BaseType"] in path_map else data["BaseType"]
         my_data["Stats"]["Element"] = "Lightning" if data["DamageType"] == "Thunder" else data["DamageType"]
-        
-        return True, write_to_file(f"{param}", my_data)
+
+        blackListResult : str = None
+        writeToFileResult = write_to_file(f"{param}", my_data)
+        if param in blackList:
+            blackListResult = blackListedItem(param, my_data)
+            return True, blackListResult
+        return True, writeToFileResult
     else: 
         output = f"Character {param} not found."
         #print(output)
         return False, output
+    
+def blackListedItem(param: str, data: dict):
+    #if len(param) == 4: 
+    abridgedData : dict = {}
+    abridgedData["Name"] = data["Name"]
+    abridgedData["Stats"] = data["Stats"]
+    if "Memosprite" in data: abridgedData["Memosprite"] = True
+    abridgedData["Materials"] = data["Materials"]
+    abridgedData["Relics"] = data["Relics"]
+    abridgedData["Minor Traces"] = data["Minor Traces"]
+    return write_to_file(f"{param}", abridgedData, True)
 
 def get_stats(my_dict : dict, data : dict, character : bool):
      stat_dict : dict = {}
@@ -162,6 +189,7 @@ def get_stats(my_dict : dict, data : dict, character : bool):
 def main(args: List[str]):
      outputs : List[str] = []
      manualChecks : List[str] = []
+     set_blackList()
      if len(args) < 1: 
           try: args = get_shortlist() #["1301"]  #["1304", "1305", "1308", "1309", "1310", "1314", "23025"] #
           except: args = ["8001", "1308", "1310"]
