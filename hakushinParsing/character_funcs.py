@@ -149,7 +149,7 @@ def skilltreesAndMaterials(character : dict, response : dict):
                 
                 trace: dict = {
                     "Name": name,
-                    "Value": value,
+                    "Value": formatNumber(value),
                     "Requires": requirement
                 }
             skillsTemp[str(pointId)] = trace
