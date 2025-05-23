@@ -59,10 +59,10 @@ def get_material_names(materials : set):
      for material in material_list:
           try: 
                matString = str(material)
-               #if matString.startswith('1105') and matString not in weeklyBossMats: matString = weeklyBossMats[-1] #use this instead of following if statement to censor boss material if desired
+               #use this instead of following if statement to censor boss material if desired
+               #if matString.startswith('1105') and matString not in weeklyBossMats: matString = weeklyBossMats[-1]
                item_name = items_dict[matString]["ItemName"]
                if matString.startswith('1105') and matString not in weeklyBossMats and item_name != "...": item_name = "???"
-               #else: item_name = items_dict[str(material)]["ItemName"]
                material_names.append(item_name)
           except: pass
      return material_names
@@ -106,8 +106,7 @@ def write_to_file(item_id: str, dictionary, blackListed = False):
                 json.dump(difference, diff_file, indent=4, ensure_ascii=False)
             output = f"{fileName} updated and {diffName} created."
     new_file = open(title, "w+", encoding="utf8")
-    json.dump(dictionary, new_file, indent=4, ensure_ascii=False)
-    #print(json.dumps(dictionary, indent=4, ensure_ascii=False))
+    json.dump(dictionary, new_file, indent=4, ensure_ascii=False) #print(json.dumps(dictionary, indent=4, ensure_ascii=False))
     new_file.close()
     #TODO: check size of item_id and check appropriate list of entities to add if needed.
     ##cj.manual_add_id(item_id)

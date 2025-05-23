@@ -96,6 +96,47 @@ def parse_params(desc : str, params : List[float], remembrance = False):
             print(param_num_percent_dict, params, position)
     return params
 
+#TODO: improve this (and rework function)
+def skilltrees(my_data : dict, data : dict):
+    set_of_materials : set = set()
+    skill_tree = data["SkillTrees"]
+    for skill_in_tree in skill_tree:
+        if skill_in_tree not in ["Point01", "Point02", "Point03", "Point04", "Point05", "Point19", "Point20"]:
+            current_skill = skill_tree[skill_in_tree]
+            skill = current_skill["1"]
+            pointId = skill["PointID"]
+
+            my_data["SkillTrees"][pointId] = {}
+            if skill_in_tree in ["Point06", "Point07", "Point08"]:
+                skill_description = skill["PointDesc"] #.replace("\\n", " ").replace("<color=#f29e38ff>","").replace("</color>","").replace("<u>","").replace("</u>","")
+                if "ParamList" in skill:
+                    trace_params = parse_params(skill["PointDesc"], skill["ParamList"])
+                    new_desc = add_params_to_desc(skill_description, trace_params)
+                    my_data["SkillTrees"][pointId][desc] = new_desc #na.abbreviate_quoted_text(new_desc)
+                else:
+                    my_data["SkillTrees"][pointId][desc] = skill_description
+            else:
+                if skill["StatusAddList"] == []:
+                    my_data["SkillTrees"][pointId]["PointName"] = skill["PointName"]
+                else:
+                    my_data["SkillTrees"][pointId]["PointName"] = skill["StatusAddList"][0]["Name"]
+                    my_data["SkillTrees"][pointId]["Status"] = skill["StatusAddList"][0]["Value"]
+            prepoint : List[int] = skill["PrePoint"]
+            my_data["SkillTrees"][pointId]["Requires"] = prepoint #prepoint
+
+            for material in skill["MaterialList"]:
+                set_of_materials.add(material["ItemID"])
+            
+    for material in data["Stats"]["5"]["Cost"]:
+        set_of_materials.add(material["ItemID"])
+        
+    my_data["Materials"] = get_material_names(set_of_materials)
+    try:
+          my_data["Traces"] = skill_tree_rework(my_data)
+          my_data.pop("SkillTrees")
+    except:
+         traceback.print_exc()
+
 def skill_tree_rework(my_data : dict):
     skilltrees = my_data["SkillTrees"]
     better_tree = {}
@@ -285,9 +326,6 @@ def mainskills(my_data : dict, data : dict, summonSkillNum : str = None):
         if skill_count > 1: skill_type = f"{skill_type} #{str(skill_count)}"
 
         my_data["Kit"][skill_type] = {}
-
-        #skill_description : str = None if skill[desc] == None else skill[desc].replace("\\n", " ").replace("<color=#f29e38ff>","").replace("</color>","").replace("<u>","").replace("</u>","")
-
         #so far, skills are only parsed if needed to calculate Memosprite stats (Skill for RTB, Aglaea, Ult for Castorice)
         if summonSkillNum == skillnum: 
             skillAlreadyParsed = True
@@ -295,14 +333,6 @@ def mainskills(my_data : dict, data : dict, summonSkillNum : str = None):
 
         level1_params, levelmax_params, whale_params = get_min_max_params(skill, skillAlreadyParsed)
         skill_description : str = skill[desc]
-        # levels : dict = skill["Level"]
-        # level1_params = parse_params(skill["Desc"], levels["1"]["ParamList"])
-        
-        # if "10" in levels.keys(): 
-        #     levelmax_params = parse_params(skill["Desc"], levels["10"]["ParamList"])
-        # elif "6" in levels.keys(): 
-        #     levelmax_params = parse_params(skill["Desc"], levels["6"]["ParamList"])
-        # else: levelmax_params = None
 
         if skill_description != None:
             new_desc = add_params_to_desc(skill_description, level1_params, levelmax_params, whale_params)
@@ -324,64 +354,8 @@ def mainskills(my_data : dict, data : dict, summonSkillNum : str = None):
             my_data["Kit"][skill_type]["Weakness Break"] = parse_weakness_breaks(weakness_break_types) #single target, aoe, blast
      my_data["Kit"] = reorder_base_kit(my_data["Kit"])
 
-def skilltrees(my_data : dict, data : dict):
-    set_of_materials : set = set()
-    skill_tree = data["SkillTrees"]
-    for skill_in_tree in skill_tree:
-        if skill_in_tree not in ["Point01", "Point02", "Point03", "Point04", "Point05", "Point19", "Point20"]:
-            current_skill = skill_tree[skill_in_tree]
-            skill = current_skill["1"]
-
-        #  for i in range(6,19):
-        #     if i < 10: id = "Point0"+str(i)
-        #     else: id = "Point"+str(i)
-        #     skill = data["SkillTrees"][id]["1"]
-            pointId = skill["PointID"]
-
-            my_data["SkillTrees"][pointId] = {}
-            if skill_in_tree in ["Point06", "Point07", "Point08"]:
-            #if i < 9:
-                skill_description = skill["PointDesc"] #.replace("\\n", " ").replace("<color=#f29e38ff>","").replace("</color>","").replace("<u>","").replace("</u>","")
-                if "ParamList" in skill:
-                    trace_params = parse_params(skill["PointDesc"], skill["ParamList"])
-                    new_desc = add_params_to_desc(skill_description, trace_params)
-                    my_data["SkillTrees"][pointId][desc] = new_desc #na.abbreviate_quoted_text(new_desc)
-                else:
-                    my_data["SkillTrees"][pointId][desc] = skill_description
-            else:
-            #if i > 8: 
-                if skill["StatusAddList"] == []:
-                    my_data["SkillTrees"][pointId]["PointName"] = skill["PointName"]
-                else:
-                    my_data["SkillTrees"][pointId]["PointName"] = skill["StatusAddList"][0]["Name"]
-                    my_data["SkillTrees"][pointId]["Status"] = skill["StatusAddList"][0]["Value"]
-                # try:
-                #     my_data["SkillTrees"][pointId]["Status"] = skill["StatusAddList"][0]["Value"]
-                #     name = skill["StatusAddList"][0]["Name"]
-                #     value = skill["StatusAddList"][0]["Value"]
-                #     print(f"{pointId} -> {name}: {value}")
-                # except: 
-                #     print(f"{pointId} -> {name}")
-                #     pass
-            prepoint : List[int] = skill["PrePoint"]
-            my_data["SkillTrees"][pointId]["Requires"] = prepoint #prepoint
-
-            for material in skill["MaterialList"]:
-                set_of_materials.add(material["ItemID"])
-            
-    for material in data["Stats"]["5"]["Cost"]:
-        set_of_materials.add(material["ItemID"])
-        
-    my_data["Materials"] = get_material_names(set_of_materials)
-    try:
-          my_data["Traces"] = skill_tree_rework(my_data)
-          my_data.pop("SkillTrees")
-    except:
-         traceback.print_exc()
-
 def eidolons(character_dict : dict, json_dict : dict):
     raw_eidolons = json_dict["Ranks"]
-    #eidolon_list = []
     character_dict["Eidolons"] = {}
     for num in raw_eidolons:
         eidolon = raw_eidolons[num]
@@ -399,50 +373,3 @@ def eidolons(character_dict : dict, json_dict : dict):
                 desc: new_desc #na.abbreviate_quoted_text(new_desc)
             }
         character_dict["Eidolons"][str(e_num)] = eidolon_dict
-
-#invalid
-# def skill_tree_rework_faster(data : dict):
-#     skilltrees = data["SkillTrees"]
-#     better_tree = {}
-#     tree_nodes : List[TreeNode] = []
-#     trace_type = 1
-#     major_trace = 2
-#     for skilltree in skilltrees:
-#         if skilltree in ["Point01", "Point02", "Point03", "Point04", "Point05"]: continue
-#         root = True if skilltrees[skilltree]["1"]["PrePoint"] == [] else False
-#         id = skilltrees[skilltree]["1"]["PointID"]
-#         if skilltree not in ["Point06", "Point07", "Point08"]:
-#             trace = skilltrees[skilltree]["1"]["PointName"]
-#             if trace != None:
-#                 if trace == "SPD Boost": 
-#                     value = skilltrees[skilltree]["1"]["StatusAddList"][0]["Value"]
-#                 else: 
-#                     value = round(skilltrees[skilltree]["1"]["StatusAddList"][0]["Value"] * 100, 1)
-#                 new_tree_node = TreeNode(id=id, root=root, trace=trace, value=value, children=None, params=None) #skilltrees[skilltree]["Unlocks"]
-#                 pass
-#         else:
-#             if "PointDesc" in skilltrees[skilltree]["1"]: value = skilltrees[skilltree]["1"]["PointDesc"]
-#             else: value = None
-#             if "ParamList" in skilltrees[skilltree]["1"]: 
-#                 params = skilltrees[skilltree]["1"]["ParamList"]
-#             else: params = None
-#             new_tree_node = TreeNode(id=skilltree, root=root, trace=f"A{str(major_trace)}", value=value, children=None, params=params) #skilltrees[skilltree]["Unlocks"]
-#             major_trace += 2
-#         new_tree_node["Point"] = skilltree
-
-#         tree_nodes.append(new_tree_node)
-#         pass
-    
-#     for node in tree_nodes:
-#         if node.Root == False:
-#             parent_node_id = skilltrees[node.Point]["1"]["PrePoint"][0]
-#             parent = find_node(trees=tree_nodes, nodeId=parent_node_id)
-#             if parent != None:
-#                 parent.add_child(node)
-
-#     for node in tree_nodes:
-#         if node.Root:
-#             better_tree[f"Branch {str(trace_type)}"] = node
-#             trace_type += 1
-#         pass
-#     return better_tree
