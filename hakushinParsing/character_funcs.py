@@ -2,7 +2,7 @@ from collections import defaultdict
 import traceback
 from typing import List
 
-from fileIO.extra_classes_and_funcs import Skill_Counter, TreeNode, get_material_names
+from fileIO.extra_classes_and_funcs import Skill_Counter, get_material_names
 #from . import nameAbbreviations as na
 
 skill_names = {

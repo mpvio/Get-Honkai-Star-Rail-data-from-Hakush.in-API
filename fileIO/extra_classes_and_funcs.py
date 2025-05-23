@@ -3,31 +3,6 @@ import requests
 from deepdiff import DeepDiff
 from datetime import datetime
 from hakushinParsing import constants as c
-
-class TreeNode(dict):
-    def __init__(self, id, root=True, trace=None, value=None, children=None, params=None):
-        super().__init__()
-        self.__dict__ = self
-        self.Id = id
-        self.Root = root
-        if trace != None: self.Name = trace
-        if value != None: 
-            if trace != None and trace in ["A2", "A4", "A6"]: self.Desc = value
-            else: self.Value = value
-        if params != None: self.Params = params
-        self.Unlocks = list(children) if children is not None else []
-
-    def add_child(self, child):
-        self.Unlocks.append(child)
-
-    @staticmethod
-    def from_dict(dict_):
-        """ Recursively (re)construct TreeNode-based tree from dictionary. """
-        node = TreeNode(dict_['effect'], dict_['children'])
-        #the below two functions are equivalent
-        #node.children = [TreeNode.from_dict(child) for child in node.children]
-        node.Unlocks = list(map(TreeNode.from_dict, node.Unlocks))
-        return node
     
 class Skill_Counter(dict):
     def __init__(self):
@@ -93,7 +68,7 @@ def write_to_file(item_id: str, dictionary, blackListed = False):
         output = f"{fileName}.json created."
     else:
         old_as_json = json.loads(old_file)
-        difference = DeepDiff(old_as_json, dictionary, ignore_type_in_groups=[dict, TreeNode]).to_dict() # type: ignore
+        difference = DeepDiff(old_as_json, dictionary, ignore_type_in_groups=[dict]).to_dict() # type: ignore
         if difference == {}:
             output = f"No changes for {fileName}."
             return output
