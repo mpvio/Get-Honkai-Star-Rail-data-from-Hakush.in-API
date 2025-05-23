@@ -128,9 +128,132 @@
         }
     },
     "Minor Traces": {
-        "CRIT DMG": 13.3,
         "CRIT Rate": 18.7,
-        "Quantum DMG Boost": 14.4
+        "Quantum DMG Boost": 14.4,
+        "CRIT DMG": 13.3
+    },
+    "Traces": {
+        "1407101": {
+            "Name": "Contained Dark Tide",
+            "Trace": 2,
+            "Desc": "After ally targets (excluding Netherwing) receive healing, converts 100% of the healed amount into 'Newbud.' If Netherwing is on the field, this is converted to Netherwing's HP instead. Each ally target can accumulate a conversion amount up to 12% of the max 'Newbud.' After any unit takes action, all units reset their accumulated conversion amount.",
+            "Unlocks": {
+                "1407204": {
+                    "Name": "CRIT DMG",
+                    "Value": 5.3
+                },
+                "1407205": {
+                    "Name": "CRIT Rate",
+                    "Value": 4.0
+                }
+            }
+        },
+        "1407102": {
+            "Name": "Inverted Torch",
+            "Trace": 4,
+            "Desc": "When Castorice's current HP is higher than or equal to 50% of her Max HP, her SPD increases by 40%. When Netherwing uses 'Breath Scorches the Shadow' and deals fatal damage to all enemies on the field or brings them to a point where their HP cannot be reduced further, Netherwing's SPD increases by 100%, lasting for 1 turn.",
+            "Unlocks": {
+                "1407206": {
+                    "Name": "Quantum DMG Boost",
+                    "Value": 4.8
+                },
+                "1407207": {
+                    "Name": "CRIT Rate",
+                    "Value": 4.0
+                }
+            }
+        },
+        "1407103": {
+            "Name": "Where The West Wind Dwells",
+            "Trace": 6,
+            "Desc": "Each time Netherwing uses 'Breath Scorches the Shadow,' the DMG dealt increases by 30%. This effect stacks up to 6 time(s) and lasts until the end of this turn.",
+            "Unlocks": {
+                "1407208": {
+                    "Name": "CRIT DMG",
+                    "Value": 8.0,
+                    "Unlocks": {
+                        "1407209": {
+                            "Name": "Quantum DMG Boost",
+                            "Value": 6.4,
+                            "Unlocks": {
+                                "1407210": {
+                                    "Name": "CRIT Rate",
+                                    "Value": 5.3
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "1407201": {
+            "Name": "CRIT Rate",
+            "Value": 2.7,
+            "Unlocks": {
+                "1407202": {
+                    "Name": "Quantum DMG Boost",
+                    "Value": 3.2
+                },
+                "1407203": {
+                    "Name": "CRIT Rate",
+                    "Value": 2.7
+                }
+            }
+        },
+        "1407202": {
+            "Name": "Quantum DMG Boost",
+            "Value": 3.2
+        },
+        "1407203": {
+            "Name": "CRIT Rate",
+            "Value": 2.7
+        },
+        "1407204": {
+            "Name": "CRIT DMG",
+            "Value": 5.3
+        },
+        "1407205": {
+            "Name": "CRIT Rate",
+            "Value": 4.0
+        },
+        "1407206": {
+            "Name": "Quantum DMG Boost",
+            "Value": 4.8
+        },
+        "1407207": {
+            "Name": "CRIT Rate",
+            "Value": 4.0
+        },
+        "1407208": {
+            "Name": "CRIT DMG",
+            "Value": 8.0,
+            "Unlocks": {
+                "1407209": {
+                    "Name": "Quantum DMG Boost",
+                    "Value": 6.4,
+                    "Unlocks": {
+                        "1407210": {
+                            "Name": "CRIT Rate",
+                            "Value": 5.3
+                        }
+                    }
+                }
+            }
+        },
+        "1407209": {
+            "Name": "Quantum DMG Boost",
+            "Value": 6.4,
+            "Unlocks": {
+                "1407210": {
+                    "Name": "CRIT Rate",
+                    "Value": 5.3
+                }
+            }
+        },
+        "1407210": {
+            "Name": "CRIT Rate",
+            "Value": 5.3
+        }
     },
     "Materials": [
         "Credit",
@@ -144,105 +267,6 @@
         "Echoing Wail",
         "Eternal Lament"
     ],
-    "Traces": {
-        "Branch 1": {
-            "Id": 1407101,
-            "Root": true,
-            "Name": "A2",
-            "Desc": "After ally targets (excluding Netherwing) receive healing, converts 100% of the healed amount into 'Newbud.' If Netherwing is on the field, this is converted to Netherwing's HP instead. Each ally target can accumulate a conversion amount up to 12% of the max 'Newbud.' After any unit takes action, all units reset their accumulated conversion amount.",
-            "Unlocks": [
-                {
-                    "Id": 1407204,
-                    "Root": false,
-                    "Name": "CRIT DMG",
-                    "Value": 5.3,
-                    "Unlocks": []
-                },
-                {
-                    "Id": 1407205,
-                    "Root": false,
-                    "Name": "CRIT Rate",
-                    "Value": 4,
-                    "Unlocks": []
-                }
-            ]
-        },
-        "Branch 2": {
-            "Id": 1407102,
-            "Root": true,
-            "Name": "A4",
-            "Desc": "When Castorice's current HP is higher than or equal to 50% of her Max HP, her SPD increases by 40%. When Netherwing uses 'Breath Scorches the Shadow' and deals fatal damage to all enemies on the field or brings them to a point where their HP cannot be reduced further, Netherwing's SPD increases by 100%, lasting for 1 turn.",
-            "Unlocks": [
-                {
-                    "Id": 1407206,
-                    "Root": false,
-                    "Name": "Quantum DMG Boost",
-                    "Value": 4.8,
-                    "Unlocks": []
-                },
-                {
-                    "Id": 1407207,
-                    "Root": false,
-                    "Name": "CRIT Rate",
-                    "Value": 4,
-                    "Unlocks": []
-                }
-            ]
-        },
-        "Branch 3": {
-            "Id": 1407103,
-            "Root": true,
-            "Name": "A6",
-            "Desc": "Each time Netherwing uses 'Breath Scorches the Shadow,' the DMG dealt increases by 30%. This effect stacks up to 6 time(s) and lasts until the end of this turn.",
-            "Unlocks": [
-                {
-                    "Id": 1407208,
-                    "Root": false,
-                    "Name": "CRIT DMG",
-                    "Value": 8,
-                    "Unlocks": [
-                        {
-                            "Id": 1407209,
-                            "Root": false,
-                            "Name": "Quantum DMG Boost",
-                            "Value": 6.4,
-                            "Unlocks": [
-                                {
-                                    "Id": 1407210,
-                                    "Root": false,
-                                    "Name": "CRIT Rate",
-                                    "Value": 5.3,
-                                    "Unlocks": []
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        },
-        "Branch 4": {
-            "Id": 1407201,
-            "Root": true,
-            "Name": "CRIT Rate",
-            "Value": 2.7,
-            "Unlocks": [
-                {
-                    "Id": 1407202,
-                    "Root": false,
-                    "Name": "Quantum DMG Boost",
-                    "Value": 3.2,
-                    "Unlocks": []
-                },
-                {
-                    "Id": 1407203,
-                    "Root": false,
-                    "Name": "CRIT Rate",
-                    "Value": 2.7,
-                    "Unlocks": []
-                }
-            ]
-        }
-    },
     "Eidolons": {
         "1": {
             "Desc": "When the enemy target's current HP is 80%/50% of Max HP or lower, the DMG dealt to it by 'Boneclaw, Doomdrake's Embrace,' 'Claw Splits the Veil,' 'Breath Scorches the Shadow,' and 'Wings Sweep the Ruins' is 120%/140% of the original DMG respectively."

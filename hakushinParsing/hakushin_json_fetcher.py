@@ -117,7 +117,6 @@ def character(param):
 
         my_data["Name"] = "Trailblazer" if data["Name"] == "{NICKNAME}" else data["Name"]
         get_stats(my_data, data, True)
-        my_data["SkillTrees"] = {}
         my_data["Kit"] = {}
         summoner_talent_id = None
 
@@ -131,11 +130,8 @@ def character(param):
             my_data["Memosprite"], summoner_talent_id = cf.parse_memosprite(data)
 
         cf.mainskills(my_data, data, str(summoner_talent_id))
-        cf.uniqueSkills(my_data, data)   
-        my_data["Materials"] = {}
-        my_data["Minor Traces"] = {}
-        cf.skilltrees(my_data, data)
-        my_data["Minor Traces"] = cf.abbreviateTraces(my_data["Traces"])
+        cf.uniqueSkills(my_data, data)
+        cf.skilltreesAndMaterials(my_data, data)
         cf.eidolons(my_data, data)
 
         my_data["Relics"] = br.buildRecommendations(data["Relics"])
