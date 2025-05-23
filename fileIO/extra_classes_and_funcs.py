@@ -46,8 +46,6 @@ class Skill_Counter(dict):
 
 items_dict = {}
 weeklyBossMats = []
-# WEEKLY_BOSSES = 6
-# FIRST_WEEKLY_BOSS = 110501
 
 def set_items_dict():
     global items_dict, weeklyBossMats
@@ -61,6 +59,7 @@ def get_material_names(materials : set):
      for material in material_list:
           try: 
                matString = str(material)
+               #if matString.startswith('1105') and matString not in weeklyBossMats: matString = weeklyBossMats[-1] #use this instead of following if statement to censor boss material if desired
                item_name = items_dict[matString]["ItemName"]
                if matString.startswith('1105') and matString not in weeklyBossMats and item_name != "...": item_name = "???"
                #else: item_name = items_dict[str(material)]["ItemName"]
