@@ -199,60 +199,6 @@
                     "Value": 2.7
                 }
             }
-        },
-        "1407202": {
-            "Name": "Quantum DMG Boost",
-            "Value": 3.2
-        },
-        "1407203": {
-            "Name": "CRIT Rate",
-            "Value": 2.7
-        },
-        "1407204": {
-            "Name": "CRIT DMG",
-            "Value": 5.3
-        },
-        "1407205": {
-            "Name": "CRIT Rate",
-            "Value": 4.0
-        },
-        "1407206": {
-            "Name": "Quantum DMG Boost",
-            "Value": 4.8
-        },
-        "1407207": {
-            "Name": "CRIT Rate",
-            "Value": 4.0
-        },
-        "1407208": {
-            "Name": "CRIT DMG",
-            "Value": 8.0,
-            "Unlocks": {
-                "1407209": {
-                    "Name": "Quantum DMG Boost",
-                    "Value": 6.4,
-                    "Unlocks": {
-                        "1407210": {
-                            "Name": "CRIT Rate",
-                            "Value": 5.3
-                        }
-                    }
-                }
-            }
-        },
-        "1407209": {
-            "Name": "Quantum DMG Boost",
-            "Value": 6.4,
-            "Unlocks": {
-                "1407210": {
-                    "Name": "CRIT Rate",
-                    "Value": 5.3
-                }
-            }
-        },
-        "1407210": {
-            "Name": "CRIT Rate",
-            "Value": 5.3
         }
     },
     "Materials": [

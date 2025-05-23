@@ -168,7 +168,6 @@ def skilltreesAndMaterials(character : dict, response : dict):
                 parent["Unlocks"] = children
             else:
                 parent["Unlocks"][key] = skill
-            skill.pop("Requires")
         except:
             rootTracesOnly[key] = skill
     
