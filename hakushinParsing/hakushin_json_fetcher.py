@@ -134,7 +134,7 @@ def character(param):
         cf.skilltreesAndMaterials(my_data, data)
         cf.eidolons(my_data, data)
 
-        my_data["Relics"] = br.buildRecommendations(data["Relics"])
+        my_data["Relics"] = br.getBuildRecommendations(data["Relics"])
 
         my_data["Stats"]["Rarity"] = 5 if data["Rarity"] == "CombatPowerAvatarRarityType5" else 4
         my_data["Stats"]["Energy"] = data["SPNeed"]
@@ -160,9 +160,21 @@ def blackListedItem(param: str, data: dict):
     if "Memosprite" in data: abridgedData["Memosprite"] = True
     abridgedData["Materials"] = data["Materials"]
     abridgedData["Minor Traces"] = data["Minor Traces"]
+    #TODO: convert Traces to tree with Major traces hidden.
+    abridgedData["Traces"] = removeMajorTraceNames(data["Traces"])
     abridgedData["Relics"] = data["Relics"]
     return write_to_file(f"{param}", abridgedData, True)
 
+def removeMajorTraceNames(traces : dict):
+    for trace in traces:
+        currentTrace = traces[trace]
+        if "Trace" in currentTrace:
+            currentTrace.pop("Name")
+            currentTrace.pop("Desc")
+        if "Unlocks" in currentTrace:
+            currentTrace["Unlocks"] = removeMajorTraceNames(currentTrace["Unlocks"])
+    return traces
+                    
 def get_stats(my_dict : dict, data : dict, character : bool):
      stat_dict : dict = {}
      if character:

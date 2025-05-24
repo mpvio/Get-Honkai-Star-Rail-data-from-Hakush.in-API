@@ -138,7 +138,6 @@ def skilltreesAndMaterials(character : dict, response : dict):
                 }
             else:
                 #minor trace
-                #TODO: add minor trace summary
                 statusAddList = currentSkill["StatusAddList"][0]
                 name: str = statusAddList["Name"]
                 value: float = statusAddList["Value"]

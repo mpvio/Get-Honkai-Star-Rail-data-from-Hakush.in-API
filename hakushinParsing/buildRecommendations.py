@@ -18,7 +18,7 @@ recommendedStr = "Recommended "
 relicSetStr = " Relic Set(s)"
 mainStatStr = " Main Stat(s)"
 
-def buildRecommendations(data : dict):
+def getBuildRecommendations(data : dict):
     cavern = getRelicSetNames(data["Set4IDList"])
     planar = getRelicSetNames(data["Set2IDList"]) #search relicset.json for names
     # replace "AddedRatio" and remove "Delta", then use Dict for other values
