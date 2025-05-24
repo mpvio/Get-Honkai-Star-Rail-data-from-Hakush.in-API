@@ -7,6 +7,7 @@ from hakushinParsing import character_funcs as cf
 from hakushinParsing import buildRecommendations as br
 from checkNewPages import readList, compareListsToManualInput
 from fileIO.extra_classes_and_funcs import get_material_names, write_to_file
+from . import constants as c
 
 path_map : defaultdict = {
     "Warrior": "Destruction",
@@ -46,15 +47,15 @@ def relic(param):
         data = response.json()
         my_data = {}
         
-        my_data["Name"] = data["Name"]
+        my_data[c.NAME] = data[c.NAME]
         # my_data["Relic Effect/s"] = data["RequireNum"]
         # for effect in my_data["Relic Effect/s"]:
-        #     parse_params(my_data["Relic Effect/s"][effect]["Desc"], my_data["Relic Effect/s"][effect]["ParamList"])
+        #     parse_params(my_data["Relic Effect/s"][effect][c.DESC], my_data["Relic Effect/s"][effect]["ParamList"])
         #     #add_params_to_desc()
         
         my_data["Relic Effect/s"] = {}
         for effect in data["RequireNum"]:
-            old_desc = data["RequireNum"][effect]["Desc"]
+            old_desc = data["RequireNum"][effect][c.DESC]
             params = cf.parse_params(old_desc, data["RequireNum"][effect]["ParamList"])
             new_desc = cf.add_params_to_desc(old_desc, params)
             my_data["Relic Effect/s"][effect] = new_desc
@@ -74,32 +75,32 @@ def lightcone(param):
         my_data = {}
         material_set = set()
 
-        my_data["Name"] = data["Name"]
-        #my_data["Rarity"] = 5 if data["Rarity"] == "CombatPowerLightconeRarity5" else 4
-        if data["Rarity"] == "CombatPowerLightconeRarity5": my_data["Rarity"] = 5
-        elif data["Rarity"] == "CombatPowerLightconeRarity4": my_data["Rarity"] = 4
-        else: my_data["Rarity"] = 3
-        my_data["Path"] = path_map[data["BaseType"]] if data["BaseType"] in path_map else data["BaseType"]
+        my_data[c.NAME] = data[c.NAME]
+        #my_data[c.RARITY] = 5 if data[c.RARITY] == "CombatPowerLightconeRarity5" else 4
+        if data[c.RARITY] == "CombatPowerLightconeRarity5": my_data[c.RARITY] = 5
+        elif data[c.RARITY] == "CombatPowerLightconeRarity4": my_data[c.RARITY] = 4
+        else: my_data[c.RARITY] = 3
+        my_data[c.PATH] = path_map[data["BaseType"]] if data["BaseType"] in path_map else data["BaseType"]
         
-        description = data["Refinements"]["Desc"]
+        description = data["Refinements"][c.DESC]
         #S1 and S5 values
         s1_params = cf.parse_params(description, data["Refinements"]["Level"]["1"]["ParamList"])
         s5_params = cf.parse_params(description, data["Refinements"]["Level"]["5"]["ParamList"])
         new_desc = cf.add_params_to_desc(description, s1_params, s5_params)
 
-        my_data["Desc"] = new_desc #data["Refinements"]["Desc"]
+        my_data[c.DESC] = new_desc #data["Refinements"][c.DESC]
         #my_data["S1"] = data["Refinements"]["Level"]["1"]["ParamList"]
         #my_data["S5"] = data["Refinements"]["Level"]["5"]["ParamList"]
         #get stats at Lv80
         get_stats(my_data, data, False)
 
         #get materials
-        stats = data["Stats"]
+        stats = data[c.STATS]
         for stat in stats:
             cost = stat["PromotionCostList"]
             for material in cost:
                 material_set.add(material["ItemID"])
-        my_data["Materials"] = get_material_names(material_set)
+        my_data[c.MATERIALS] = get_material_names(material_set)
         
         return True, write_to_file(f"{param}", my_data)
     else: 
@@ -115,7 +116,7 @@ def character(param):
         data = response.json()
         my_data = {}
 
-        my_data["Name"] = "Trailblazer" if data["Name"] == "{NICKNAME}" else data["Name"]
+        my_data[c.NAME] = "Trailblazer" if data[c.NAME] == "{NICKNAME}" else data[c.NAME]
         get_stats(my_data, data, True)
         my_data["Kit"] = {}
         summoner_talent_id = None
@@ -126,20 +127,20 @@ def character(param):
             for key in latestEnh.keys():
                 data[key] = latestEnh[key]
 
-        if data["Memosprite"] != {}:
-            my_data["Memosprite"], summoner_talent_id = cf.parse_memosprite(data)
+        if data[c.MEMOSPRITE] != {}:
+            my_data[c.MEMOSPRITE], summoner_talent_id = cf.parse_memosprite(data)
 
         cf.mainskills(my_data, data, str(summoner_talent_id))
         cf.uniqueSkills(my_data, data)
         cf.skilltreesAndMaterials(my_data, data)
         cf.eidolons(my_data, data)
 
-        my_data["Relics"] = br.getBuildRecommendations(data["Relics"])
+        my_data[c.RELICS] = br.getBuildRecommendations(data[c.RELICS])
 
-        my_data["Stats"]["Rarity"] = 5 if data["Rarity"] == "CombatPowerAvatarRarityType5" else 4
-        my_data["Stats"]["Energy"] = data["SPNeed"]
-        my_data["Stats"]["Path"] = path_map[data["BaseType"]] if data["BaseType"] in path_map else data["BaseType"]
-        my_data["Stats"]["Element"] = "Lightning" if data["DamageType"] == "Thunder" else data["DamageType"]
+        my_data[c.STATS][c.RARITY] = 5 if data[c.RARITY] == "CombatPowerAvatarRarityType5" else 4
+        my_data[c.STATS]["Energy"] = data["SPNeed"]
+        my_data[c.STATS][c.PATH] = path_map[data["BaseType"]] if data["BaseType"] in path_map else data["BaseType"]
+        my_data[c.STATS]["Element"] = "Lightning" if data["DamageType"] == "Thunder" else data["DamageType"]
 
         blackListResult : str = None
         writeToFileResult = write_to_file(f"{param}", my_data)
@@ -155,35 +156,35 @@ def character(param):
 def blackListedItem(param: str, data: dict):
     #if len(param) == 4: 
     abridgedData : dict = {}
-    abridgedData["Name"] = data["Name"]
-    abridgedData["Stats"] = data["Stats"]
-    if "Memosprite" in data: abridgedData["Memosprite"] = True
-    abridgedData["Materials"] = data["Materials"]
-    abridgedData["Minor Traces"] = data["Minor Traces"]
+    abridgedData[c.NAME] = data[c.NAME]
+    abridgedData[c.STATS] = data[c.STATS]
+    if c.MEMOSPRITE in data: abridgedData[c.MEMOSPRITE] = True
+    abridgedData[c.MATERIALS] = data[c.MATERIALS]
+    abridgedData[c.MINOR_TRACES] = data[c.MINOR_TRACES]
     #TODO: convert Traces to tree with Major traces hidden.
-    abridgedData["Traces"] = removeMajorTraceNames(data["Traces"])
-    abridgedData["Relics"] = data["Relics"]
+    abridgedData[c.TRACES] = removeMajorTraceNames(data[c.TRACES])
+    abridgedData[c.RELICS] = data[c.RELICS]
     return write_to_file(f"{param}", abridgedData, True)
 
 def removeMajorTraceNames(traces : dict):
     for trace in traces:
         currentTrace = traces[trace]
-        if "Trace" in currentTrace:
-            currentTrace.pop("Name")
-            currentTrace.pop("Desc")
-        if "Unlocks" in currentTrace:
-            currentTrace["Unlocks"] = removeMajorTraceNames(currentTrace["Unlocks"])
+        if c.TRACE in currentTrace:
+            currentTrace.pop(c.NAME)
+            currentTrace.pop(c.DESC)
+        if c.UNLOCKS in currentTrace:
+            currentTrace[c.UNLOCKS] = removeMajorTraceNames(currentTrace[c.UNLOCKS])
     return traces
                     
 def get_stats(my_dict : dict, data : dict, character : bool):
      stat_dict : dict = {}
      if character:
-         stats = data["Stats"]["6"]
+         stats = data[c.STATS]["6"]
          hp, hpAdd = "HPBase", "HPAdd"
          atk, atkAdd = "AttackBase", "AttackAdd"
          defe, defAdd = "DefenceBase", "DefenceAdd"
      else:
-         stats = data["Stats"][-1]
+         stats = data[c.STATS][-1]
          hp, hpAdd = "BaseHP", "BaseHPAdd"
          atk, atkAdd = "BaseAttack", "BaseAttackAdd"
          defe, defAdd = "BaseDefence", "BaseDefenceAdd"
@@ -193,7 +194,7 @@ def get_stats(my_dict : dict, data : dict, character : bool):
      if character:
           stat_dict["Speed"] = stats["SpeedBase"]
           stat_dict["Aggro"] = stats["BaseAggro"]
-     my_dict["Stats"] = stat_dict
+     my_dict[c.STATS] = stat_dict
 
 def main(args: List[str]):
      outputs : List[str] = []

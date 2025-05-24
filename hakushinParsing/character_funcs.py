@@ -3,7 +3,7 @@ import traceback
 from typing import List
 
 from fileIO.extra_classes_and_funcs import Skill_Counter, get_material_names
-#from . import nameAbbreviations as na
+from . import constants as c
 
 skill_names = {
     "Normal": "Basic",
@@ -15,9 +15,6 @@ skill_names = {
     "Maze": "Technique",
     "Servant": "Skill"
 }
-
-desc = "Desc"
-paramlist = "ParamList"
 
 def reorder_base_kit(kit : dict):
     basic = {}
@@ -103,7 +100,7 @@ def skilltreesAndMaterials(character : dict, response : dict):
     minorTraceSummary = defaultdict(float)
 
     #level up materials
-    for material in response["Stats"]["5"]["Cost"]:
+    for material in response[c.STATS]["5"]["Cost"]:
         materials.add(material["ItemID"])
 
     skillTree : dict = response["SkillTrees"]
@@ -126,20 +123,20 @@ def skilltreesAndMaterials(character : dict, response : dict):
                 name : str = currentSkill["PointName"]
                 traceNo : int = currentSkill["AvatarPromotionLimit"]
                 description: str = currentSkill["PointDesc"]
-                params: list[float] = currentSkill["ParamList"]
+                params: list[float] = currentSkill[c.PARAMLIST]
                 if params != []:
                     formattedParams = parse_params(description, params)
                     description = add_params_to_desc(description, formattedParams)
                 trace: dict = {
-                    "Name": name,
-                    "Trace": formatNumber(traceNo),
-                    "Desc": description,
-                    "Requires": requirement
+                    c.NAME: name,
+                    c.TRACE: formatNumber(traceNo),
+                    c.DESC: description,
+                    c.REQUIRES: requirement
                 }
             else:
                 #minor trace
                 statusAddList = currentSkill["StatusAddList"][0]
-                name: str = statusAddList["Name"]
+                name: str = statusAddList[c.NAME]
                 value: float = statusAddList["Value"]
                 if name != "SPD": value = round(value * 100, 1)
 
@@ -147,9 +144,9 @@ def skilltreesAndMaterials(character : dict, response : dict):
                 minorTraceSummary[name] += value
                 
                 trace: dict = {
-                    "Name": name,
+                    c.NAME: name,
                     "Value": formatNumber(value),
-                    "Requires": requirement
+                    c.REQUIRES: requirement
                 }
             skillsTemp[str(pointId)] = trace
             #trace materials
@@ -160,13 +157,13 @@ def skilltreesAndMaterials(character : dict, response : dict):
     for key in skillsTemp:
         skill: dict = skillsTemp[key]
         try:
-            requires = skill.pop("Requires")
+            requires = skill.pop(c.REQUIRES)
             parent = skillsTemp[requires]
-            if "Unlocks" not in parent:
+            if c.UNLOCKS not in parent:
                 children : dict = {key: skill}
-                parent["Unlocks"] = children
+                parent[c.UNLOCKS] = children
             else:
-                parent["Unlocks"][key] = skill
+                parent[c.UNLOCKS][key] = skill
         except:
             rootTracesOnly[key] = skill
     
@@ -178,9 +175,9 @@ def skilltreesAndMaterials(character : dict, response : dict):
         minorTracesNeater[key] = formatNumber(minorTraceSummary[key])
 
     #add to character object
-    character["Minor Traces"] = minorTracesNeater
-    character["Traces"] = rootTracesOnly
-    character["Materials"] = materialsList
+    character[c.MINOR_TRACES] = minorTracesNeater
+    character[c.TRACES] = rootTracesOnly
+    character[c.MATERIALS] = materialsList
 
 def formatNumber(num): #possibly remove?
   if num % 1 == 0:
@@ -196,20 +193,20 @@ def parse_weakness_breaks(wb_list : List[int]):
     return weaknesses
 
 def parse_memosprite(data: dict):
-    #data_memosprite = data["Memosprite"]
+    #data_memosprite = data[c.MEMOSPRITE]
     memosprite: dict = {}
-    memosprite["Name"] = data["Memosprite"]["Name"] #na.abbreviate_string(data["Memosprite"]["Name"])
-    summoner_talent_id = data["Memosprite"]["HPSkill"]
-    if summoner_talent_id == None: summoner_talent_id = data["Memosprite"]["SpeedSkill"]
+    memosprite[c.NAME] = data[c.MEMOSPRITE][c.NAME] #na.abbreviate_string(data[c.MEMOSPRITE][c.NAME])
+    summoner_talent_id = data[c.MEMOSPRITE]["HPSkill"]
+    if summoner_talent_id == None: summoner_talent_id = data[c.MEMOSPRITE]["SpeedSkill"]
     talent : dict = data["Skills"][str(summoner_talent_id)]
     l1_params, l6_params, l7_params = get_min_max_params(talent) #e.g. [60, 10]
-    memosprite["BaseHP"] = parse_memosprite_value(data["Memosprite"]["HPBase"], l1_params, l6_params, l7_params)
-    memosprite["BonusHP"] = parse_memosprite_value(data["Memosprite"]["HPInherit"], l1_params, l6_params, l7_params)+"%"
-    memosprite["BaseSpeed"] = parse_memosprite_value(data["Memosprite"]["SpeedBase"], l1_params, l6_params, l7_params)
-    memosprite["BonusSpeed"] = parse_memosprite_value(data["Memosprite"]["SpeedInherit"], l1_params, l6_params, l7_params)+"%"
-    memosprite["Aggro"] = data["Memosprite"]["Aggro"]
+    memosprite["BaseHP"] = parse_memosprite_value(data[c.MEMOSPRITE]["HPBase"], l1_params, l6_params, l7_params)
+    memosprite["BonusHP"] = parse_memosprite_value(data[c.MEMOSPRITE]["HPInherit"], l1_params, l6_params, l7_params)+"%"
+    memosprite["BaseSpeed"] = parse_memosprite_value(data[c.MEMOSPRITE]["SpeedBase"], l1_params, l6_params, l7_params)
+    memosprite["BonusSpeed"] = parse_memosprite_value(data[c.MEMOSPRITE]["SpeedInherit"], l1_params, l6_params, l7_params)+"%"
+    memosprite["Aggro"] = data[c.MEMOSPRITE]["Aggro"]
     memosprite["Kit"] = {}
-    mainskills(memosprite, data["Memosprite"])
+    mainskills(memosprite, data[c.MEMOSPRITE])
     return memosprite, summoner_talent_id
 
 def parse_memosprite_value(value: str, l1_params: List[float], max_params: List[float], whale_params: List[float] = None):
@@ -246,16 +243,16 @@ def insert_numbers_into_place(word: str, l1_params : List[int | float], max_para
 
 def get_min_max_params(skill: dict, alreadyParsed: bool = False):
     #so far, "alreadyParsed" is only for Remembrance chars
-    skill_description : str = skill[desc]
+    skill_description : str = skill[c.DESC]
     levels : dict = skill["Level"]
-    level1_params = parse_params(skill_description, levels["1"]["ParamList"], alreadyParsed)
+    level1_params = parse_params(skill_description, levels["1"][c.PARAMLIST], alreadyParsed)
 
     if "15" in levels.keys(): 
-        levelmax_params = parse_params(skill_description, levels["10"]["ParamList"], alreadyParsed)
-        whale_params = parse_params(skill_description, levels["12"]["ParamList"], alreadyParsed)
+        levelmax_params = parse_params(skill_description, levels["10"][c.PARAMLIST], alreadyParsed)
+        whale_params = parse_params(skill_description, levels["12"][c.PARAMLIST], alreadyParsed)
     elif "6" in levels.keys(): 
-        levelmax_params = parse_params(skill_description, levels["6"]["ParamList"], alreadyParsed)
-        whale_params = parse_params(skill_description, levels["7"]["ParamList"], alreadyParsed)
+        levelmax_params = parse_params(skill_description, levels["6"][c.PARAMLIST], alreadyParsed)
+        whale_params = parse_params(skill_description, levels["7"][c.PARAMLIST], alreadyParsed)
     else: 
         levelmax_params = None
         whale_params = None
@@ -276,8 +273,8 @@ def uniqueSkills(my_data: dict, data: dict):
             my_data["Kit"]["Unique"][strCounter] = {}
             skillPointer = my_data["Kit"]["Unique"][strCounter]
         #my_data["Kit"]["Unique"][strCounter] = {}
-        skillPointer["Name"] = skill["Name"] #na.abbreviate_string(skill["Name"]) #my_data["Kit"]["Unique"][strCounter] 
-        skillPointer[desc] = skill[desc] #my_data["Kit"]["Unique"][strCounter]
+        skillPointer[c.NAME] = skill[c.NAME] #na.abbreviate_string(skill[c.NAME]) #my_data["Kit"]["Unique"][strCounter] 
+        skillPointer[c.DESC] = skill[c.DESC] #my_data["Kit"]["Unique"][strCounter]
         skillPointer["Tag"] = skill["Tag"] #my_data["Kit"]["Unique"][strCounter]
         counter += 1
 
@@ -298,15 +295,15 @@ def mainskills(my_data : dict, data : dict, summonSkillNum : str = None):
         else: skillAlreadyParsed = False
 
         level1_params, levelmax_params, whale_params = get_min_max_params(skill, skillAlreadyParsed)
-        skill_description : str = skill[desc]
+        skill_description : str = skill[c.DESC]
 
         if skill_description != None:
             new_desc = add_params_to_desc(skill_description, level1_params, levelmax_params, whale_params)
         else:
             new_desc = create_parameter_tuple_without_desc(level1_params, levelmax_params, whale_params)
 
-        my_data["Kit"][skill_type]["Name"] = skill["Name"] #na.abbreviate_string(skill["Name"])
-        my_data["Kit"][skill_type][desc] = new_desc #na.abbreviate_quoted_text(new_desc)
+        my_data["Kit"][skill_type][c.NAME] = skill[c.NAME] #na.abbreviate_string(skill[c.NAME])
+        my_data["Kit"][skill_type][c.DESC] = new_desc #na.abbreviate_quoted_text(new_desc)
         my_data["Kit"][skill_type]["Tag"] = skill["Tag"]
         energy = skill["SPBase"]
         if energy != None:
@@ -326,16 +323,16 @@ def eidolons(character_dict : dict, json_dict : dict):
     for num in raw_eidolons:
         eidolon = raw_eidolons[num]
         e_num = eidolon["Id"] % 10
-        description : str = eidolon[desc]
-        parameters = eidolon[paramlist]
+        description : str = eidolon[c.DESC]
+        parameters = eidolon[c.PARAMLIST]
         if parameters == []:
             eidolon_dict : dict = {
-                desc: description.replace("\\n", " ").replace("<color=#f29e38ff>","").replace("</color>","").replace("<u>","").replace("</u>","").replace("<unbreak>", "</unbreak>").replace("</unbreak>", "")
+                c.DESC: description.replace("\\n", " ").replace("<color=#f29e38ff>","").replace("</color>","").replace("<u>","").replace("</u>","").replace("<unbreak>", "</unbreak>").replace("</unbreak>", "")
             }
         else:
             parse_params(description, parameters)
             new_desc = add_params_to_desc(description, parameters)
             eidolon_dict : dict = {
-                desc: new_desc #na.abbreviate_quoted_text(new_desc)
+                c.DESC: new_desc #na.abbreviate_quoted_text(new_desc)
             }
         character_dict["Eidolons"][str(e_num)] = eidolon_dict
