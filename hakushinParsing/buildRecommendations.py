@@ -49,26 +49,6 @@ def getRelicSetNames(arr: list[str]):
         else: relicNames.append(set)
     return relicNames
 
-'''
-def updateListsForManualInputs(page : str, items: List[str]):
-	pageName = f"__{page}.json"
-	old_list: dict = json.loads(read_from_file(c.formatListLocation(pageName)))
-	differences = {id for id in items if id not in old_list}
-	if differences != {}:
-		getAll(page, True)
-		manualUpdatesFileName = c.formatListLocation(f"__manualUpdates.txt")
-		try:
-			with open(manualUpdatesFileName, 'a+', encoding="UTF-8") as file:
-				file.seek(0)
-				tempList: List[str] = []
-				while line := file.readline():
-					tempList.append(line.strip())
-				for diff in differences:
-					if diff not in tempList: 
-						file.write(f"{diff}\n")
-		except: pass
-'''
-
 def translateStatNames(arr: list[str]):
     result : list[str] = []
     for stat in arr:
@@ -79,68 +59,3 @@ def translateStatNames(arr: list[str]):
                 if keyStr in stat:
                     result.append(stat.replace(keyStr, partialReplacements[key]))
     return result
-        
-
-'''
-    "Relics": 
-    {
-        "PropertyList3": [ #Body
-            "CriticalDamageBase"
-        ],
-        "PropertyList4": [ #Boots
-            "SpeedDelta",
-            "HPAddedRatio"
-        ],
-        "PropertyList5": [ #Sphere
-            "IceAddedRatio"
-        ],
-        "PropertyList6": [ #Rope
-            "SPRatioBase",
-            "HPAddedRatio"
-        ],
-        "SubAffixPropertyList": [ #make Dict for these
-            "CriticalChanceBase",
-            "CriticalDamageBase",
-            "HPAddedRatio",
-            "SpeedDelta"
-        ]
-    }
-'''
-
-'''
-    "Relics": 
-    {
-        "Set4IDList": [
-            108,
-            122,
-            102
-        ],
-        "Set2IDList": [
-            309,
-            301,
-            306
-        ],
-        "PropertyList3": [
-            "CriticalChanceBase",
-            "CriticalDamageBase"
-        ],
-        "PropertyList4": [
-            "AttackAddedRatio",
-            "SpeedDelta"
-        ],
-        "PropertyList5": [
-            "QuantumAddedRatio",
-            "AttackAddedRatio"
-        ],
-        "PropertyList6": [
-            "AttackAddedRatio",
-            "SPRatioBase"
-        ],
-        "SubAffixPropertyList": [ #make Dict for these
-            "CriticalChanceBase",
-            "CriticalDamageBase",
-            "AttackAddedRatio",
-            "SpeedDelta"
-        ]
-    }
-'''
