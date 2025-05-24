@@ -176,7 +176,7 @@ def skilltreesAndMaterials(character : dict, response : dict):
 
     #add to character object
     character[c.MINOR_TRACES] = minorTracesNeater
-    character[c.TRACES] = rootTracesOnly
+    character[c.TRACE_TREE] = rootTracesOnly
     character[c.MATERIALS] = materialsList
 
 def formatNumber(num): #possibly remove?
