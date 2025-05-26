@@ -210,7 +210,10 @@ def main(args: List[str]):
         elif len(arg) == 5: func = lightcone
         valid, result = func(arg) # type: ignore
         if valid: manualChecks.append(arg)
-        outputs.append(result)
+        if "\n" in result:
+            outputs.extend(result.split("\n"))
+        else:
+            outputs.append(result)
      compareListsToManualInput(manualChecks)
      return outputs
 
