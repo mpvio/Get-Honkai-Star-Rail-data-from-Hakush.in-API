@@ -146,7 +146,8 @@ def character(param):
         writeToFileResult = write_to_file(f"{param}", my_data)
         if param in blackList:
             blackListResult = blackListedItem(param, my_data)
-            return True, blackListResult
+            writeToFileResult += "\n" + blackListResult
+            #return True, blackListResult
         return True, writeToFileResult
     else: 
         output = f"Character {param} not found."
