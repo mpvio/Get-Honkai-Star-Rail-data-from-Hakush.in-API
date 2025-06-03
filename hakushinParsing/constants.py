@@ -18,7 +18,7 @@ PARAMLIST = "ParamList"
 REQUIRES = "Requires"
 
 def formatListLocation(location: str):
-    return f"checkNewPages/{location}"
+    return f"__lists/{location}"
 
 def formatDataLocation(fileName: str):
     return f"_results/{fileName}"
