@@ -1,8 +1,0 @@
-{
-    "values_changed": {
-        "root['Stats']['Path']": {
-            "new_value": "Remembrance",
-            "old_value": "Rememce"
-        }
-    }
-}

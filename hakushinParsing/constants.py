@@ -21,7 +21,7 @@ def formatListLocation(location: str):
     return f"checkNewPages/{location}"
 
 def formatDataLocation(fileName: str):
-    return f"results/{fileName}"
+    return f"_results/{fileName}"
 
 def formatChangesLocation(fileName: str):
-    return f"changes/{fileName}"
+    return f"_changes/{fileName}"
