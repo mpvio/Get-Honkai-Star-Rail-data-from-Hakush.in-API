@@ -11,7 +11,9 @@ mainStat : dict = {
 }
 partialReplacements : dict = {
     "Delta": "",
-    "AddedRatio": "%"
+    "AddedRatio": "%",
+    "Thunder": "Lightning",
+    "StatusProbabilityBase": "Effect Hit Rate"
 }
 
 recommendedStr = "Recommended "
@@ -57,5 +59,6 @@ def translateStatNames(arr: list[str]):
             for key in partialReplacements.keys():
                 keyStr = str(key)
                 if keyStr in stat:
-                    result.append(stat.replace(keyStr, partialReplacements[key]))
+                    stat = stat.replace(keyStr, partialReplacements[key])
+            result.append(stat)
     return result
