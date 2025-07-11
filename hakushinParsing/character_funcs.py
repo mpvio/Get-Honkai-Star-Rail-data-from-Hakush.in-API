@@ -206,8 +206,8 @@ def parse_memosprite(data: dict):
     memosprite["BonusSpeed"] = parse_memosprite_value(data[c.MEMOSPRITE]["SpeedInherit"], l1_params, l6_params, l7_params)+"%"
     memosprite["Aggro"] = data[c.MEMOSPRITE]["Aggro"]
     memosprite["Kit"] = {}
-    mainskills(memosprite, data[c.MEMOSPRITE])
-    return memosprite, summoner_talent_id
+    extras = mainskills(memosprite, data[c.MEMOSPRITE])
+    return memosprite, summoner_talent_id, extras
 
 def parse_memosprite_value(value: str, l1_params: List[float], max_params: List[float], whale_params: List[float] = None):
     if '#' in value:
@@ -259,9 +259,11 @@ def get_min_max_params(skill: dict, alreadyParsed: bool = False):
 
     return level1_params, levelmax_params, whale_params
   
-def uniqueSkills(my_data: dict, data: dict):
+def uniqueSkills(my_data: dict, data: dict) -> dict:
     uniqueSkills = data["Unique"]
-    if uniqueSkills == {}: return
+    extrasDict : dict = {}
+    if uniqueSkills == {}: 
+        return extrasDict
     counter = 1
     my_data["Kit"]["Unique"] = {}
     for skillnum in uniqueSkills:
@@ -276,12 +278,19 @@ def uniqueSkills(my_data: dict, data: dict):
         skillPointer[c.NAME] = skill[c.NAME] #na.abbreviate_string(skill[c.NAME]) #my_data["Kit"]["Unique"][strCounter] 
         skillPointer[c.DESC] = skill[c.DESC] #my_data["Kit"]["Unique"][strCounter]
         skillPointer["Tag"] = skill["Tag"] #my_data["Kit"]["Unique"][strCounter]
+        #handle extras (i.e. explanations of tags)
+        extras = skill[c.EXTRA]
+        for e in extras:
+            extra = extras[e]
+            extrasDict[extra[c.NAME]] = extra[c.DESC]
         counter += 1
+    return extrasDict
 
-def mainskills(my_data : dict, data : dict, summonSkillNum : str = None):
+def mainskills(my_data : dict, data : dict, summonSkillNum : str = None) -> dict:
      skills = data["Skills"]
      #reset_skill_occurrences()
      skill_counts = Skill_Counter()
+     extrasDict : dict = {}
      for skillnum in skills:
         skill = skills[skillnum]
         skill_type = skill_names[skill["Type"]] if skill["Type"] in skill_names else skill["Type"]
@@ -296,6 +305,12 @@ def mainskills(my_data : dict, data : dict, summonSkillNum : str = None):
 
         level1_params, levelmax_params, whale_params = get_min_max_params(skill, skillAlreadyParsed)
         skill_description : str = skill[c.DESC]
+
+        #handle extras (i.e. explanations of tags)
+        extras = skill[c.EXTRA]
+        for e in extras:
+            extra = extras[e]
+            extrasDict[extra[c.NAME]] = extra[c.DESC]
 
         if skill_description != None:
             new_desc = add_params_to_desc(skill_description, level1_params, levelmax_params, whale_params)
@@ -316,15 +331,22 @@ def mainskills(my_data : dict, data : dict, summonSkillNum : str = None):
         if weakness_break_types != [0,0,0]:
             my_data["Kit"][skill_type]["Weakness Break"] = parse_weakness_breaks(weakness_break_types) #single target, aoe, blast
      my_data["Kit"] = reorder_base_kit(my_data["Kit"])
+     return extrasDict
 
-def eidolons(character_dict : dict, json_dict : dict):
+def eidolons(character_dict : dict, json_dict : dict) -> set:
     raw_eidolons = json_dict["Ranks"]
     character_dict["Eidolons"] = {}
+    extrasDict : dict = {}
     for num in raw_eidolons:
         eidolon = raw_eidolons[num]
         e_num = eidolon["Id"] % 10
         description : str = eidolon[c.DESC]
         parameters = eidolon[c.PARAMLIST]
+        extras = eidolon[c.EXTRA]
+        #handle extras (i.e. explanations of tags)
+        for e in extras:
+            extra = extras[e]
+            extrasDict[extra[c.NAME]] = extra[c.DESC]
         if parameters == []:
             eidolon_dict : dict = {
                 c.DESC: description.replace("\\n", " ").replace("<color=#f29e38ff>","").replace("</color>","").replace("<u>","").replace("</u>","").replace("<unbreak>", "</unbreak>").replace("</unbreak>", "")
@@ -336,3 +358,4 @@ def eidolons(character_dict : dict, json_dict : dict):
                 c.DESC: new_desc #na.abbreviate_quoted_text(new_desc)
             }
         character_dict["Eidolons"][str(e_num)] = eidolon_dict
+    return extrasDict

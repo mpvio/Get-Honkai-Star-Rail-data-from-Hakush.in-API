@@ -16,6 +16,7 @@ RELICS = "Relics"
 UNLOCKS = "Unlocks"
 PARAMLIST = "ParamList"
 REQUIRES = "Requires"
+EXTRA = "Extra"
 
 def formatListLocation(location: str):
     return f"_all_lists/{location}"

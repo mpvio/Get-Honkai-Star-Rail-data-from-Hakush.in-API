@@ -32,6 +32,9 @@ element_map : defaultdict = {
 
 blackList : list[str] = []
 
+v1TempList : list[str] = ["1410", "1412", "22005", "23047", "23048"]
+version = "3.4.51"
+
 def get_shortlist():
     return readList("shortlist")
 
@@ -41,6 +44,7 @@ def set_blackList():
 
 def relic(param):
     req_string = f"https://api.hakush.in/hsr/data/en/relicset/{param}.json"
+    #if param in v1TempList: req_string = f"https://api.hakush.in/hsr/{version}/en/relicset/{param}.json"
     response = requests.get(req_string)
     
     if response.status_code == 200:
@@ -68,6 +72,7 @@ def relic(param):
 
 def lightcone(param):
     req_string = f"https://api.hakush.in/hsr/data/en/lightcone/{param}.json"
+    #if param in v1TempList: req_string = f"https://api.hakush.in/hsr/{version}/en/lightcone/{param}.json"
     response = requests.get(req_string)
 
     if response.status_code == 200:
@@ -110,11 +115,13 @@ def lightcone(param):
 
 def character(param):
     req_string = f"https://api.hakush.in/hsr/data/en/character/{param}.json"
+    #if param in v1TempList: req_string = f"https://api.hakush.in/hsr/{version}/en/character/{param}.json"
     response = requests.get(req_string)
 
     if response.status_code == 200:
         data = response.json()
         my_data = {}
+        extras : dict = {}
 
         my_data[c.NAME] = "Trailblazer" if data[c.NAME] == "{NICKNAME}" else data[c.NAME]
         get_stats(my_data, data, True)
@@ -128,13 +135,15 @@ def character(param):
                 data[key] = latestEnh[key]
 
         if data[c.MEMOSPRITE] != {}:
-            my_data[c.MEMOSPRITE], summoner_talent_id = cf.parse_memosprite(data)
+            my_data[c.MEMOSPRITE], summoner_talent_id, memoExtras = cf.parse_memosprite(data)
+            extras.update(memoExtras)
 
-        cf.mainskills(my_data, data, str(summoner_talent_id))
-        cf.uniqueSkills(my_data, data)
+        extras.update(cf.mainskills(my_data, data, str(summoner_talent_id)))
+        extras.update(cf.uniqueSkills(my_data, data))
         cf.skilltreesAndMaterials(my_data, data)
-        cf.eidolons(my_data, data)
+        extras.update(cf.eidolons(my_data, data))
 
+        my_data["Terms"] = extras
         my_data[c.RELICS] = br.getBuildRecommendations(data[c.RELICS])
 
         my_data[c.STATS][c.RARITY] = 5 if data[c.RARITY] == "CombatPowerAvatarRarityType5" else 4
