@@ -2,7 +2,7 @@ from collections import defaultdict
 import traceback
 from typing import List
 
-from fileIO.extra_classes_and_funcs import Skill_Counter, get_material_names
+from fileIO.extra_classes_and_funcs import Skill_Counter, get_material_names, noUnbreakDesc
 from . import constants as c
 
 skill_names = {
@@ -282,7 +282,7 @@ def uniqueSkills(my_data: dict, data: dict) -> dict:
         extras = skill[c.EXTRA]
         for e in extras:
             extra = extras[e]
-            extrasDict[extra[c.NAME]] = extra[c.DESC]
+            extrasDict[extra[c.NAME]] = noUnbreakDesc(extra[c.DESC])
         counter += 1
     return extrasDict
 
@@ -310,7 +310,7 @@ def mainskills(my_data : dict, data : dict, summonSkillNum : str = None) -> dict
         extras = skill[c.EXTRA]
         for e in extras:
             extra = extras[e]
-            extrasDict[extra[c.NAME]] = extra[c.DESC]
+            extrasDict[extra[c.NAME]] = noUnbreakDesc(extra[c.DESC])
 
         if skill_description != None:
             new_desc = add_params_to_desc(skill_description, level1_params, levelmax_params, whale_params)
@@ -346,10 +346,10 @@ def eidolons(character_dict : dict, json_dict : dict) -> set:
         #handle extras (i.e. explanations of tags)
         for e in extras:
             extra = extras[e]
-            extrasDict[extra[c.NAME]] = extra[c.DESC]
+            extrasDict[extra[c.NAME]] = noUnbreakDesc(extra[c.DESC])
         if parameters == []:
             eidolon_dict : dict = {
-                c.DESC: description.replace("\\n", " ").replace("<color=#f29e38ff>","").replace("</color>","").replace("<u>","").replace("</u>","").replace("<unbreak>", "</unbreak>").replace("</unbreak>", "")
+                c.DESC: noUnbreakDesc(description)
             }
         else:
             parse_params(description, parameters)

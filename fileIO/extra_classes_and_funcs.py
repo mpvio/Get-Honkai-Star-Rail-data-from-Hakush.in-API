@@ -3,6 +3,7 @@ import requests
 from deepdiff import DeepDiff
 from datetime import datetime
 from hakushinParsing import constants as c
+import re
     
 class Skill_Counter(dict):
     def __init__(self):
@@ -93,5 +94,29 @@ def deepdiff_converter(diffs : dict):
         if field in diffs:
             diffs[field] = list(diffs[field])
 
-def manual_add_to_list():
-    pass
+pattern: re.Pattern[str] = re.compile(
+    r'(<unbreak>)|(\\n)|(<u>|<color=[^>]+>|<\/color>)|(</u>)|(")'
+)
+
+def replacer(match: re.Match[str]) -> str:
+    """Handles replacements with combined <u> and color tags."""
+    if match.group(1):  # <unbreak> → </unbreak>
+        return '</unbreak>'
+    elif match.group(2):  # \n → space
+        return ' '
+    elif match.group(3):  # <u> OR color tags → empty
+        return ''
+    elif match.group(4):  # </u> → *
+        return '*'
+    elif match.group(5):  # " → '
+        return "'"
+    return match.group(0)
+
+def neatenDesc(desc : str) -> str:
+    return pattern.sub(replacer, desc)
+
+def noUnbreakDesc(desc : str) -> str:
+    return neatenDesc(desc).replace('</unbreak>', '')
+
+def splitDesc(desc : str) -> list[str]:
+    return neatenDesc(desc).split('</unbreak>')
