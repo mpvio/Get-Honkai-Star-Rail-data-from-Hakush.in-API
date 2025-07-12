@@ -4,6 +4,7 @@ from deepdiff import DeepDiff
 from datetime import datetime
 from hakushinParsing import constants as c
 import re
+import os
     
 class Skill_Counter(dict):
     def __init__(self):
@@ -76,8 +77,10 @@ def write_to_file(item_id: str, dictionary, blackListed = False):
         else:
             deepdiff_converter(difference)
             date = datetime.today().strftime('%y-%m-%d')
-            diffName = f"{fileName}_{date}.json"
-            diff_title = c.formatChangesLocation(diffName)
+            diffName = f"{fileName}_{date}"
+            diff_title = changesFileName(diffName)
+            # diffName = f"{fileName}_{date}.json"
+            # diff_title = c.formatChangesLocation(diffName)
             with open(diff_title, "w+", encoding="utf8") as diff_file:
                 json.dump(difference, diff_file, indent=4, ensure_ascii=False)
             output = f"{fileName} updated and {diffName} created."
@@ -87,6 +90,18 @@ def write_to_file(item_id: str, dictionary, blackListed = False):
     #TODO: check size of item_id and check appropriate list of entities to add if needed.
     ##cj.manual_add_id(item_id)
     return output
+
+def changesFileName(filename: str):
+    ext = ".json"
+    title = c.formatChangesLocation(filename)
+    counter = 1
+    path = title+ext
+
+    while os.path.exists(path):
+        path = title+" ("+str(counter)+")"+ext
+        counter += 1
+    
+    return path
 
 def deepdiff_converter(diffs : dict):
     fields_to_check = ['dictionary_item_added', 'dictionary_item_removed', 'type_changes'] #, 'values_changed'
