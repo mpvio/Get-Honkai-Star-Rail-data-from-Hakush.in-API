@@ -79,8 +79,6 @@ def write_to_file(item_id: str, dictionary, blackListed = False):
             date = datetime.today().strftime('%y-%m-%d')
             diffName = f"{fileName}_{date}"
             diff_title = changesFileName(diffName)
-            # diffName = f"{fileName}_{date}.json"
-            # diff_title = c.formatChangesLocation(diffName)
             with open(diff_title, "w+", encoding="utf8") as diff_file:
                 json.dump(difference, diff_file, indent=4, ensure_ascii=False)
             output = f"{fileName} updated and {diffName} created."
