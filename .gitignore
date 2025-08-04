@@ -3,3 +3,5 @@ _changes/
 _all_lists/
 old results/
 */__pycache__
+difflibPractice.py
+fileIO/__pycache__/*.pyc
