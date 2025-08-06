@@ -5,3 +5,4 @@ old results/
 */__pycache__
 difflibPractice.py
 fileIO/__pycache__/*.pyc
+__debug*.exe

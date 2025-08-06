@@ -168,9 +168,11 @@ def character(param, passedInRelics: dict = None, golang: bool = False):
             my_data[c.MEMOSPRITE], summoner_talent_id, memoExtras = cf.parse_memosprite(data)
             extras.update(memoExtras)
 
+        # add main + unique skills, traces, materials & eidolons to myData
+        # while also collecting terminology
         extras.update(cf.mainskills(my_data, data, str(summoner_talent_id)))
         extras.update(cf.uniqueSkills(my_data, data))
-        cf.skilltreesAndMaterials(my_data, data)
+        extras.update(cf.skilltreesAndMaterials(my_data, data))
         extras.update(cf.eidolons(my_data, data))
 
         my_data["Terms"] = extras
