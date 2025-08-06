@@ -91,8 +91,9 @@ def getTagFromID(itemID: str):
         case 5: return "lightcone/"
         case _: return ""
 
-def write_to_file(item_id: str, dictionary, blackListed = False):
+def write_to_file(item_id: str, dictionary, blackListed = False, simplified = False):
     name = item_id if blackListed else dictionary["Name"]
+    if simplified: name += " (Simple)"
     prefix = getTagFromID(item_id)
     fileName = prefix + name
     title = c.formatDataLocation(fileName + ".json")
@@ -112,6 +113,7 @@ def write_to_file(item_id: str, dictionary, blackListed = False):
             diffName = f"{fileName} {date}"
             diff_title = changesFileName(diffName)
             diff_file_name = diff_title.split("/")[-1].strip(".json")
+            print(diff_file_name)
             with open(diff_title, "w+", encoding="utf8") as diff_file:
                 json.dump(difference, diff_file, indent=4, ensure_ascii=False)
             output = f"{name} updated and {diff_file_name} created."

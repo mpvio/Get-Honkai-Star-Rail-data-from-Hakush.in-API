@@ -186,9 +186,11 @@ def character(param, passedInRelics: dict = None, golang: bool = False):
 
         blackListResult : str = None
         if golang: return my_data
-        writeToFileResult = write_to_file(f"{param}", my_data)
-        if param in blackList:
+        blacklisted = param in blackList
+        writeToFileResult = write_to_file(f"{param}", my_data, blackListed=blacklisted)
+        if blacklisted:
             blackListResult = blackListedItem(param, my_data)
+            writeToFileResult = writeToFileResult.replace(my_data[c.NAME], f"X{param}")
             writeToFileResult += "\n" + blackListResult
             #return True, blackListResult
         return True, writeToFileResult
@@ -200,7 +202,7 @@ def character(param, passedInRelics: dict = None, golang: bool = False):
 def blackListedItem(param: str, data: dict):
     #if len(param) == 4: 
     abridgedData : dict = {}
-    abridgedData[c.NAME] = data[c.NAME]
+    # abridgedData[c.NAME] = data[c.NAME]
     abridgedData[c.STATS] = data[c.STATS]
     if c.MEMOSPRITE in data: abridgedData[c.MEMOSPRITE] = True
     abridgedData[c.MATERIALS] = data[c.MATERIALS]
@@ -208,7 +210,7 @@ def blackListedItem(param: str, data: dict):
     #TODO: convert Traces to tree with Major traces hidden.
     abridgedData[c.TRACE_TREE] = removeMajorTraceNames(data[c.TRACE_TREE])
     abridgedData[c.RELICS] = data[c.RELICS]
-    return write_to_file(f"{param}", abridgedData, True)
+    return write_to_file(f"{param}", abridgedData, blackListed=True, simplified=True)
 
 def removeMajorTraceNames(traces : dict):
     for trace in traces:
