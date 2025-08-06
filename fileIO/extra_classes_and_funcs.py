@@ -111,11 +111,11 @@ def deepdiff_converter(diffs : dict):
             diffs[field] = list(diffs[field])
 
 pattern: re.Pattern[str] = re.compile(
-    r'(<unbreak>)|(\\n)|(<u>|<color=[^>]+>|<\/color>)|(</u>)|(")'
+    r'(<unbreak>)|(\\n)|(<u>|<color=[^>]+>|<\/color>)|(</u>)|(")|(–)'  # Added (–) as group 6
 )
 
 def replacer(match: re.Match[str]) -> str:
-    """Handles replacements with combined <u> and color tags."""
+    """Handles replacements with combined <u> and color tags, and dash conversion."""
     if match.group(1):  # <unbreak> → </unbreak>
         return '</unbreak>'
     elif match.group(2):  # \n → space
@@ -126,6 +126,8 @@ def replacer(match: re.Match[str]) -> str:
         return '*'
     elif match.group(5):  # " → '
         return "'"
+    elif match.group(6):  # – → -
+        return "-"
     return match.group(0)
 
 def neatenDesc(desc : str) -> str:
