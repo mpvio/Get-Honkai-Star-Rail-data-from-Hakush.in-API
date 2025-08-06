@@ -213,7 +213,10 @@ def parse_memosprite(data: dict):
     #data_memosprite = data[c.MEMOSPRITE]
     memosprite: dict = {}
     memosprite[c.NAME] = data[c.MEMOSPRITE][c.NAME] #na.abbreviate_string(data[c.MEMOSPRITE][c.NAME])
-    summoner_talent_id = data[c.MEMOSPRITE]["HPSkill"]
+    if "AvatarVOTag" in data and data["AvatarVOTag"] == "playergirl4":
+        summoner_talent_id = 800804 # female TB's Mem uses male TB's tag
+    else:
+        summoner_talent_id = data[c.MEMOSPRITE]["HPSkill"]
     if summoner_talent_id == None: summoner_talent_id = data[c.MEMOSPRITE]["SpeedSkill"]
     talent : dict = data["Skills"][str(summoner_talent_id)]
     l1_params, l6_params, l7_params = get_min_max_params(talent) #e.g. [60, 10]
