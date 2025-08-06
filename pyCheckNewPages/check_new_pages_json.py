@@ -2,28 +2,21 @@
 import json
 import sys
 from typing import List
-import requests
-from fileIO.extra_classes_and_funcs import read_from_file
-from hakushinParsing import hakushin_json_fetcher as hf, constants as c
+from pyFileIO.extra_classes_and_funcs import read_from_file, getAllItems
+from pyHakushinParsing import hakushin_json_fetcher as hf, constants as c
 import bisect
 
 character = "character"
 lightcone = "lightcone"
 relicset = "relicset"
 
-
 def getAll(type : str, via_ui = False):
-	req_string = f"https://api.hakush.in/hsr/data/{type}.json"
-	response = requests.get(req_string)
-	if response.status_code == 200:
-		data : dict = response.json()
-		items: dict = {}
-		for key in data:
-			charName = data[key]['en']
-			items[key] = "Trailblazer" if charName == "{NICKNAME}" else charName
-		return compare_lists(type, items, via_ui)
-	else:
-		return {}
+	data: dict = getAllItems(type)
+	items: dict = {}
+	for key in data:
+		charName = data[key]['en']
+		items[key] = "Trailblazer" if charName == "{NICKNAME}" else charName
+	return compare_lists(type, items, via_ui)
 	
 def compareOneItem(page: str, items: dict):
 	pageName = f"__{page}.json"

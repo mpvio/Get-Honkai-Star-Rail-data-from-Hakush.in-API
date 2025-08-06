@@ -1,6 +1,6 @@
 import tkinter as tk
-from hakushinParsing import hakushin_json_fetcher as hf
-from checkNewPages import selector
+from pyHakushinParsing import hakushin_json_fetcher as hf
+from pyCheckNewPages import selector
 #global param
 button_width = 11
 submit = "Submit"

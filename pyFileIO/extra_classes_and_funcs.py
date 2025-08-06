@@ -2,7 +2,7 @@ import json
 import requests
 from deepdiff import DeepDiff
 from datetime import datetime
-from hakushinParsing import constants as c
+from pyHakushinParsing import constants as c
 import re
 import os
 import difflib
@@ -29,6 +29,35 @@ def set_items_dict():
     global items_dict, weeklyBossMats
     if items_dict == {}: items_dict = requests.get("https://api.hakush.in/hsr/data/en/item.json").json()
     weeklyBossMats = list(map(str, [x for x in range(c.FIRST_WEEKLY_BOSS, c.FIRST_WEEKLY_BOSS + c.WEEKLY_BOSSES)])) 
+
+def getAllItems(type: str) -> dict:
+	req_string = f"https://api.hakush.in/hsr/data/{type}.json"
+	response = requests.get(req_string)
+	if response.status_code == 200:
+		data: dict = response.json()
+		if type == c.CHARACTER:
+			customCharNames(data)
+		return data
+	else: return {}
+
+def customCharNames(names: dict):
+    for key in names:
+        name: str = convertCharToBetterName(key)
+        if name != None: names[key]['en'] = name
+
+def convertCharToBetterName(id: str) -> str:
+    march7th: dict = {
+		"1001": "March 7th (Ice, Preservation)",
+		"1224": "March 7th (Imaginary, Hunt)"
+    }
+    if id in march7th:
+        return march7th[id]
+    num = int(id)
+    if num > 8000:
+        gender = "F" if num%2==0 else "M" # F if even, M if not
+        element = "Des" if num < 8003 else "Pre" if num < 8005 else "Har" if num < 8007 else "Rem" if num < 8009 else "NEW"
+        return f"Trailblazer {element} ({gender})"
+    return None
 
 def get_material_names(materials : set):
      set_items_dict()

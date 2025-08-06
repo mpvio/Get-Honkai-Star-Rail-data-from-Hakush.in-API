@@ -1,6 +1,6 @@
 import json
 from . import constants as c
-from fileIO.extra_classes_and_funcs import read_from_file
+from pyFileIO.extra_classes_and_funcs import read_from_file
 
 relicsets : dict = {}
 
@@ -20,9 +20,12 @@ recommendedStr = "Recommended "
 relicSetStr = " Relic Set(s)"
 mainStatStr = " Main Stat(s)"
 
-def getBuildRecommendations(data : dict):
+def getBuildRecommendations(data : dict, relics: dict = None):
+    global relicsets
+    # should only be called once: set relicsets to full relics json and get names from there
+    if relics != None and relicsets == {}: relicsets = relics
     cavern = getRelicSetNames(data["Set4IDList"])
-    planar = getRelicSetNames(data["Set2IDList"]) #search relicset.json for names
+    planar = getRelicSetNames(data["Set2IDList"]) #search relicsets for names
     # replace "AddedRatio" and remove "Delta", then use Dict for other values
     body = translateStatNames(data["PropertyList3"])
     feet = translateStatNames(data["PropertyList4"])
@@ -41,13 +44,10 @@ def getBuildRecommendations(data : dict):
     return recommendations
 
 def getRelicSetNames(arr: list[str]):
-    global relicsets
-    if relicsets == {}:
-        relicsets = json.loads(read_from_file(c.formatListLocation("__relicset.json")))
     relicNames : list[str] = []
     for set in arr:
         setStr = str(set)
-        if setStr in relicsets: relicNames.append(relicsets[setStr])
+        if setStr in relicsets: relicNames.append(relicsets[setStr]['en'])
         else: relicNames.append(set)
     return relicNames
 

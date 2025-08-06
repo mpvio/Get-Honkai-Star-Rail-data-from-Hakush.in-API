@@ -1,6 +1,11 @@
 WEEKLY_BOSSES = 7
 FIRST_WEEKLY_BOSS = 110501
 
+#types of items
+CHARACTER = "character"
+LIGHTCONE = "lightcone"
+RELICSET = "relicset"
+
 #dict keys:
 NAME = "Name"
 RARITY = "Rarity"

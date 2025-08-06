@@ -3,10 +3,10 @@ from collections import defaultdict
 import sys
 from typing import List
 import requests
-from hakushinParsing import character_funcs as cf
-from hakushinParsing import buildRecommendations as br
-from checkNewPages import readList, compareListsToManualInput
-from fileIO.extra_classes_and_funcs import get_material_names, write_to_file
+from pyHakushinParsing import character_funcs as cf
+from pyHakushinParsing import buildRecommendations as br
+from pyCheckNewPages import readList, compareListsToManualInput
+from pyFileIO.extra_classes_and_funcs import get_material_names, neatenDesc, write_to_file, getAllItems, convertCharToBetterName
 from . import constants as c
 
 path_map : defaultdict = {
@@ -30,6 +30,8 @@ element_map : defaultdict = {
     "Physical": "Physical"
 }
 
+relicEffects : dict = None
+
 blackList : list[str] = []
 
 v1TempList : list[str] = ["1410", "1412", "22005", "23047", "23048"]
@@ -42,7 +44,26 @@ def set_blackList():
     global blackList
     blackList = readList("blacklist")
 
-def relic(param):
+def relic(param, passedInRelics: dict = None, golang: bool = False):
+    relicsToUse = passedInRelics if passedInRelics != None else relicEffects
+    if relicsToUse != None and param in relicsToUse:
+        # use relicEffects if possible
+        data: dict = relicsToUse[param]
+        my_data = {}
+
+        my_data[c.NAME] = data['en']
+        my_data["Relic Effect/s"] = {}
+        effects: dict = data["set"]
+        for setBonus in effects:
+            effect: dict = effects[setBonus]
+            oldDesc = effect['en']
+            params = cf.parse_params(oldDesc, effect[c.PARAMLIST])
+            newDesc = cf.add_params_to_desc(oldDesc, params)
+            my_data["Relic Effect/s"][setBonus] = newDesc
+        if golang: return my_data
+        return True, write_to_file(f"{param}", my_data)
+
+    # call the specific relic file otherwise
     req_string = f"https://api.hakush.in/hsr/data/en/relicset/{param}.json"
     #if param in v1TempList: req_string = f"https://api.hakush.in/hsr/{version}/en/relicset/{param}.json"
     response = requests.get(req_string)
@@ -70,7 +91,7 @@ def relic(param):
         #print(output)
         return False, output
 
-def lightcone(param):
+def lightcone(param, golang: bool = False):
     req_string = f"https://api.hakush.in/hsr/data/en/lightcone/{param}.json"
     #if param in v1TempList: req_string = f"https://api.hakush.in/hsr/{version}/en/lightcone/{param}.json"
     response = requests.get(req_string)
@@ -107,13 +128,14 @@ def lightcone(param):
                 material_set.add(material["ItemID"])
         my_data[c.MATERIALS] = get_material_names(material_set)
         
+        if golang: return my_data
         return True, write_to_file(f"{param}", my_data)
     else: 
         output = f"Light Cone {param} not found."
         #print(output)
         return False, output
 
-def character(param):
+def character(param, passedInRelics: dict = None, golang: bool = False):
     req_string = f"https://api.hakush.in/hsr/data/en/character/{param}.json"
     #if param in v1TempList: req_string = f"https://api.hakush.in/hsr/{version}/en/character/{param}.json"
     response = requests.get(req_string)
@@ -123,7 +145,8 @@ def character(param):
         my_data = {}
         extras : dict = {}
 
-        my_data[c.NAME] = "Trailblazer" if data[c.NAME] == "{NICKNAME}" else data[c.NAME]
+        better = convertCharToBetterName(param)
+        my_data[c.NAME] = better if better != None else data[c.NAME]
         get_stats(my_data, data, True)
         my_data["Kit"] = {}
         summoner_talent_id = None
@@ -133,6 +156,13 @@ def character(param):
             latestEnh : dict = enhancements.get(list(enhancements)[-1])
             for key in latestEnh.keys():
                 data[key] = latestEnh[key]
+            # get description of changes
+            enhancementDesc = []
+            descs: dict = data["Descs"]
+            for desc in descs:
+                enhancementDesc.append(neatenDesc(desc))
+            # add desc to main file
+            my_data["Enhanced"] = enhancementDesc
 
         if data[c.MEMOSPRITE] != {}:
             my_data[c.MEMOSPRITE], summoner_talent_id, memoExtras = cf.parse_memosprite(data)
@@ -144,7 +174,8 @@ def character(param):
         extras.update(cf.eidolons(my_data, data))
 
         my_data["Terms"] = extras
-        my_data[c.RELICS] = br.getBuildRecommendations(data[c.RELICS])
+        if passedInRelics != None: my_data[c.RELICS] = br.getBuildRecommendations(data[c.RELICS], passedInRelics)
+        else: my_data[c.RELICS] = br.getBuildRecommendations(data[c.RELICS], relicEffects)
 
         my_data[c.STATS][c.RARITY] = 5 if data[c.RARITY] == "CombatPowerAvatarRarityType5" else 4
         my_data[c.STATS]["Energy"] = data["SPNeed"]
@@ -152,6 +183,7 @@ def character(param):
         my_data[c.STATS]["Element"] = "Lightning" if data["DamageType"] == "Thunder" else data["DamageType"]
 
         blackListResult : str = None
+        if golang: return my_data
         writeToFileResult = write_to_file(f"{param}", my_data)
         if param in blackList:
             blackListResult = blackListedItem(param, my_data)
@@ -210,13 +242,21 @@ def main(args: List[str]):
      outputs : List[str] = []
      manualChecks : List[str] = []
      set_blackList()
+     # if a character or relic is called at least once, set this to true
+     needRelics = False
      if len(args) < 1: 
           try: args = get_shortlist() #["1301"]  #["1304", "1305", "1308", "1309", "1310", "1314", "23025"] #
           except: args = ["8001", "1308", "1310"]
      for arg in args:
-        if len(arg) == 3: func = relic
-        elif len(arg) == 4: func = character
+        if len(arg) == 3: 
+            func = relic
+            needRelics = True
+        elif len(arg) == 4: 
+            func = character
+            needRelics = True
         elif len(arg) == 5: func = lightcone
+        # set up relics to call later (and check that it hasn't been called yet)
+        if needRelics and relicEffects == None: setupRelics()
         valid, result = func(arg) # type: ignore
         if valid: manualChecks.append(arg)
         if "\n" in result:
@@ -225,6 +265,14 @@ def main(args: List[str]):
             outputs.append(result)
      compareListsToManualInput(manualChecks)
      return outputs
+
+
+def setupRelics():
+    """Should only be called once."""
+    global relicEffects
+    # abort if relicEffects has already been set
+    if relicEffects != None: return # possibly redundant
+    relicEffects = getAllItems(c.RELICSET)
 
 if __name__ == "__main__":
     main(sys.argv[1:]) #first arg is always file name, so skip it
