@@ -86,33 +86,37 @@ def read_from_file(title):
 def getTagFromID(itemID: str):
     idLength = len(itemID)
     match idLength:
-        case 3: return "_R"
-        case 4: return "_C"
-        case 5: return "_L"
-        case _: return "_X"
+        case 3: return "relicset/"
+        case 4: return "character/"
+        case 5: return "lightcone/"
+        case _: return ""
 
-def write_to_file(item_id: str, dictionary, blackListed = False):
-    prefix = "_X" if blackListed else getTagFromID(item_id)
-    fileName = prefix + item_id + "_" + dictionary["Name"]
+def write_to_file(item_id: str, dictionary, blackListed = False, simplified = False):
+    name = item_id if blackListed else dictionary["Name"]
+    if simplified: name += " (Simple)"
+    prefix = getTagFromID(item_id)
+    fileName = prefix + name
     title = c.formatDataLocation(fileName + ".json")
     old_file = read_from_file(title)
     if old_file == '':
-        output = f"{fileName}.json created."
+        output = f"{name}.json created."
     else:
         old_as_json = json.loads(old_file)
         difference = DeepDiff(old_as_json, dictionary, ignore_type_in_groups=[dict]).to_dict() # type: ignore
         if difference == {}:
-            output = f"No changes for {fileName}."
+            output = f"No changes for {name}."
             return output
         else:
             deepdiff_converter(difference)
             difference = getBetterDiffFile(difference)
             date = datetime.today().strftime('%y-%m-%d')
-            diffName = f"{fileName}_{date}"
+            diffName = f"{fileName} {date}"
             diff_title = changesFileName(diffName)
+            diff_file_name = diff_title.split("/")[-1].strip(".json")
+            print(diff_file_name)
             with open(diff_title, "w+", encoding="utf8") as diff_file:
                 json.dump(difference, diff_file, indent=4, ensure_ascii=False)
-            output = f"{fileName} updated and {diffName} created."
+            output = f"{name} updated and {diff_file_name} created."
     new_file = open(title, "w+", encoding="utf8")
     json.dump(dictionary, new_file, indent=4, ensure_ascii=False) #print(json.dumps(dictionary, indent=4, ensure_ascii=False))
     new_file.close()

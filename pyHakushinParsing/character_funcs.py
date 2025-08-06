@@ -2,7 +2,7 @@ from collections import defaultdict
 import traceback
 from typing import List
 
-from pyFileIO.extra_classes_and_funcs import Skill_Counter, get_material_names, noUnbreakDesc
+from pyFileIO.extra_classes_and_funcs import Skill_Counter, get_material_names, noUnbreakDesc, neatenDesc
 from . import constants as c
 
 skill_names = {
@@ -93,11 +93,21 @@ def parse_params(desc : str, params : List[float], remembrance = False):
             print(param_num_percent_dict, params, position)
     return params
 
-def skilltreesAndMaterials(character : dict, response : dict):
+def handleExtras(extras: dict):
+    extrasDict : dict = {}
+    for e in extras:
+        extra : dict = extras[e]
+        extrasDict[extra[c.NAME]] = noUnbreakDesc(extra[c.DESC])
+    return extrasDict
+
+def skilltreesAndMaterials(character : dict, response : dict) -> dict:
     materials : set = set()
     skillsTemp: dict = {}
     rootTracesOnly : dict = {}
     minorTraceSummary = defaultdict(float)
+
+    # additional terms
+    extrasDict: dict = {}
 
     #level up materials
     for material in response[c.STATS]["5"]["Cost"]:
@@ -122,7 +132,12 @@ def skilltreesAndMaterials(character : dict, response : dict):
                 #major trace
                 name : str = currentSkill["PointName"]
                 traceNo : int = currentSkill["AvatarPromotionLimit"]
-                description: str = currentSkill["PointDesc"]
+                description: str = neatenDesc(currentSkill["PointDesc"])
+
+                # handle extras (term explanation)
+                extras : dict = handleExtras(currentSkill[c.EXTRA])
+                extrasDict.update(extras)
+                
                 params: list[float] = currentSkill[c.PARAMLIST]
                 if params != []:
                     formattedParams = parse_params(description, params)
@@ -178,6 +193,8 @@ def skilltreesAndMaterials(character : dict, response : dict):
     character[c.MINOR_TRACES] = minorTracesNeater
     character[c.TRACE_TREE] = rootTracesOnly
     character[c.MATERIALS] = materialsList
+
+    return extrasDict
 
 def formatNumber(num): #possibly remove?
   if num % 1 == 0:
