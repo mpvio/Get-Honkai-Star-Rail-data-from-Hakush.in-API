@@ -13,7 +13,8 @@ partialReplacements : dict = {
     "Delta": "",
     "AddedRatio": "%",
     "Thunder": "Lightning",
-    "StatusProbabilityBase": "Effect Hit Rate"
+    "StatusProbabilityBase": "Effect Hit Rate",
+    "StatusResistanceBase": "Effect RES"
 }
 
 recommendedStr = "Recommended "

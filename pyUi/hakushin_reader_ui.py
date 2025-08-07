@@ -117,6 +117,7 @@ def get_frame(window : tk.Tk, row=0):
     return new_frame
 
 #hakuj.py integration
+#hakuj = hakushin_json
 def set_up_hakuj_frame(window : tk.Tk):
     hakuj_frame = get_frame(window, 0)
 
@@ -138,6 +139,7 @@ def set_up_hakuj_frame(window : tk.Tk):
     return hakuj_frame, hakuj_entry
 
 #cnpj.py integration
+#cnpj = check_new_pages_json
 def set_up_cnpj_frame(window : tk.Tk, hakuj_entry : tk.Entry):
     global show_names
     cnpj_frame = get_frame(window, 1)

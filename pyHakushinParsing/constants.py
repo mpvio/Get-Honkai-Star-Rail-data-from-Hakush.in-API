@@ -6,6 +6,9 @@ CHARACTER = "character"
 LIGHTCONE = "lightcone"
 RELICSET = "relicset"
 
+# args of these lengths need relicset data
+NEEDRELICS = [4, 5]
+
 #dict keys:
 NAME = "Name"
 RARITY = "Rarity"
