@@ -241,11 +241,6 @@ def add_params_to_desc(desc: str, l1_params : List[int | float], max_params : Li
             if "[" in words[i]:
                 percent = "%" if "%" in words[i] else ""
                 words[i] = insert_numbers_into_place(words[i], l1_params, max_params, whale_params) + percent
-                # param_position = int(words[i].split("[")[0].split("#")[1])-1
-                # if max_params == None or l1_params[param_position] == max_params[param_position]:
-                #     words[i] = str(l1_params[param_position]) + percent
-                # else:
-                #     words[i] = f"[{l1_params[param_position]}|{max_params[param_position]}]{percent}"
         return "".join(words)
     except: 
         words = desc
@@ -300,9 +295,8 @@ def uniqueSkills(my_data: dict, data: dict) -> dict:
         skillPointer["Tag"] = skill["Tag"] #my_data["Kit"]["Unique"][strCounter]
         #handle extras (i.e. explanations of tags)
         extras = skill[c.EXTRA]
-        for e in extras:
-            extra = extras[e]
-            extrasDict[extra[c.NAME]] = noUnbreakDesc(extra[c.DESC])
+        extras : dict = handleExtras(extras)
+        extrasDict.update(extras)
         counter += 1
     return extrasDict
 
@@ -327,10 +321,8 @@ def mainskills(my_data : dict, data : dict, summonSkillNum : str = None) -> dict
         skill_description : str = skill[c.DESC]
 
         #handle extras (i.e. explanations of tags)
-        extras = skill[c.EXTRA]
-        for e in extras:
-            extra = extras[e]
-            extrasDict[extra[c.NAME]] = noUnbreakDesc(extra[c.DESC])
+        extras: dict = skill[c.EXTRA]
+        extrasDict.update(handleExtras(extras))
 
         if skill_description != None:
             new_desc = add_params_to_desc(skill_description, level1_params, levelmax_params, whale_params)
