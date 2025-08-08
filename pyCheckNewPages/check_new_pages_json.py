@@ -2,7 +2,8 @@
 import json
 import sys
 from typing import List
-from pyFileIO.extra_classes_and_funcs import read_from_file, getAllItems
+from pyFileIO.extra_classes_and_funcs import getAllItems
+from pyFileIO.fileReadWriteFuncs import read_from_file
 from pyHakushinParsing import hakushin_json_fetcher as hf, constants as c
 import bisect
 

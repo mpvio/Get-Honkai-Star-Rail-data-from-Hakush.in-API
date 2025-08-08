@@ -1,7 +1,3 @@
-import json
-from . import constants as c
-from pyFileIO.extra_classes_and_funcs import read_from_file
-
 relicsets : dict = {}
 
 mainStat : dict = {

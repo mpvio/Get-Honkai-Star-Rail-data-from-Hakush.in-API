@@ -124,7 +124,15 @@ def set_up_hakuj_frame(window : tk.Tk):
     hakuj_label = tk.Label(master=hakuj_frame, text="Enter IDs:", wraplength=wraplength)
     hakuj_label.pack()
 
-    hakuj_entry = tk.Entry(master=hakuj_frame)
+    # restrict entry to numbers and spaces
+    def validate_input(text):
+        if text == "": return True
+        return all(c.isdigit() or c == " " for c in text)
+
+    # %P = represents value being entered (i.e. what's being passed to validate_input as "text")
+    valid_command = (window.register(validate_input), '%P')
+    # key = validatecommand is run whenever entry is edited
+    hakuj_entry = tk.Entry(master=hakuj_frame, validate="key", validatecommand=valid_command)
     hakuj_entry.pack()
 
     hakuj_button = tk.Button(master=hakuj_frame, text=submit, command= lambda: hakuj_event(hakuj_entry, hakuj_result_label, hakuj_clear_button), width=button_width)
@@ -176,6 +184,9 @@ def set_up_cnpj_frame(window : tk.Tk, hakuj_entry : tk.Entry):
     cnpj_move_button.grid_forget()
     cnpj_clear_button.grid_forget()
     cnpj_results_label.grid_forget()
+
+    for i in range(3):  # add weights to columns so they move when window is widened
+        cnpj_frame.columnconfigure(i, weight=1)
 
     return cnpj_frame
 

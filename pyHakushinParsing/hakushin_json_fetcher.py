@@ -3,10 +3,11 @@ from collections import defaultdict
 import sys
 from typing import List
 import requests
+from pyFileIO.fileReadWriteFuncs import write_to_file
 from pyHakushinParsing import character_funcs as cf
 from pyHakushinParsing import buildRecommendations as br
 from pyCheckNewPages import readList, compareListsToManualInput
-from pyFileIO.extra_classes_and_funcs import get_material_names, neatenDesc, write_to_file, getAllItems, convertCharToBetterName
+from pyFileIO.extra_classes_and_funcs import get_material_names, neatenDesc, getAllItems, convertCharToBetterName
 from . import constants as c
 from concurrent.futures import ThreadPoolExecutor
 
