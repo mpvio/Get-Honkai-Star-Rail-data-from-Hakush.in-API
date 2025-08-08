@@ -6,3 +6,4 @@ old results/
 difflibPractice.py
 fileIO/__pycache__/*.pyc
 __debug*.exe
+pyUi/hakushinUIv2.py

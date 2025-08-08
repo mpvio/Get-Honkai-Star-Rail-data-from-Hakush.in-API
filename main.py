@@ -1,4 +1,5 @@
 import pyUi.hakushin_reader_ui as h
+# import pyUi.hakushinUIv2 as h2
 
 def main(): #args
     h.start_up()

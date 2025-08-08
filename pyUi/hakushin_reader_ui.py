@@ -133,7 +133,7 @@ def set_up_hakuj_frame(window : tk.Tk):
     valid_command = (window.register(validate_input), '%P')
     # key = validatecommand is run whenever entry is edited
     hakuj_entry = tk.Entry(master=hakuj_frame, validate="key", validatecommand=valid_command)
-    hakuj_entry.pack()
+    hakuj_entry.pack(fill="x", padx=5)
 
     hakuj_button = tk.Button(master=hakuj_frame, text=submit, command= lambda: hakuj_event(hakuj_entry, hakuj_result_label, hakuj_clear_button), width=button_width)
     hakuj_button.pack()
