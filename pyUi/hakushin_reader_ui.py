@@ -125,7 +125,7 @@ def set_up_hakuj_frame(window : tk.Tk):
     hakuj_label.pack()
 
     # restrict entry to numbers and spaces
-    def validate_input(text):
+    def validate_input(text: str):
         if text == "": return True
         return all(c.isdigit() or c == " " for c in text)
 
