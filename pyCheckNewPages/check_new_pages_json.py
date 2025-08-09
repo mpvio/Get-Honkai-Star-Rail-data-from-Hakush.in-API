@@ -1,8 +1,9 @@
 #check new pages json
+from datetime import datetime
 import json
 import sys
 from typing import List
-from pyFileIO.extra_classes_and_funcs import getAllItems
+from pyFileIO.extra_classes_and_funcs import convertCharToBetterName, getAllItems
 from pyFileIO.fileReadWriteFuncs import read_from_file
 from pyHakushinParsing import hakushin_json_fetcher as hf, constants as c
 import bisect
@@ -16,7 +17,8 @@ def getAll(type : str, via_ui = False):
 	items: dict = {}
 	for key in data:
 		charName = data[key]['en']
-		items[key] = "Trailblazer" if charName == "{NICKNAME}" else charName
+		betterName = convertCharToBetterName(key)
+		items[key] = betterName if betterName else charName
 	return compare_lists(type, items, via_ui)
 	
 def compareOneItem(page: str, items: dict):
@@ -91,7 +93,8 @@ def compare_lists(page: str, items: dict, via_ui = False):
 		old_as_json = json.loads(old_list)
 		differences = {id:name for id,name in items.items() if id not in old_as_json}
 		if differences != {}:
-			write_items_to_file(c.formatListLocation(f"__new{pageName}"), differences)
+			date = datetime.today().strftime('%y-%m-%d')
+			write_items_to_file(c.formatListLocation(f"__new__{page} {date}.json"), differences)
 			write_items_to_file(pageLocation, items)
 			if not via_ui:
 				check_haku = input("Check new items on Hakush.in?: ")
