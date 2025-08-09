@@ -2,9 +2,24 @@ import tkinter as tk
 from pyHakushinParsing import hakushin_json_fetcher as hf
 from pyCheckNewPages import selector
 from pyUi.uiGlobals import *
+from tkinter.scrolledtext import ScrolledText
+from tkinter import font
 
+# create scrolltext
+def createScroll(master: tk.Frame) -> ScrolledText:
+    resultScroll = ScrolledText(master, height=8, width=button_width*3, wrap=tk.WORD, font=font.nametofont("TkDefaultFont"), background=master["bg"])
+    return resultScroll
+
+def updateAndPackScroll(scroll: ScrolledText, content: str):
+    scroll.config(state=tk.NORMAL) # enable text entry
+    scroll.delete('1.0', tk.END) # delete anything already here
+    scroll.insert(tk.END, content) # display results
+    scroll.config(state=tk.DISABLED) # disable text entry again
+    scroll.pack(fill="both", expand=True, padx=5)
+
+#button functions
 #hakuApi_functions
-def hakuApi_submitQueryEvent(hakuApi_entry : tk.Entry, hakuApi_result_label : tk.Label, hakuApi_clear_button : tk.Button):
+def hakuApi_submitQueryEvent(hakuApi_entry : tk.Entry, scroll : ScrolledText, hakuApi_clear_button : tk.Button):
     ids_temp = [id for id in hakuApi_entry.get().replace(",", " ").split(" ") if id not in [" ", ""]]
     ids = []
     [ids.append(id) for id in ids_temp if id not in ids]
@@ -17,13 +32,16 @@ def hakuApi_submitQueryEvent(hakuApi_entry : tk.Entry, hakuApi_result_label : tk
         for i in range(0, len(results)-1):
             answer = answer + results[i] + '\n'
         answer = answer + results[-1]
-    hakuApi_result_label["text"] = answer
-    hakuApi_result_label.pack()
+
+    updateAndPackScroll(scroll, answer)
     hakuApi_clear_button.pack()
 
-def hakuApi_clearResultLabel(hakuApi_result_label : tk.Label, hakuApi_clear_button : tk.Button):
-    hakuApi_result_label["text"] = ''
-    hakuApi_result_label.pack_forget()
+def hakuApi_clearResultLabel(scroll : ScrolledText, hakuApi_clear_button : tk.Button):
+    # hakuApi_result_label["text"] = ''
+    # hakuApi_result_label.config(state=tk.NORMAL)
+    # hakuApi_result_label.delete('1.0', tk.END)
+    # hakuApi_result_label.config(state=tk.DISABLED)
+    scroll.pack_forget()
     hakuApi_clear_button.pack_forget()
 
 #checkNewPages_functions
@@ -122,13 +140,16 @@ def set_up_hakuApi_frame(window : tk.Tk):
     hakuApi_entry = tk.Entry(master=hakuApi_frame, validate="key", validatecommand=valid_command)
     hakuApi_entry.pack(fill="x", padx=5)
 
-    hakuApi_button = tk.Button(master=hakuApi_frame, text=submit, command= lambda: hakuApi_submitQueryEvent(hakuApi_entry, hakuApi_result_label, hakuApi_clear_button), width=button_width)
+    hakuApi_button = tk.Button(master=hakuApi_frame, text=submit, command= lambda: hakuApi_submitQueryEvent(hakuApi_entry, resultScroll, hakuApi_clear_button), width=button_width)
     hakuApi_button.pack()
+    
+    resultScroll = createScroll(hakuApi_frame)
+    resultScroll.pack_forget()
 
-    hakuApi_result_label = tk.Label(master=hakuApi_frame, wraplength=wraplength)
-    hakuApi_result_label.pack_forget()
+    # hakuApi_result_label = tk.Label(master=hakuApi_frame, wraplength=wraplength)
+    # hakuApi_result_label.pack_forget()
 
-    hakuApi_clear_button = tk.Button(master=hakuApi_frame, text=clear, width=button_width, command= lambda: hakuApi_clearResultLabel(hakuApi_result_label, hakuApi_clear_button))
+    hakuApi_clear_button = tk.Button(master=hakuApi_frame, text=clear, width=button_width, command= lambda: hakuApi_clearResultLabel(resultScroll, hakuApi_clear_button))
     hakuApi_clear_button.pack_forget()
 
     return hakuApi_frame, hakuApi_entry
