@@ -196,6 +196,9 @@ def set_up_checkNewPages_frame(window : tk.Tk, hakuApi_entry : tk.Entry):
 
     return checkNewPages_frame
 
+# TODO: extra frame with tabs to show different lists (load them into global vars). OR each one opens a different window
+# TODO: shortlist + blacklist editing window (using scrolltext)
+
 def start_up():
 
     window = tk.Tk()

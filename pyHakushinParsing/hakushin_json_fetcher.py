@@ -6,7 +6,7 @@ import requests
 from pyFileIO.fileReadWriteFuncs import write_to_file
 from pyHakushinParsing import character_funcs as cf
 from pyHakushinParsing import buildRecommendations as br
-from pyCheckNewPages import readList, compareListsToManualInput
+from pyCheckNewPages import compareListsToManualInput
 from pyFileIO.extra_classes_and_funcs import get_material_names, neatenDesc, getAllItems, convertCharToBetterName
 from . import constants as c
 from concurrent.futures import ThreadPoolExecutor
@@ -38,13 +38,6 @@ blackList : list[str] = []
 
 v1TempList : list[str] = ["1410", "1412", "22005", "23047", "23048"]
 version = "3.4.51"
-
-def get_shortlist():
-    return readList("shortlist")
-
-def set_blackList():
-    global blackList
-    blackList = readList("blacklist")
 
 def relic(param):
     if relicEffects != None and param in relicEffects:
@@ -240,11 +233,12 @@ def get_stats(my_dict : dict, data : dict, character : bool):
      my_dict[c.STATS] = stat_dict
 
 def main(args: List[str]):
+    global blackList
     outputs : List[str] = []
     manualChecks : List[str] = []
-    set_blackList()
+    blackList = c.set_blackList()
     if len(args) < 1: 
-        try: args = get_shortlist() #["1301"]  #["1304", "1305", "1308", "1309", "1310", "1314", "23025"] #
+        try: args = c.get_shortlist() #["1301"]  #["1304", "1305", "1308", "1309", "1310", "1314", "23025"] #
         except: args = ["8001", "1308", "1310"]
 
     getRelicsIfNeeded(args)

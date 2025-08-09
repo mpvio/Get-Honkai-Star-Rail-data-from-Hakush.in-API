@@ -3,7 +3,7 @@ import json
 import sys
 from typing import List
 from pyFileIO.extra_classes_and_funcs import convertCharToBetterName, getAllItems
-from pyFileIO.fileReadWriteFuncs import read_from_file
+from pyFileIO.fileReadWriteFuncs import read_from_file, readListFile
 from pyHakushinParsing import hakushin_json_fetcher as hf, constants as c
 import bisect
 
@@ -22,7 +22,7 @@ def getAll(type : str, via_ui = False):
 	
 def compareOneItem(page: str, items: dict):
 	pageName = f"{page}.json"
-	old_list = json.loads(read_from_file(c.formatListLocation(pageName)))
+	old_list = readListFile(page)
 	differences = {id:name for id,name in items.items() if id not in old_list}
 	if differences != {}:
 		diffFileName = c.dynamicFileName(f"{page} (manual)", False)
@@ -106,16 +106,6 @@ def write_items_to_file(page, items):
 		newFile = open(page, "w+", encoding="utf8")
 		json.dump(items, newFile, indent=4, ensure_ascii=False)
 		newFile.close()
-          
-def readList(page):
-	entries = []
-	try:
-		with open(f"{page}.txt", 'r', encoding='UTF-8') as file:
-			while line := file.readline():
-				entries.append(line.strip())
-	except Exception as e:
-		print(e)
-	return entries
 
 URL_MAP = {
 	0: "character",
@@ -138,7 +128,6 @@ def selector(args, via_ui=False):
 		results_temp = getAll(arg, via_ui)
 		if results_temp != None:
 			result.update(results_temp)
-			#result = [*result, *results_temp]
 	return result
 
 if __name__ == "__main__":

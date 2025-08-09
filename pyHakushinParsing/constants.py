@@ -2,7 +2,6 @@ from datetime import datetime
 import os
 import pathlib
 
-
 WEEKLY_BOSSES = 7
 FIRST_WEEKLY_BOSS = 110501
 
@@ -67,3 +66,20 @@ def dynamicFileName(name: str, change: bool) -> str:
         counter += 1
     
     return path
+
+# read txt files
+def readList(page) -> list[str]:
+	entries = []
+	try:
+		with open(f"{page}.txt", 'r', encoding='UTF-8') as file:
+			while line := file.readline():
+				entries.append(line.strip())
+	except Exception as e:
+		print(e)
+	return entries
+
+def get_shortlist() -> list[str]:
+    return readList("shortlist")
+
+def set_blackList() -> list[str]:
+    return readList("blacklist")

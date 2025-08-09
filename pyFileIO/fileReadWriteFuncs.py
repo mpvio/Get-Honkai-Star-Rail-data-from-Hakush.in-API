@@ -1,11 +1,21 @@
-from datetime import datetime
 import json
-import os
 from deepdiff import DeepDiff
 
 from pyFileIO.getBetterFileDifferences import getBetterDiffFile, removeRootFromList
 from pyHakushinParsing import constants as c
 
+def jsonListToStr(page: str) -> str:
+    content: list[str] = jsonToList(page)
+    return '\n'.join(content)
+
+def jsonToList(page: str) -> list[str]:
+    content: dict = readListFile(page)
+    res = [f"{k}: {v}" for k, v in content]
+    return res
+
+def readListFile(page: str) -> dict:
+    res: dict = json.loads(read_from_file(c.formatListLocation(f"{page}.json")))
+    return res
 
 def read_from_file(title):
     try:
