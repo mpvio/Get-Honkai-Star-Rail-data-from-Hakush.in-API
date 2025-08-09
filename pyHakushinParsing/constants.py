@@ -1,3 +1,8 @@
+from datetime import datetime
+import os
+import pathlib
+
+
 WEEKLY_BOSSES = 7
 FIRST_WEEKLY_BOSS = 110501
 
@@ -26,11 +31,39 @@ PARAMLIST = "ParamList"
 REQUIRES = "Requires"
 EXTRA = "Extra"
 
+def createAllFolders():
+    folders = ["_all_lists/updates"]
+    for word in [CHARACTER, LIGHTCONE, RELICSET]:
+        folders.append(f"_results/{word}")
+        folders.append(f"_changes/{word}")
+    for folder in folders:
+        pathlib.Path(folder).mkdir(parents=True, exist_ok=True)
+
 def formatListLocation(location: str):
     return f"_all_lists/{location}"
+
+def formatListChangesLocation(location: str):
+    return f"_all_lists/updates/{location}"
 
 def formatDataLocation(fileName: str):
     return f"_results/{fileName}"
 
 def formatChangesLocation(fileName: str):
     return f"_changes/{fileName}"
+
+def dynamicFileName(name: str, change: bool) -> str:
+    date = datetime.today().strftime('%y-%m-%d')
+    filename = f"{name} {date}"
+    ext = ".json"
+    if change:
+        title = formatChangesLocation(filename)
+    else:
+        title = formatListChangesLocation(filename)
+    counter = 1
+    path = title+ext
+
+    while os.path.exists(path):
+        path = title+" ("+str(counter)+")"+ext
+        counter += 1
+    
+    return path

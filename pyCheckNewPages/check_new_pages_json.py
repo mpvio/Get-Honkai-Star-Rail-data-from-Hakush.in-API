@@ -1,5 +1,4 @@
 #check new pages json
-from datetime import datetime
 import json
 import sys
 from typing import List
@@ -22,11 +21,12 @@ def getAll(type : str, via_ui = False):
 	return compare_lists(type, items, via_ui)
 	
 def compareOneItem(page: str, items: dict):
-	pageName = f"__{page}.json"
+	pageName = f"{page}.json"
 	old_list = json.loads(read_from_file(c.formatListLocation(pageName)))
 	differences = {id:name for id,name in items.items() if id not in old_list}
 	if differences != {}:
-		write_items_to_file(c.formatListLocation(f"__manual{pageName}"), differences)
+		diffFileName = c.dynamicFileName(f"{page} (manual)", False)
+		write_items_to_file(diffFileName, differences)
 		for diff in differences:
 			bisect.insort(old_list, diff)
 		write_items_to_file(pageName, old_list)
@@ -58,7 +58,7 @@ def getOldList(page: str):
 	else:
 		global relicList
 		current : dict  = relicList
-	pageName = f"__{page}.json"	
+	pageName = f"{page}.json"	
 	if current == {}:
 		current = json.loads(read_from_file(c.formatListLocation(pageName)))
 	return current
@@ -83,7 +83,7 @@ def updateListsForManualInputs(page : str, items: List[str]):
 		except: pass
 
 def compare_lists(page: str, items: dict, via_ui = False):
-	pageName = f"__{page}.json"
+	pageName = f"{page}.json"
 	pageLocation = c.formatListLocation(pageName)
 	old_list = read_from_file(pageLocation)
 	if old_list == '':
@@ -93,8 +93,8 @@ def compare_lists(page: str, items: dict, via_ui = False):
 		old_as_json = json.loads(old_list)
 		differences = {id:name for id,name in items.items() if id not in old_as_json}
 		if differences != {}:
-			date = datetime.today().strftime('%y-%m-%d')
-			write_items_to_file(c.formatListLocation(f"__new__{page} {date}.json"), differences)
+			dynamicFileName = c.dynamicFileName(page, False)
+			write_items_to_file(dynamicFileName, differences)
 			write_items_to_file(pageLocation, items)
 			if not via_ui:
 				check_haku = input("Check new items on Hakush.in?: ")

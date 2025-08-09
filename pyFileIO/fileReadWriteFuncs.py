@@ -25,7 +25,7 @@ def getTagFromID(itemID: str):
         case _: return ""
 
 def write_to_file(item_id: str, dictionary, blackListed = False, simplified = False):
-    name = item_id if blackListed else dictionary["Name"]
+    name: str = item_id if blackListed else dictionary["Name"]
     if simplified: name += " (Simple)"
     prefix = getTagFromID(item_id)
     fileName = prefix + name
@@ -42,9 +42,7 @@ def write_to_file(item_id: str, dictionary, blackListed = False, simplified = Fa
         else:
             deepdiff_converter(difference)
             difference = getBetterDiffFile(difference)
-            date = datetime.today().strftime('%y-%m-%d')
-            diffName = f"{fileName} {date}"
-            diff_title = changesFileName(diffName)
+            diff_title = c.dynamicFileName(fileName, True)
             diff_file_name = diff_title.split("/")[-1].strip(".json")
             print(diff_file_name)
             with open(diff_title, "w+", encoding="utf8") as diff_file:
@@ -56,18 +54,6 @@ def write_to_file(item_id: str, dictionary, blackListed = False, simplified = Fa
     #TODO: check size of item_id and check appropriate list of entities to add if needed.
     ##cj.manual_add_id(item_id)
     return output
-
-def changesFileName(filename: str):
-    ext = ".json"
-    title = c.formatChangesLocation(filename)
-    counter = 1
-    path = title+ext
-
-    while os.path.exists(path):
-        path = title+" ("+str(counter)+")"+ext
-        counter += 1
-    
-    return path
 
 def deepdiff_converter(diffs : dict):
     # can simplify these fields to just lists
