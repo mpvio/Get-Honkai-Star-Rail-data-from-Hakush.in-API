@@ -2,7 +2,7 @@
 import json
 import sys
 from typing import List
-from pyFileIO.extra_classes_and_funcs import convertCharToBetterName, getAllItems
+from pyFileIO.extra_classes_and_funcs import getAllItems
 from pyFileIO.fileReadWriteFuncs import read_from_file, readListFile
 from pyHakushinParsing import hakushin_json_fetcher as hf, constants as c
 import bisect
@@ -16,8 +16,8 @@ def getAll(type : str, via_ui = False):
 	items: dict = {}
 	for key in data:
 		charName = data[key]['en']
-		betterName = convertCharToBetterName(key)
-		items[key] = betterName if betterName else charName
+		# betterName = convertCharToBetterName(key)
+		items[key] = charName
 	return compare_lists(type, items, via_ui)
 	
 def compareOneItem(page: str, items: dict):

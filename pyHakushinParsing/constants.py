@@ -30,13 +30,24 @@ PARAMLIST = "ParamList"
 REQUIRES = "Requires"
 EXTRA = "Extra"
 
-def createAllFolders():
+# list names
+shortlist = "shortlist"
+blacklist = "blacklist"
+
+def createAllFoldersAndTextFiles():
+    # define seven directories (with parents)
     folders = ["_all_lists/updates"]
     for word in [CHARACTER, LIGHTCONE, RELICSET]:
         folders.append(f"_results/{word}")
         folders.append(f"_changes/{word}")
+    # create them if they don't already exist
     for folder in folders:
         pathlib.Path(folder).mkdir(parents=True, exist_ok=True)
+    # create shortlist and blacklist if they don't exist already
+    for txtFile in [shortlist, blacklist]:
+         file = pathlib.Path(f"{txtFile}.txt")
+         if not file.exists(): file.touch()
+              
 
 def formatListLocation(location: str):
     return f"_all_lists/{location}"

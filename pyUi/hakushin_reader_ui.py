@@ -18,6 +18,12 @@ def updateScroll(scroll: ScrolledText, content: str):
     scroll.config(state=tk.DISABLED) # disable text entry again
 
 #button functions
+#checkNewPages_checkbox_toggle
+show_names = False
+def checkNewPages_checkbox_toggle(param):
+    global show_names
+    show_names = param
+
 #hakuApi_functions
 def hakuApi_submitQueryEvent(hakuApi_entry : tk.Entry, scroll : ScrolledText, hakuApi_clear_button : tk.Button):
     ids_temp = [id for id in hakuApi_entry.get().replace(",", " ").split(" ") if id not in [" ", ""]]

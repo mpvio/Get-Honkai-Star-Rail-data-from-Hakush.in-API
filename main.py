@@ -3,7 +3,7 @@ import pyHakushinParsing.constants as c
 # import pyUi.hakushinUIv2 as h2
 
 def main(): #args
-    c.createAllFolders()
+    c.createAllFoldersAndTextFiles()
     h.start_up()
 
 if __name__ == "__main__":
