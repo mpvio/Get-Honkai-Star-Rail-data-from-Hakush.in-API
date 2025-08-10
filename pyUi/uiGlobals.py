@@ -43,22 +43,34 @@ def showItems(window: tk.Tk):
     from pyUi.hakushin_reader_ui import createScroll
     child = tk.Toplevel(window)
     child.resizable(True, True)
+    # define selectedItem and update function
+    selectedItem = ""
+    def updateSelection(page: str):
+        nonlocal selectedItem
+        selectedItem = page
     # configure expansion weights (which row/ column expands more)
     child.grid_rowconfigure(1, weight=1) # scrolltext row expands vertically, buttons stay the same
     child.grid_columnconfigure((0, 1, 2), weight=1) # all components spread out horizontally
     # buttons
-    chButton = tk.Button(child, text=f"{c.CHARACTER.capitalize()}s", width=button_width, command=lambda: putItemsOnScroll(scroll, c.CHARACTER))
-    lcButton = tk.Button(child, text=f"{c.LIGHTCONE.capitalize()}s", width=button_width, command=lambda: putItemsOnScroll(scroll, c.LIGHTCONE))
-    rlButton = tk.Button(child, text=f"{c.RELICSET.capitalize()}s", width=button_width, command=lambda: putItemsOnScroll(scroll, c.RELICSET))
+    chButton = tk.Button(child, text=f"{c.CHARACTER.capitalize()}s", width=button_width, command=lambda: [updateSelection(c.CHARACTER), putItemsOnScroll(scroll, selectedItem)])
+    lcButton = tk.Button(child, text=f"{c.LIGHTCONE.capitalize()}s", width=button_width, command=lambda: [updateSelection(c.LIGHTCONE), putItemsOnScroll(scroll, selectedItem)])
+    rlButton = tk.Button(child, text=f"{c.RELICSET.capitalize()}s", width=button_width, command=lambda: [updateSelection(c.RELICSET), putItemsOnScroll(scroll, selectedItem)])
     chButton.grid(column=0, row=0)
     lcButton.grid(column=1, row=0)
     rlButton.grid(column=2, row=0)
     # scrolledText
     scroll = createScroll(child)
     scroll.grid(row=1, column=0, columnspan=3, sticky=tk.NSEW, padx=5)
+    # buttons frame (for packing)
+    bottom = tk.Frame(child)
+    bottom.grid(row=2, column=0, columnspan=3)
+    # refresh button
+    refreshBtn = tk.Button(bottom, text="Refresh", width=button_width, command=lambda: putItemsOnScroll(scroll, selectedItem) if selectedItem != "" else None)
+    refreshBtn.pack(side=tk.LEFT, expand=True)
     # close button
-    closeBtn = tk.Button(child, text="Close", width=button_width, command=lambda: close_window(child))
-    closeBtn.grid(column=0, row=2, columnspan=3)
+    closeBtn = tk.Button(bottom, text="Close", width=button_width, command=lambda: close_window(child))
+    closeBtn.pack(side=tk.RIGHT, expand=True)
+    # closeBtn.grid(column=0, row=2, columnspan=3)
 
 
 
