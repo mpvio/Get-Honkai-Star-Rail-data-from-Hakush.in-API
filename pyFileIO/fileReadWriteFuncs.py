@@ -10,7 +10,7 @@ def jsonListToStr(page: str) -> str:
 
 def jsonToList(page: str) -> list[str]:
     content: dict = readListFile(page)
-    res = [f"{k}: {v}" for k, v in content]
+    res = [f"{k}: {v}" for k, v in content.items()]
     return res
 
 def readListFile(page: str) -> dict:
