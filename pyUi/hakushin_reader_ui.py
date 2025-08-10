@@ -204,6 +204,13 @@ def set_up_checkNewPages_frame(window : tk.Tk, hakuApi_entry : tk.Entry):
 
 # TODO: extra frame with tabs to show different lists (load them into global vars). OR each one opens a different window
 # TODO: shortlist + blacklist editing window (using scrolltext)
+def getLists(window: tk.Tk):
+    frame = get_frame(window, 2)
+    shortlist = tk.Button(frame, text="Shortlist", width=int(button_width*1.5), command = lambda: showList(window, c.shortlist))
+    blacklist = tk.Button(frame, text="Blacklist", width=int(button_width*1.5), command = lambda: showList(window, c.blacklist))
+    shortlist.pack(side="left", fill="x")
+    blacklist.pack(side="right", fill="x")
+    return frame
 
 def start_up():
 
@@ -222,6 +229,9 @@ def start_up():
 
     #checkNewPages.py integration
     _ = set_up_checkNewPages_frame(window, hakuApi_entry)
+
+    # lists panel
+    _ = getLists(window)
 
     window.mainloop()
 

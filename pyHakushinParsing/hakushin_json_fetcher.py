@@ -236,7 +236,7 @@ def main(args: List[str]):
     global blackList
     outputs : List[str] = []
     manualChecks : List[str] = []
-    blackList = c.set_blackList()
+    blackList = c.get_blackList()
     if len(args) < 1: 
         try: args = c.get_shortlist() #["1301"]  #["1304", "1305", "1308", "1309", "1310", "1314", "23025"] #
         except: args = ["8001", "1308", "1310"]

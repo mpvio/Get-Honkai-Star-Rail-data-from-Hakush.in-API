@@ -92,5 +92,12 @@ def readList(page) -> list[str]:
 def get_shortlist() -> list[str]:
     return readList("shortlist")
 
-def set_blackList() -> list[str]:
+def get_blackList() -> list[str]:
     return readList("blacklist")
+
+def writeTxtList(page: str, content: list[str]):
+    try:
+        with open(f"{page}.txt", "w", encoding="UTF-8") as file:
+            file.writelines(content)
+    except Exception as e:
+         print(e)
