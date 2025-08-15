@@ -45,9 +45,10 @@ def createAllFoldersAndTextFiles():
         pathlib.Path(folder).mkdir(parents=True, exist_ok=True)
     # create shortlist and blacklist if they don't exist already
     for txtFile in [shortlist, blacklist]:
-         file = pathlib.Path(f"{txtFile}.txt")
-         if not file.exists(): file.touch()
+        file = pathlib.Path(f"{txtFile}.txt")
+        if not file.exists(): file.touch()
     # TODO: automatically fetch character/ lightcone/ relicset jsons if they don't already exist?
+    # create empty files and write to them to create update files?
               
 
 def formatListLocation(location: str):
