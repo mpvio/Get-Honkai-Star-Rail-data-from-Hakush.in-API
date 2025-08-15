@@ -84,8 +84,7 @@ def submit_checkNewPages_query(checkNewPages_label : tk.Label, checkNewPages_mov
             answer = "\n".join(f"{k}: {v}" for k, v in results.items())
         else:
             answer = "\n".join(f"{k}" for k in new_queries)
-        # if len(answer) > 1000:
-        #     answer = answer[:1000] + "..."
+        # if len(answer) > 1000: answer = answer[:1000] + "..." # trim text to just 1000 chars (redundant with scrolledtext)
         display_move = True
     checkNewPages_label["text"] = ""
     

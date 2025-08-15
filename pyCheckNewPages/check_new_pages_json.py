@@ -131,12 +131,6 @@ def selector(args, via_ui=False):
 			if results_temp != None: result.update(results_temp)
 
 	return result
-	# for arg in args:
-	# 	arg = URL_MAP[arg] if arg in URL_MAP else arg
-	# 	results_temp = getAll(arg, via_ui)
-	# 	if results_temp != None:
-	# 		result.update(results_temp)
-	# return result
 
 if __name__ == "__main__":
     selector(sys.argv[1:]) #first arg is always file name, so skip it
