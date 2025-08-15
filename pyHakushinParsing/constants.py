@@ -2,7 +2,7 @@ from datetime import datetime
 import os
 import pathlib
 
-WEEKLY_BOSSES = 7
+WEEKLY_BOSSES = 7 # TODO: move to file to allow user input
 FIRST_WEEKLY_BOSS = 110501
 
 #types of items
