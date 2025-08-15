@@ -154,15 +154,24 @@ def skilltreesAndMaterials(character : dict, response : dict) -> dict:
                 name: str = statusAddList[c.NAME]
                 value: float = statusAddList["Value"]
                 if name != "SPD": value = round(value * 100, 1)
+                
+                # get unlock requirement (either level or ascension)
+                traceNo : int = currentSkill["AvatarPromotionLimit"]
+                if traceNo: unlock = c.TRACE
+                else:
+                    traceNo: int = currentSkill["AvatarLevelLimit"]
+                    unlock = "Level"
 
                 #add minor trace value to summary:
                 minorTraceSummary[name] += value
                 
                 trace: dict = {
                     c.NAME: name,
+                    unlock: traceNo,
                     "Value": formatNumber(value),
                     c.REQUIRES: requirement
                 }
+            # (post if-statement:) add trace to list and get its materials
             skillsTemp[str(pointId)] = trace
             #trace materials
             for material in currentSkill["MaterialList"]:

@@ -35,7 +35,9 @@ def getTagFromID(itemID: str):
         case _: return ""
 
 def write_to_file(item_id: str, dictionary, blackListed = False, simplified = False):
-    name: str = item_id if blackListed else dictionary["Name"]
+    # consider restoring this if a name needs to be hidden
+    # name: str = item_id if blackListed else dictionary["Name"]
+    name: str = dictionary["Name"]
     if simplified: name += " (Simple)"
     prefix = getTagFromID(item_id)
     fileName = prefix + name

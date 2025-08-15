@@ -4,6 +4,7 @@ from pyCheckNewPages import selector
 from pyUi.uiGlobals import *
 from tkinter.scrolledtext import ScrolledText
 from tkinter import font
+from idlelib.tooltip import Hovertip
 
 # create scrolltext
 def createScroll(master: tk.Frame) -> ScrolledText:
@@ -145,6 +146,8 @@ def set_up_hakuApi_frame(window : tk.Tk):
     # key = validatecommand is run whenever entry is edited
     hakuApi_entry = tk.Entry(master=hakuApi_frame, validate="key", validatecommand=valid_command)
     hakuApi_entry.pack(fill="x", padx=5)
+    # add tooltip about shortlist.txt
+    Hovertip(hakuApi_entry, "Leave this empty to look up shortlist.txt entries instead.", 0)
 
     hakuApi_button = tk.Button(master=hakuApi_frame, text=submit, command= lambda: hakuApi_submitQueryEvent(hakuApi_entry, resultScroll, hakuApi_clear_button), width=button_width)
     hakuApi_button.pack()
