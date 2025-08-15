@@ -47,6 +47,7 @@ def createAllFoldersAndTextFiles():
     for txtFile in [shortlist, blacklist]:
          file = pathlib.Path(f"{txtFile}.txt")
          if not file.exists(): file.touch()
+    # TODO: automatically fetch character/ lightcone/ relicset jsons if they don't already exist?
               
 
 def formatListLocation(location: str):
