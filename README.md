@@ -1,3 +1,12 @@
+<h1>Prerequisites:</h1>
+<ol>
+  <li>Download Python (https://www.python.org/downloads/)</li>
+  <li>Add Python and Pip (a package installer included in the above) to your PATH if on Windows(https://www.geeksforgeeks.org/python/how-to-add-python-to-windows-path/)</li>
+  <li>Download this code to your machine.</li>
+  <li>Open a command line/ powershell window in your downloaded folder and run the following command: "pip install -r requirements.txt" to install the needed additional packages.</li>
+  <li>Run the program (using the command line/ powershell window) with "python main.py".</li>
+</ol>
+
 <h1>Main Window:</h1>
 <img width="286" height="277" alt="1  main window" src="https://github.com/user-attachments/assets/53ef71e5-53e6-4a22-b96c-af9d6bd81648" />
 <br />
