@@ -243,7 +243,7 @@ def main(args: List[str]):
 
     getRelicsIfNeeded(args)
 
-    with ThreadPoolExecutor(4) as exe:
+    with ThreadPoolExecutor(8) as exe:
         for arg, (valid, result) in zip(args, exe.map(mainloopLogic, args)):
             if valid: manualChecks.append(arg)
             if "\n" in result:

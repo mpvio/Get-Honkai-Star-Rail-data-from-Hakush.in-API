@@ -6,6 +6,7 @@ from pyFileIO.extra_classes_and_funcs import getAllItems
 from pyFileIO.fileReadWriteFuncs import read_from_file, readListFile
 from pyHakushinParsing import hakushin_json_fetcher as hf, constants as c
 import bisect
+from concurrent.futures import ThreadPoolExecutor
 
 character = "character"
 lightcone = "lightcone"
@@ -123,12 +124,19 @@ def selector(args, via_ui=False):
 	result = {}
 	if len(args) < 1:
 		args = [URL_MAP[x] for x in range (3)]
-	for arg in args:
-		arg = URL_MAP[arg] if arg in URL_MAP else arg
-		results_temp = getAll(arg, via_ui)
-		if results_temp != None:
-			result.update(results_temp)
+	
+	tempFunction = lambda arg: getAll(arg, via_ui)
+	with ThreadPoolExecutor(3) as exe:
+		for results_temp in exe.map(tempFunction, args):
+			if results_temp != None: result.update(results_temp)
+
 	return result
+	# for arg in args:
+	# 	arg = URL_MAP[arg] if arg in URL_MAP else arg
+	# 	results_temp = getAll(arg, via_ui)
+	# 	if results_temp != None:
+	# 		result.update(results_temp)
+	# return result
 
 if __name__ == "__main__":
     selector(sys.argv[1:]) #first arg is always file name, so skip it
