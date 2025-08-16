@@ -40,6 +40,9 @@ updates = "updates"
 results = "_results/"
 changes = "_changes/"
 
+# other file names
+weeklies = "weekly bosses.txt"
+
 def createAllFoldersAndTextFiles():
     # define seven directories (with parents)
     folders = [f"{all_lists}{updates}"]
@@ -61,7 +64,23 @@ def createAllFoldersAndTextFiles():
             from pyCheckNewPages.check_new_pages_json import write_items_to_file
             emptyDict = {}
             write_items_to_file(path, emptyDict)
-              
+    # load or create weekly bosses tracker
+    file = pathlib.Path(weeklies)
+    if file.exists(): setWeeklies() # update constant value based on txt file
+    else: writeToWeeklies(0) # assume a new user hasn't done any of the weekly bosses yet
+
+def writeToWeeklies(weeklies_done: int):
+    with open(weeklies, "w") as file:
+        file.write(str(weeklies_done))
+
+def setWeeklies():
+    global WEEKLY_BOSSES
+    with open(weeklies, "r") as file:
+        res = file.readline()
+        if res and res != "":
+            WEEKLY_BOSSES = int(res)
+        else:
+            WEEKLY_BOSSES = 0 # assume no weekly bosses done if file reading error
 
 def formatListLocation(location: str):
     return f"{all_lists}{location}"
