@@ -1,8 +1,0 @@
-{
-    "values_changed": {
-        "root['Kit']['Talent']['Desc']": {
-            "new_value": "The memosprite Garmentmaker has an initial SPD equal to 35% of Aglaea's base SPD and a Max HP equal to [44|66]% of Aglaea's Max HP plus [180|720]. While Garmentmaker is on the field, Aglaea's attacks inflict the target with the 'Seam Stitch' state. After attacking enemies in the 'Seam Stitch' state, further deals Additional DMG equal to [12|30]% of Aglaea's ATK. 'Seam Stitch' only takes effect on the most recently inflicted target.",
-            "old_value": "The memosprite Garmentmaker has an initial SPD equal to 35% of Aglaea's base SPD and a Max HP equal to [44|66]% of Aglaea's Max HP plus [180|720]. While Garmentmaker is on the field, Aglaea's attacks inflict the target with the 'Seam Stitch' state. After attacking enemies in the 'Seam Stitch' state, further deals an Additional DMG equal to [12|30]% of Aglaea's ATK. 'Seam Stitch' only takes effect on the most recently inflicted target."
-        }
-    }
-}

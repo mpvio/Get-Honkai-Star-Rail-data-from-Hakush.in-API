@@ -1,8 +1,0 @@
-{
-    "values_changed": {
-        "root['Desc']": {
-            "new_value": "Increases the wearer's base SPD by [12|20]. After the wearer and the wearer's memosprite attacks, the wearer gains 1 stack of 'Brocade.' Each stack of 'Brocade' increases the wearer and their memosprite's CRIT DMG by [9|15]%, stacking up to 6 time(s). When reaching maximum stacks, each 'Brocade' stack will additionally increase Basic ATK DMG dealt by [9|15]%.",
-            "old_value": "Increases the wearer's base SPD by [12|20]. After the wearer and the wearer's memosprite attacks, the wearer gains 1 stack of 'Brocade.' Each stack of 'Brocade' increases the wearer and their memosprite's CRIT DMG by [9|15]%, stacking up to 6 time(s). When reaching maximum stacks, each 'Brocade' stack will additionally increase DMG dealt by Basic ATK by [9|15]%."
-        }
-    }
-}

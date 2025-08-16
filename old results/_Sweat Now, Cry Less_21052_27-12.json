@@ -1,8 +1,0 @@
-{
-    "values_changed": {
-        "root['Desc']": {
-            "new_value": "Increases the wearer's CRIT Rate by [12|20]%. When the wearer's memosprite is on the field, increases the wearer and their memosprite's DMG dealt by [24|36]%.",
-            "old_value": "Increases the wearer's CRIT Rate by [12|20]%. When the wearer's memosprite is on the field, increases the wearer and their memosprite's DMG dealt by [24|40]%."
-        }
-    }
-}

@@ -1,8 +1,0 @@
-{
-    "values_changed": {
-        "root['Desc']": {
-            "new_value": "Increases the wearer's CRIT DMG by [12|24]%. When the wearer's memosprite uses an ability on any ally target, increases all ally targets' DMG dealt by [8|16]%, lasting for 3 turn(s).",
-            "old_value": "Increases the wearer's CRIT DMG by [12|24]%. When the wearer's memosprite uses an ability on ally targets, increases all ally targets' DMG dealt by [8|16]%, lasting for 3 turn(s)."
-        }
-    }
-}

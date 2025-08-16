@@ -1,8 +1,0 @@
-{
-    "values_changed": {
-        "root['Desc']": {
-            "new_value": "When memosprite's turn starts, the wearer and the memosprite each gain 1 stack of 'Commemoration.' Each stack increases DMG dealt by [8|12]%, stacking up to 4 time(s). 'Commemoration' is removed from the wearer and the memosprite when the memosprite disappears.",
-            "old_value": "When memosprite's turn starts, the wearer and the memosprite each gain 1 stack of 'Commemoration' respectively. Each stack increases DMG dealt by [8|12]%, stacking up to 4 time(s). 'Commemoration' is removed from the wearer and the memosprite when the memosprite disappears."
-        }
-    }
-}

@@ -1,8 +1,0 @@
-{
-    "values_changed": {
-        "root['Desc']": {
-            "new_value": "Increases the wearer's CRIT Rate by [12|20]%. When the wearer uses their Ultimate, increases DMG dealt by the wearer's Skill and Ultimate by [60|100]%, lasting for 3 turn(s). After the wearer uses their Ultimate, if this Ultimate consumes 140 or more Energy, recovers 1 Skill Point.",
-            "old_value": "Increases the wearer's CRIT Rate by [12|20]%. When the wearer uses their Ultimate, increases DMG dealt by the wearer's Skill and Ultimate by [48|96]%, lasting for 3 turn(s). After the wearer uses their Ultimate, if this Ultimate consumes 140 or more Energy, recovers 1 Skill Point. This effect can trigger a maximum of 1 time every 2 turn(s)."
-        }
-    }
-}
