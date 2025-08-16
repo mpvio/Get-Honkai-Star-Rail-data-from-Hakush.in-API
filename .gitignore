@@ -8,3 +8,4 @@ fileIO/__pycache__/*.pyc
 __debug*.exe
 pyUi/hakushinUIv2.py
 _old results/
+*.txt
