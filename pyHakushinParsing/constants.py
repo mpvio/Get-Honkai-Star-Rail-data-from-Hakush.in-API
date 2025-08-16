@@ -34,12 +34,18 @@ EXTRA = "Extra"
 shortlist = "shortlist"
 blacklist = "blacklist"
 
+# folder names
+all_lists = "_all_lists/"
+updates = "updates"
+results = "_results/"
+changes = "_changes/"
+
 def createAllFoldersAndTextFiles():
     # define seven directories (with parents)
-    folders = ["_all_lists/updates"]
+    folders = [f"{all_lists}{updates}"]
     for word in [CHARACTER, LIGHTCONE, RELICSET]:
-        folders.append(f"_results/{word}")
-        folders.append(f"_changes/{word}")
+        folders.append(f"{results}{word}")
+        folders.append(f"{changes}{word}")
     # create them if they don't already exist
     for folder in folders:
         pathlib.Path(folder).mkdir(parents=True, exist_ok=True)
@@ -47,21 +53,27 @@ def createAllFoldersAndTextFiles():
     for txtFile in [shortlist, blacklist]:
         file = pathlib.Path(f"{txtFile}.txt")
         if not file.exists(): file.touch()
-    # TODO: automatically fetch character/ lightcone/ relicset jsons if they don't already exist?
-    # create empty files and write to them to create update files?
+    # create empty json files for character/ lightcone/ relicset if they don't already exist
+    for word in [CHARACTER, LIGHTCONE, RELICSET]:
+        path = f"{all_lists}{word}.json"
+        file = pathlib.Path(path)
+        if not file.exists():
+            from pyCheckNewPages.check_new_pages_json import write_items_to_file
+            emptyDict = {}
+            write_items_to_file(path, emptyDict)
               
 
 def formatListLocation(location: str):
-    return f"_all_lists/{location}"
+    return f"{all_lists}{location}"
 
 def formatListChangesLocation(location: str):
-    return f"_all_lists/updates/{location}"
+    return f"{all_lists}{updates}/{location}"
 
 def formatDataLocation(fileName: str):
-    return f"_results/{fileName}"
+    return f"{results}{fileName}"
 
 def formatChangesLocation(fileName: str):
-    return f"_changes/{fileName}"
+    return f"{changes}{fileName}"
 
 def dynamicFileName(name: str, change: bool) -> str:
     date = datetime.today().strftime('%y-%m-%d')

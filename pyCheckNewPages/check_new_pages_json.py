@@ -104,9 +104,9 @@ def compare_lists(page: str, items: dict, via_ui = False):
 		return differences
 		
 def write_items_to_file(page, items):
-		newFile = open(page, "w+", encoding="utf8")
-		json.dump(items, newFile, indent=4, ensure_ascii=False)
-		newFile.close()
+	newFile = open(page, "w+", encoding="utf8")
+	json.dump(items, newFile, indent=4, ensure_ascii=False)
+	newFile.close()
 
 URL_MAP = {
 	0: "character",
