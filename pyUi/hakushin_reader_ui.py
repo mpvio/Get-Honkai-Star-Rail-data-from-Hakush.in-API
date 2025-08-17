@@ -205,8 +205,7 @@ def set_up_checkNewPages_frame(window : tk.Tk, hakuApi_entry : tk.Entry):
 
     return checkNewPages_frame
 
-# TODO: add weekly boss setter
-def getItemLists(window: tk.Tk):
+def getItemListsAndWeekliesSetter(window: tk.Tk):
     # define buttons
     frame = get_frame(window, 3)
     buttonFrame = tk.Frame(frame)
@@ -253,10 +252,6 @@ def start_up():
     window.rowconfigure(0, weight=1, minsize=20)
     window.rowconfigure(1, weight=1, minsize=20)
 
-    # scrollbar = tk.Scrollbar(master=window)
-    # scrollbar.grid(row=0, column=1, sticky="e")
-    # scrollbar.config(command=tk.YView)
-
     #hakuApi.py integration
     _, hakuApi_entry = set_up_hakuApi_frame(window)
 
@@ -267,7 +262,7 @@ def start_up():
     _ = getTextLists(window)
 
     # saved items panel
-    _ = getItemLists(window)
+    _ = getItemListsAndWeekliesSetter(window)
 
     window.mainloop()
 
