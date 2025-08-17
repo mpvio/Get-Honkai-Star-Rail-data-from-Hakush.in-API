@@ -1,5 +1,6 @@
 <h1>Prerequisites:</h1>
 Either download and run the main.exe file from the Releases section OR:
+<hr />
 <ol>
   <li>Download Python (https://www.python.org/downloads/)</li>
   <li>Add Python and Pip (a package installer included in the above) to your PATH if on Windows (https://www.geeksforgeeks.org/python/how-to-add-python-to-windows-path/)</li>
