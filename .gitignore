@@ -9,3 +9,4 @@ __debug*.exe
 pyUi/hakushinUIv2.py
 _old results/
 *.txt
+dist/
