@@ -5,6 +5,7 @@ from pyUi.uiGlobals import *
 from tkinter.scrolledtext import ScrolledText
 from tkinter import font
 from idlelib.tooltip import Hovertip
+from pyHakushinParsing import constants as c
 
 # create scrolltext
 def createScroll(master: tk.Frame) -> ScrolledText:
@@ -204,21 +205,42 @@ def set_up_checkNewPages_frame(window : tk.Tk, hakuApi_entry : tk.Entry):
 
     return checkNewPages_frame
 
-# TODO: extra frame with tabs to show different lists (load them into global vars). OR each one opens a different window
+# TODO: add weekly boss setter
 def getItemLists(window: tk.Tk):
+    # define buttons
     frame = get_frame(window, 3)
-    button = tk.Button(frame, text="View all currently saved IDs", command=lambda: showItems(window))
-    button.pack(fill="x", expand=True)
+    buttonFrame = tk.Frame(frame)
+    buttonFrame.pack(fill="x")
+    listsButton = tk.Button(buttonFrame, text="View saved IDs", command=lambda: showItems(window), width=widerButtonWidth, padx=xPadding)
+    listsButton.pack(fill="x", side="left")
+    weeklyButton = tk.Button(buttonFrame, text="Set Weeklies", width=widerButtonWidth, padx=xPadding, command=lambda: showFrame(weeklyFrame, weeklyEntry))
+    weeklyButton.pack(fill="x", side="right")
 
-# TODO: shortlist + blacklist editing window (using scrolltext)
+    # define entry frame
+    weeklyFrame = tk.Frame(frame)
+    weeklyFrame.pack_forget()
+    # define entry element
+    def numbers_only(text: str):
+        if text == "": return True
+        return all(c.isdigit() for c in text)
+    valid = (window.register(numbers_only), '%P')
+    weeklyEntry = tk.Entry(weeklyFrame, validate="key", validatecommand=valid)
+    weeklyEntry.pack(padx=5)
+    # define entry save/ cancel buttons
+    entryButtonFrame = tk.Frame(weeklyFrame)
+    entryButtonFrame.pack(fill="x")
+    save = tk.Button(entryButtonFrame, text="Save", width=widerButtonWidth, padx=xPadding, command=lambda: [updateWeeklies(weeklyEntry), hideFrame(weeklyFrame)])
+    save.pack(fill="x", side="left")
+    cancel = tk.Button(entryButtonFrame, text="Cancel", width=widerButtonWidth, padx=xPadding, command=lambda: hideFrame(weeklyFrame))
+    cancel.pack(fill="x", side="right")
+
+
 def getTextLists(window: tk.Tk):
     frame = get_frame(window, 2)
     label = tk.Label(frame, text="View/ Edit Short & Blacklists:")
     label.pack(fill="both", expand=True, padx=5)
-    buttonWidth = int((button_width*1.5))
-    xPadding = 3
-    shortlist = tk.Button(frame, text=c.shortlist.capitalize(), width=buttonWidth, command = lambda: showList(window, c.shortlist), padx=xPadding)
-    blacklist = tk.Button(frame, text=c.blacklist.capitalize(), width=buttonWidth, command = lambda: showList(window, c.blacklist), padx=xPadding)
+    shortlist = tk.Button(frame, text=c.shortlist.capitalize(), width=widerButtonWidth, command = lambda: showList(window, c.shortlist), padx=xPadding)
+    blacklist = tk.Button(frame, text=c.blacklist.capitalize(), width=widerButtonWidth, command = lambda: showList(window, c.blacklist), padx=xPadding)
     shortlist.pack(side="left", fill="x")
     blacklist.pack(side="right", fill="x")
     return frame

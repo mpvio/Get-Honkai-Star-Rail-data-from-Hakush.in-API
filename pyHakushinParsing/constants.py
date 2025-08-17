@@ -66,21 +66,28 @@ def createAllFoldersAndTextFiles():
             write_items_to_file(path, emptyDict)
     # load or create weekly bosses tracker
     file = pathlib.Path(weeklies)
-    if file.exists(): setWeeklies() # update constant value based on txt file
-    else: writeToWeeklies(0) # assume a new user hasn't done any of the weekly bosses yet
+    if file.exists(): setWeekliesViaFile() # update constant value based on txt file
+    else: writeToWeekliesFile(0) # assume a new user hasn't done any of the weekly bosses yet
 
-def writeToWeeklies(weeklies_done: int):
+def writeToWeekliesFile(weeklies_done: int):
     with open(weeklies, "w") as file:
         file.write(str(weeklies_done))
 
-def setWeeklies():
-    global WEEKLY_BOSSES
+def setWeekliesViaFile():
     with open(weeklies, "r") as file:
         res = file.readline()
         if res and res != "":
-            WEEKLY_BOSSES = int(res)
+            val = int(res)
         else:
-            WEEKLY_BOSSES = 0 # assume no weekly bosses done if file reading error
+            val = 0 # assume 0 if file is empty
+        updateWeekliesViaInt(val)
+        return val
+    return 0 # assume no weekly bosses done if file reading error
+
+# separated for potential future use
+def updateWeekliesViaInt(val: int):
+    global WEEKLY_BOSSES
+    WEEKLY_BOSSES = val
 
 def formatListLocation(location: str):
     return f"{all_lists}{location}"

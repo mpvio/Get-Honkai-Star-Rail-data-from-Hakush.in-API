@@ -6,6 +6,8 @@ from tkinter.scrolledtext import ScrolledText
 
 #global params
 button_width = 12
+widerButtonWidth = int((button_width*1.5))
+xPadding = 3
 submit = "Submit"
 clear = "Clear"
 wraplength = 250
@@ -71,6 +73,20 @@ def showItems(window: tk.Tk):
     closeBtn = tk.Button(bottom, text="Close", width=button_width, command=lambda: close_window(child))
     closeBtn.pack(side=tk.RIGHT, expand=True)
     # closeBtn.grid(column=0, row=2, columnspan=3)
+
+# weeklies entry-related functions
+def showFrame(frame: tk.Frame, entry: tk.Entry):
+    frame.pack(fill="x")
+    entry.delete(0, tk.END)
+    entry.insert(tk.END, str(c.WEEKLY_BOSSES))
+
+def hideFrame(frame: tk.Frame):
+    frame.pack_forget()
+
+def updateWeeklies(entry: tk.Entry):
+    val = int(entry.get())
+    c.writeToWeekliesFile(val)
+    c.WEEKLY_BOSSES = val
 
 
 
