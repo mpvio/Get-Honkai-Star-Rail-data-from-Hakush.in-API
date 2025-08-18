@@ -1,6 +1,5 @@
 import pyUi.hakushin_reader_ui as h
 import pyHakushinParsing.constants as c
-# import pyUi.hakushinUIv2 as h2
 
 def main(): #args
     c.createAllFoldersAndTextFiles()
