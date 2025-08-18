@@ -65,12 +65,7 @@ def relic(param):
         data = response.json()
         my_data = {}
         
-        my_data[c.NAME] = data[c.NAME]
-        # my_data["Relic Effect/s"] = data["RequireNum"]
-        # for effect in my_data["Relic Effect/s"]:
-        #     parse_params(my_data["Relic Effect/s"][effect][c.DESC], my_data["Relic Effect/s"][effect]["ParamList"])
-        #     #add_params_to_desc()
-        
+        my_data[c.NAME] = data[c.NAME]       
         my_data["Relic Effect/s"] = {}
         for effect in data["RequireNum"]:
             old_desc = data["RequireNum"][effect][c.DESC]
