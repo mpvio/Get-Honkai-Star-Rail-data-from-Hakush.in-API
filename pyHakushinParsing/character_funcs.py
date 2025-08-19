@@ -369,14 +369,16 @@ def eidolons(character_dict : dict, json_dict : dict) -> set:
             extra = extras[e]
             extrasDict[extra[c.NAME]] = noUnbreakDesc(extra[c.DESC])
         if parameters == []:
-            eidolon_dict : dict = {
-                c.DESC: noUnbreakDesc(description)
-            }
+            eidolon_desc = noUnbreakDesc(description) 
+            # : dict = {
+            #     c.DESC: noUnbreakDesc(description)
+            # }
         else:
             parse_params(description, parameters)
             new_desc = add_params_to_desc(description, parameters)
-            eidolon_dict : dict = {
-                c.DESC: new_desc #na.abbreviate_quoted_text(new_desc)
-            }
-        character_dict["Eidolons"][str(e_num)] = eidolon_dict
+            eidolon_desc = new_desc
+            # : dict = {
+            #     c.DESC: new_desc #na.abbreviate_quoted_text(new_desc)
+            # }
+        character_dict["Eidolons"][str(e_num)] = eidolon_desc
     return extrasDict
