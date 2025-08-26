@@ -49,11 +49,12 @@ def reorder_base_kit(kit : dict):
 
 def create_parameter_tuple_without_desc(l1_params : List[int | float], max_params : List[int | float] = None, whale_params : List[int | float] = None):
     if max_params == None:
-        return " ".join(f"({p})" for p in l1_params)
+        return " ".join(f"[{p}]" for p in l1_params)
     else:
         tuples = []
         for i in range ((len(l1_params))):
-            if whale_params == None: text = f"[{l1_params[i]}|{max_params[i]}]"
+            if l1_params[i] == max_params[i]: text = f"[{l1_params[i]}]"
+            elif whale_params == None: text = f"[{l1_params[i]}|{max_params[i]}]"
             else: text = f"[{l1_params[i]}|{max_params[i]}|{whale_params[i]}]"
             tuples.append(text)
         return " ".join(tuples)
@@ -336,7 +337,7 @@ def mainskills(my_data : dict, data : dict, summonSkillNum : str = None) -> dict
         if skill_description != None:
             new_desc = add_params_to_desc(skill_description, level1_params, levelmax_params, whale_params)
         else:
-            new_desc = create_parameter_tuple_without_desc(level1_params, levelmax_params, whale_params)
+            new_desc = create_parameter_tuple_without_desc(level1_params, levelmax_params, whale_params) # possibly just use empty string instead of this?
 
         my_data["Kit"][skill_type][c.NAME] = skill[c.NAME] #na.abbreviate_string(skill[c.NAME])
         my_data["Kit"][skill_type][c.DESC] = new_desc #na.abbreviate_quoted_text(new_desc)
