@@ -34,7 +34,7 @@ def getTagFromID(itemID: str):
         case 5: return "lightcone/"
         case _: return ""
 
-def write_to_file(item_id: str, dictionary, blackListed = False, simplified = False):
+def write_to_file(item_id: str, dictionary, simplified = False):
     # consider restoring this if a name needs to be hidden
     # name: str = item_id if blackListed else dictionary["Name"]
     name: str = dictionary["Name"]

@@ -172,7 +172,7 @@ def character(param):
 
         blackListResult : str = None
         blacklisted = param in blackList
-        writeToFileResult = write_to_file(f"{param}", my_data, blackListed=blacklisted)
+        writeToFileResult = write_to_file(f"{param}", my_data)
         if blacklisted:
             blackListResult = blackListedItem(param, my_data)
             writeToFileResult = writeToFileResult.replace(my_data[c.NAME], f"X{param}")
@@ -195,7 +195,7 @@ def blackListedItem(param: str, data: dict):
     #TODO: convert Traces to tree with Major traces hidden.
     abridgedData[c.TRACE_TREE] = removeMajorTraceNames(data[c.TRACE_TREE])
     abridgedData[c.RELICS] = data[c.RELICS]
-    return write_to_file(f"{param}", abridgedData, blackListed=True, simplified=True)
+    return write_to_file(f"{param}", abridgedData, simplified=True)
 
 def removeMajorTraceNames(traces : dict):
     for trace in traces:
