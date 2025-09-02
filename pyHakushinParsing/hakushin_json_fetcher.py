@@ -199,7 +199,7 @@ def blackListedItem(param: str, data: dict):
 
 def removeMajorTraceNames(traces : dict):
     for trace in traces:
-        currentTrace = traces[trace]
+        currentTrace: dict = traces[trace]
         if c.TRACE in currentTrace:
             currentTrace.pop(c.NAME)
             currentTrace.pop(c.DESC)
