@@ -99,4 +99,3 @@ def noUnbreakDesc(desc : str) -> str:
 
 def splitDesc(desc : str) -> list[str]:
     return neatenDesc(desc).split('</unbreak>')
-

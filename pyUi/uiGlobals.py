@@ -87,9 +87,3 @@ def updateWeeklies(entry: tk.Entry):
     val = int(entry.get())
     c.writeToWeekliesFile(val)
     c.WEEKLY_BOSSES = val
-
-
-
-
-
-
