@@ -148,7 +148,7 @@ def skilltreesAndMaterials(character : dict, response : dict) -> dict:
                     c.TRACE: formatNumber(traceNo),
                     c.DESC: description,
                     c.REQUIRES: requirement
-                }
+                } 
             else:
                 #minor trace
                 statusAddList = currentSkill["StatusAddList"][0]
@@ -207,6 +207,8 @@ def skilltreesAndMaterials(character : dict, response : dict) -> dict:
     return extrasDict
 
 def formatNumber(num): #possibly remove?
+  if num == None:
+    return 0
   if num % 1 == 0:
     return int(num)
   else:
