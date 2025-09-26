@@ -72,7 +72,7 @@ def get_material_names(materials : set):
 
 
 pattern: re.Pattern[str] = re.compile(
-    r'(<unbreak>)|(\\n)|(<u>|<color=[^>]+>|<\/color>)|(</u>)|(")|(–)'  # Added (–) as group 6
+    r'(<unbreak>)|(\\n)|(<u>|<color=[^>]+>|<\/color>|<icon[^>]*>)|(</u>)|(")|(–)'  # Added <icon> to group 3
 )
 
 def replacer(match: re.Match[str]) -> str:
@@ -81,7 +81,7 @@ def replacer(match: re.Match[str]) -> str:
         return '</unbreak>'
     elif match.group(2):  # \n → space
         return ' '
-    elif match.group(3):  # <u> OR color tags → empty
+    elif match.group(3):  # <u> OR color tags OR icon → empty
         return ''
     elif match.group(4):  # </u> → *
         return '*'

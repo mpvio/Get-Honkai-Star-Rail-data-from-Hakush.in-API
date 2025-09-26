@@ -248,7 +248,7 @@ def parse_memosprite_value(value: str, l1_params: List[float], max_params: List[
 
 def add_params_to_desc(desc: str, l1_params : List[int | float], max_params : List[int | float] = None, whale_params : List[int | float] = None):
     try:
-        words = desc.replace("<unbreak>", "</unbreak>").replace("\\n", " ").replace("<color=#f29e38ff>","").replace("</color>","").replace("<u>","").replace("</u>","").replace("\"", "'").split("</unbreak>")
+        words = neatenDesc(desc).split("</unbreak>")
         for i in range (len(words)):
             if "[" in words[i]:
                 percent = "%" if "%" in words[i] else ""
