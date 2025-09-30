@@ -92,6 +92,7 @@ def replacer(match: re.Match[str]) -> str:
     return match.group(0)
 
 def neatenDesc(desc : str) -> str:
+    if desc is None: return ""
     return pattern.sub(replacer, desc)
 
 def noUnbreakDesc(desc : str) -> str:
