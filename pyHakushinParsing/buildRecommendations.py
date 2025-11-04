@@ -3,7 +3,8 @@ relicsets : dict = {}
 mainStat : dict = {
     "CriticalDamageBase": "Crit DMG",
     "CriticalChanceBase": "Crit Rate",
-    "SPRatioBase": "Energy Regeneration Rate"
+    "SPRatioBase": "Energy Regeneration Rate",
+    "BreakDamageAddedRatioBase": "Break Effect"
 }
 partialReplacements : dict = {
     "Delta": "",

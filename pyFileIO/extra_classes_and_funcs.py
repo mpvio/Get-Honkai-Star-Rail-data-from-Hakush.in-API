@@ -61,7 +61,7 @@ def get_material_names(materials : set):
      for material in material_list:
           try: 
                matString = str(material)
-               #use this instead of following if statement to censor boss material if desired
+               #use this instead of following if statement to fake boss material if desired
                #if matString.startswith('1105') and matString not in weeklyBossMats: matString = weeklyBossMats[-1]
                item_name = items_dict[matString]["ItemName"]
                if matString.startswith('1105') and matString not in weeklyBossMats and item_name != "...": item_name = "???"
