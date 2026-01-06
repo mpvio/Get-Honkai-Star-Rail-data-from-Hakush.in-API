@@ -65,11 +65,18 @@ def get_material_names(materials : set):
                #if matString.startswith('1105') and matString not in weeklyBossMats: matString = weeklyBossMats[-1]
                item_name = items_dict[matString]["ItemName"]
                if matString.startswith('1105') and matString not in weeklyBossMats and item_name != "...": item_name = "???"
-               material_names.append(item_name)
+               material_names.append(removeItalics(item_name))
           except: pass
      return material_names
 
+italics_pattern: re.Pattern[str] = re.compile(r'(<i>|<\/i>)')
 
+def italics_replacer(match: re.Match[str]) -> str:
+     if match.group(1): return ""
+
+def removeItalics(name: str) -> str:
+    if name is None: return ""
+    return italics_pattern.sub(italics_replacer, name)
 
 pattern: re.Pattern[str] = re.compile(
     r'(<unbreak>)|(\\n)|(<u>|<color=[^>]+>|<\/color>|<icon[^>]*>)|(</u>)|(")|(–)'  # Added <icon> to group 3

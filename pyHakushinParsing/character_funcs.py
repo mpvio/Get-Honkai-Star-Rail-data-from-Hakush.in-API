@@ -13,7 +13,8 @@ skill_names = {
     None: "Talent",
     "MazeNormal": "Overworld",
     "Maze": "Technique",
-    "Servant": "Skill"
+    "Servant": "Skill",
+    "ElationDamage": "Elation Skill"
 }
 
 def reorder_base_kit(kit : dict):
@@ -319,7 +320,7 @@ def mainskills(my_data : dict, data : dict, summonSkillNum : str = None) -> dict
      extrasDict : dict = {}
      for skillnum in skills:
         skill = skills[skillnum]
-        skill_type = skill_names[skill["Type"]] if skill["Type"] in skill_names else skill["Type"]
+        skill_type = skill_names[skill["Type"]] if skill["Type"] in skill_names else skill["Type"]       
         skill_count = skill_counts.add_skill(skill_type)
         if skill_count > 1: skill_type = f"{skill_type} #{str(skill_count)}"
 
@@ -347,10 +348,10 @@ def mainskills(my_data : dict, data : dict, summonSkillNum : str = None) -> dict
         energy = skill["SPBase"]
         if energy != None:
             my_data["Kit"][skill_type]["Energy"] = energy
-        if skill["BPAdd"] == 1:
-            my_data["Kit"][skill_type]["BP"] = 1
-        elif skill["BPNeed"] == 1:
-            my_data["Kit"][skill_type]["BP"] = -1
+        if skill["BPAdd"] != None:
+            my_data["Kit"][skill_type]["SP"] = skill["BPAdd"]
+        elif skill["BPNeed"] != None:
+            my_data["Kit"][skill_type]["SP"] = abs(skill["BPNeed"]) * -1
         weakness_break_types : List[int] = skill["ShowStanceList"]
         if weakness_break_types != [0,0,0]:
             my_data["Kit"][skill_type]["Weakness Break"] = parse_weakness_breaks(weakness_break_types) #single target, aoe, blast
