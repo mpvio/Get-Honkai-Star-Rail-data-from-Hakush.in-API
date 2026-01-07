@@ -355,7 +355,12 @@ def mainskills(my_data : dict, data : dict, summonSkillNum : str = None) -> dict
         weakness_break_types : List[int] = skill["ShowStanceList"]
         if weakness_break_types != [0,0,0]:
             my_data["Kit"][skill_type]["Weakness Break"] = parse_weakness_breaks(weakness_break_types) #single target, aoe, blast
+        
+        # elation participation id
+        if "ElationPriorityValue" in skill:
+            my_data["Kit"][skill_type]["Participation ID"] = skill["ElationPriorityValue"]
      my_data["Kit"] = reorder_base_kit(my_data["Kit"])
+
      return extrasDict
 
 def eidolons(character_dict : dict, json_dict : dict) -> set:
