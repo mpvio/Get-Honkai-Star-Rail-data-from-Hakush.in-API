@@ -135,6 +135,12 @@ def character(param):
         better = convertCharToBetterName(param)
         my_data[c.NAME] = better if better != None else data[c.NAME]
         get_stats(my_data, data, True)
+
+        my_data[c.STATS][c.RARITY] = 5 if data[c.RARITY] == "CombatPowerAvatarRarityType5" else 4
+        my_data[c.STATS]["Energy"] = data["SPNeed"]
+        my_data[c.STATS][c.PATH] = path_map[data["BaseType"]] if data["BaseType"] in path_map else data["BaseType"]
+        my_data[c.STATS]["Element"] = "Lightning" if data["DamageType"] == "Thunder" else data["DamageType"]
+
         my_data["Kit"] = {}
         summoner_talent_id = None
 
@@ -164,11 +170,6 @@ def character(param):
 
         my_data["Terms"] = extras
         my_data[c.RELICS] = br.getBuildRecommendations(data[c.RELICS], relicEffects)
-
-        my_data[c.STATS][c.RARITY] = 5 if data[c.RARITY] == "CombatPowerAvatarRarityType5" else 4
-        my_data[c.STATS]["Energy"] = data["SPNeed"]
-        my_data[c.STATS][c.PATH] = path_map[data["BaseType"]] if data["BaseType"] in path_map else data["BaseType"]
-        my_data[c.STATS]["Element"] = "Lightning" if data["DamageType"] == "Thunder" else data["DamageType"]
 
         blackListResult : str = None
         blacklisted = param in blackList
@@ -210,15 +211,15 @@ def removeMajorTraceNames(traces : dict):
 def get_stats(my_dict : dict, data : dict, character : bool):
      stat_dict : dict = {}
      if character:
-         stats = data[c.STATS]["6"]
-         hp, hpAdd = "HPBase", "HPAdd"
-         atk, atkAdd = "AttackBase", "AttackAdd"
-         defe, defAdd = "DefenceBase", "DefenceAdd"
+        stats = data[c.STATS]["6"]
+        hp, hpAdd = "HPBase", "HPAdd"
+        atk, atkAdd = "AttackBase", "AttackAdd"
+        defe, defAdd = "DefenceBase", "DefenceAdd"
      else:
-         stats = data[c.STATS][-1]
-         hp, hpAdd = "BaseHP", "BaseHPAdd"
-         atk, atkAdd = "BaseAttack", "BaseAttackAdd"
-         defe, defAdd = "BaseDefence", "BaseDefenceAdd"
+        stats = data[c.STATS][-1]
+        hp, hpAdd = "BaseHP", "BaseHPAdd"
+        atk, atkAdd = "BaseAttack", "BaseAttackAdd"
+        defe, defAdd = "BaseDefence", "BaseDefenceAdd"
      stat_dict["HP"] = round(stats[hp] + (stats[hpAdd]*79))
      stat_dict["ATK"] = round(stats[atk] + (stats[atkAdd]*79))
      stat_dict["DEF"] = round(stats[defe] + (stats[defAdd]*79))

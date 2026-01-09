@@ -314,11 +314,11 @@ def uniqueSkills(my_data: dict, data: dict) -> dict:
     return extrasDict
 
 def mainskills(my_data : dict, data : dict, summonSkillNum : str = None) -> dict:
-     skills = data["Skills"]
-     #reset_skill_occurrences()
-     skill_counts = Skill_Counter()
-     extrasDict : dict = {}
-     for skillnum in skills:
+    skills = data["Skills"]
+    #reset_skill_occurrences()
+    skill_counts = Skill_Counter()
+    extrasDict : dict = {}
+    for skillnum in skills:
         skill = skills[skillnum]
         skill_type = skill_names[skill["Type"]] if skill["Type"] in skill_names else skill["Type"]       
         skill_count = skill_counts.add_skill(skill_type)
@@ -358,10 +358,11 @@ def mainskills(my_data : dict, data : dict, summonSkillNum : str = None) -> dict
         
         # elation participation id
         if "ElationPriorityValue" in skill:
-            my_data["Kit"][skill_type]["Participation ID"] = skill["ElationPriorityValue"]
-     my_data["Kit"] = reorder_base_kit(my_data["Kit"])
+            # my_data["Kit"][skill_type]["Participation ID"] = skill["ElationPriorityValue"]
+            my_data[c.STATS]["Participation ID"] = skill["ElationPriorityValue"] # adds to main stats instead of skill
+    my_data["Kit"] = reorder_base_kit(my_data["Kit"])
 
-     return extrasDict
+    return extrasDict
 
 def eidolons(character_dict : dict, json_dict : dict) -> set:
     raw_eidolons = json_dict["Ranks"]
