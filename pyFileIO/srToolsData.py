@@ -2,7 +2,7 @@ from collections import defaultdict
 
 import requests
 
-from pyFileIO.extra_classes_and_funcs import Skill_Counter
+from pyFileIO.extra_classes_and_funcs import Skill_Counter, convertCharToBetterName
 from pyFileIO.fileReadWriteFuncs import write_to_file
 from pyHakushinParsing.character_funcs import add_params_to_desc, formatNumber, reorder_base_kit
 import pyHakushinParsing.constants as c
@@ -39,7 +39,29 @@ def getAllData(version: str) -> dict:
             print(f"Failed to fetch {endpoint}. Status code: {response.status_code}")
             data[endpoint] = {}
     return data
+
+def getNamesLists(data: dict, textmap: dict) -> dict:
+    threeLists = {}
+    for d in data:
+        # chars, lcs, relics
+        dictionary = {}
+        items: dict = data[d]
+        for i in items.values():
+            id = i["id"]
+            betterName = convertCharToBetterName(str(id))
+            if betterName: 
+                i["name"] = betterName
+                dictionary[id] = betterName
+            else:
+                nameId = str(i["name"])
+                name = textmap.get(nameId, None)
+                dictionary[id] = name
+        threeLists[d] = dictionary
     
+    import json
+    print(json.dumps(threeLists, indent=4))
+    return threeLists
+
 '''
 Get "CurrentVersion" from here:
 https://cdn.neonteam.dev/neonteam/Metadata.json
@@ -49,14 +71,6 @@ https://cdn.neonteam.dev/neonteam/4.0.52-14095714/lightcones.json
 https://cdn.neonteam.dev/neonteam/4.0.52-14095714/relic-sets.json
 Get skill names/ descriptions from here:
 https://cdn.neonteam.dev/neonteam/4.0.52-14095714/textmaps.json
-'''
-
-'''
-Castorice:
-Netherwing is split between 1407301 and 1407302 (Point19 and Point20).
-[skill_trees][1407301][servants] = dict of skills, null otherwise
-1407301 has skills 1140701, 1140702, 1140710, 1140711
-1407302 has skills 1140703, 1140705, 1140706, 1140712
 '''
 
 def sortData(testIds: list[str]) -> tuple[list[str], list[str], list[str]]:
@@ -72,7 +86,8 @@ def sortData(testIds: list[str]) -> tuple[list[str], list[str], list[str]]:
 def getBasicKits(ids: list[str], data: dict) -> dict:
     results = {}
     for id in ids:
-        results[id] = data[id]
+        try: results[id] = data[id]
+        except: continue
     return results
 
 def addTextToCharacters(character: dict, textmap: dict):
@@ -346,24 +361,3 @@ def handleRelics(relics: dict, textmap: dict):
         print(result)
         results.append(result)
     return results
-
-# planar
-'''
-{
-    "Name": "Amphoreus, The Eternal Land",
-    "Relic Effect/s": {
-        "2": "Increases the wearer's CRIT Rate by 8%. While the wearer's memosprite is on the field, increases all allies' SPD by 8%. This effect cannot be stacked."
-    }
-}
-'''
-
-# cavern
-'''
-{
-    "Name": "World-Remaking Deliverer",
-    "Relic Effect/s": {
-        "2": "Increases CRIT Rate by 8%.",
-        "4": "After the wearer uses Basic ATK or Skill, if the wearer's memosprite is on the field, increases Max HP of the wearer and their memosprite by 24%, and increases all allies' dealt DMG by 15%, lasting until after the wearer's next use of Basic ATK or Skill."
-    }
-}
-'''

@@ -41,6 +41,7 @@ def customCharNames(names: dict):
         if name != None: names[key]['en'] = name
 
 def convertCharToBetterName(id: str) -> str:
+    if len(id) != 4: return None
     march7th: dict = {
 		"1001": "March 7th (Ice, Preservation)",
 		"1224": "March 7th (Imaginary, Hunt)"
