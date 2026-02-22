@@ -1,4 +1,5 @@
 import tkinter as tk
+from pyFileIO.srToolsData import collectAllInformation, loadKits
 from pyHakushinParsing import hakushin_json_fetcher as hf
 from pyCheckNewPages import selector
 from pyUi.uiGlobals import *
@@ -6,6 +7,11 @@ from tkinter.scrolledtext import ScrolledText
 from tkinter import font
 from idlelib.tooltip import Hovertip
 from pyHakushinParsing import constants as c
+
+# srtools data
+textmap: dict = {}
+data: dict = {}
+names: dict = {}
 
 # create scrolltext
 def createScroll(master: tk.Frame) -> ScrolledText:
@@ -31,7 +37,9 @@ def hakuApi_submitQueryEvent(hakuApi_entry : tk.Entry, scroll : ScrolledText, ha
     ids_temp = [id for id in hakuApi_entry.get().replace(",", " ").split(" ") if id not in [" ", ""]]
     ids = []
     [ids.append(id) for id in ids_temp if id not in ids]
-    results = hf.main(ids)
+    # results = hf.main(ids)
+    global data, textmap
+    results = loadKits(ids, data, textmap)
     hakuApi_entry.delete(0, tk.END)
     if results == []: answer = ""
     elif len(results) == 1: answer = results[0]
@@ -206,11 +214,12 @@ def set_up_checkNewPages_frame(window : tk.Tk, hakuApi_entry : tk.Entry):
     return checkNewPages_frame
 
 def getItemListsAndWeekliesSetter(window: tk.Tk):
+    global names
     # define buttons
     frame = get_frame(window, 3)
     buttonFrame = tk.Frame(frame)
     buttonFrame.pack(fill="x")
-    listsButton = tk.Button(buttonFrame, text="View saved IDs", command=lambda: showItems(window), width=widerButtonWidth, padx=xPadding)
+    listsButton = tk.Button(buttonFrame, text="View saved IDs", command=lambda: showItems(window, names), width=widerButtonWidth, padx=xPadding)
     listsButton.pack(fill="x", side="left")
     weeklyButton = tk.Button(buttonFrame, text="Set Weeklies", width=widerButtonWidth, padx=xPadding, command=lambda: showFrame(weeklyFrame, weeklyEntry))
     weeklyButton.pack(fill="x", side="right")
@@ -245,6 +254,9 @@ def getTextLists(window: tk.Tk):
     return frame
 
 def start_up():
+    # set up srtools
+    global data, textmap, names
+    data, textmap, names = collectAllInformation()
 
     window = tk.Tk()
     window.title("Hakush.in Tool")
@@ -256,7 +268,7 @@ def start_up():
     _, hakuApi_entry = set_up_hakuApi_frame(window)
 
     #checkNewPages.py integration
-    _ = set_up_checkNewPages_frame(window, hakuApi_entry)
+    # _ = set_up_checkNewPages_frame(window, hakuApi_entry)
 
     # text lists panel
     _ = getTextLists(window)

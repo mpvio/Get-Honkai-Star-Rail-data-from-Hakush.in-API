@@ -34,11 +34,11 @@ def getTagFromID(itemID: str):
         case 5: return "lightcone/"
         case _: return ""
 
-def write_to_file(item_id: str, dictionary, simplified = False):
+def write_to_file(item_id: str, dictionary, srTools = False):
     # consider restoring this if a name needs to be hidden
     # name: str = item_id if blackListed else dictionary["Name"]
     name: str = dictionary["Name"]
-    if simplified: name += " (Simple)"
+    if srTools: name += " (S)"
     prefix = getTagFromID(item_id)
     fileName = prefix + name
     title = c.formatDataLocation(fileName + ".json")

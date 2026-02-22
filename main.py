@@ -17,12 +17,11 @@ def getInputs() -> list[str]:
         return []
     return user_input.split()
 
-
 def srtoolsTest(args: list[str]):
     currentVersion = s.getCurrentVersion()
     textmap = s.getTextMaps(currentVersion)
     data = s.getAllData(currentVersion)
-    s.getNamesLists(data, textmap)
+    names = s.getNamesLists(data, textmap)
     if args: inputs = args
     else: 
         inputs = getInputs()
@@ -40,4 +39,5 @@ def srtoolsTest(args: list[str]):
         s.handleRelics(relicKits, textmap)
 
 if __name__ == "__main__":
-    srtoolsTest(sys.argv[1:]) #first arg is always file name, so skip it
+    main()
+    # srtoolsTest(sys.argv[1:]) #first arg is always file name, so skip it

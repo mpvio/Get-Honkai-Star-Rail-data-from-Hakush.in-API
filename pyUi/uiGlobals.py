@@ -36,12 +36,21 @@ def showList(window: tk.Tk, func: str):
     saveBtn.pack(side="left", fill="x")
     closeBtn.pack(side="right", fill="x")
 
-def putItemsOnScroll(scroll: ScrolledText, page: str):
+def convertDictToList(page: str, names: dict) -> str:
+    # endpoints = ["avatars", "lightcones", "relic-sets"]
+    if page == c.CHARACTER: content: dict = names["avatars"]
+    elif page == c.LIGHTCONE: content: dict = names["lightcones"]
+    else: content: dict = names["relic-sets"]
+    return '\n'.join([f"{k}: {v}" for k, v in content.items()])
+
+def putItemsOnScroll(scroll: ScrolledText, page: str, names: dict):
     from pyUi.hakushin_reader_ui import updateScroll
-    content = jsonListToStr(page)
+    # content = jsonListToStr(page)
+    content = convertDictToList(page, names)
     updateScroll(scroll, content)
 
-def showItems(window: tk.Tk):
+def showItems(window: tk.Tk, names: dict):
+    #TODO Update this to use saved lists from SRTools instead
     from pyUi.hakushin_reader_ui import createScroll
     child = tk.Toplevel(window)
     child.resizable(True, True)
@@ -54,9 +63,9 @@ def showItems(window: tk.Tk):
     child.grid_rowconfigure(1, weight=1) # scrolltext row expands vertically, buttons stay the same
     child.grid_columnconfigure((0, 1, 2), weight=1) # all components spread out horizontally
     # buttons
-    chButton = tk.Button(child, text=f"{c.CHARACTER.capitalize()}s", width=button_width, command=lambda: [updateSelection(c.CHARACTER), putItemsOnScroll(scroll, selectedItem)])
-    lcButton = tk.Button(child, text=f"{c.LIGHTCONE.capitalize()}s", width=button_width, command=lambda: [updateSelection(c.LIGHTCONE), putItemsOnScroll(scroll, selectedItem)])
-    rlButton = tk.Button(child, text=f"{c.RELICSET.capitalize()}s", width=button_width, command=lambda: [updateSelection(c.RELICSET), putItemsOnScroll(scroll, selectedItem)])
+    chButton = tk.Button(child, text=f"{c.CHARACTER.capitalize()}s", width=button_width, command=lambda: [updateSelection(c.CHARACTER), putItemsOnScroll(scroll, selectedItem, names)])
+    lcButton = tk.Button(child, text=f"{c.LIGHTCONE.capitalize()}s", width=button_width, command=lambda: [updateSelection(c.LIGHTCONE), putItemsOnScroll(scroll, selectedItem, names)])
+    rlButton = tk.Button(child, text=f"{c.RELICSET.capitalize()}s", width=button_width, command=lambda: [updateSelection(c.RELICSET), putItemsOnScroll(scroll, selectedItem, names)])
     chButton.grid(column=0, row=0)
     lcButton.grid(column=1, row=0)
     rlButton.grid(column=2, row=0)

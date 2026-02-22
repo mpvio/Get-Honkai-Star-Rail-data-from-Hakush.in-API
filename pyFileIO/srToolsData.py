@@ -7,6 +7,28 @@ from pyFileIO.fileReadWriteFuncs import write_to_file
 from pyHakushinParsing.character_funcs import add_params_to_desc, formatNumber, reorder_base_kit
 import pyHakushinParsing.constants as c
 
+def collectAllInformation() -> tuple[dict, dict, dict]:
+    currentVersion = getCurrentVersion()
+    textmap: dict = getTextMaps(currentVersion)
+    data: dict = getAllData(currentVersion)
+    names: dict = getNamesLists(data, textmap)
+    return data, textmap, names
+
+def loadKits(inputs: list[str], data: dict, textmap: dict) -> list[str]:
+    if not inputs: inputs = c.get_shortlist()
+    characters, lightcones, relicSets = sortData(inputs)
+    results = []
+    if len(characters) != 0:
+        charKits = getBasicKits(characters, data["avatars"])
+        results.extend(handleCharacters(charKits, textmap))
+    if len(lightcones) != 0:
+        lcKits = getBasicKits(lightcones, data["lightcones"])
+        results.extend(handleLightCones(lcKits, textmap))
+    if len(relicSets) != 0:
+        relicKits = getBasicKits(relicSets, data["relic-sets"])
+        results.extend(handleRelics(relicKits, textmap))
+    return results
+
 def getCurrentVersion() -> str:
     url = "https://cdn.neonteam.dev/neonteam/Metadata.json"
     response = requests.get(url)
@@ -55,11 +77,9 @@ def getNamesLists(data: dict, textmap: dict) -> dict:
             else:
                 nameId = str(i["name"])
                 name = textmap.get(nameId, None)
+                i["name"] = name
                 dictionary[id] = name
         threeLists[d] = dictionary
-    
-    import json
-    print(json.dumps(threeLists, indent=4))
     return threeLists
 
 '''
@@ -91,8 +111,8 @@ def getBasicKits(ids: list[str], data: dict) -> dict:
     return results
 
 def addTextToCharacters(character: dict, textmap: dict):
-    # add name
-    character["name"] = textmap.get(str(character["name"]), None)
+    # # add name
+    # character["name"] = textmap.get(str(character["name"]), None)
     # update energy if changed
     if character["max_sp_enhanced"]: character["max_sp"] = character["max_sp_enhanced"]
     # add text to kit
@@ -154,7 +174,8 @@ def handleCharacters(characters: dict, textmap: dict):
 
         # get name & id
         char_id = str(character["id"])
-        new_character["Name"] = character["name"]
+        # name_attempt: str = character["name"]
+        new_character["Name"] = character["name"] #name_attempt if name_attempt else character["tag"].capitalize()
 
         # get stats
         new_character["Stats"] = {}
@@ -295,7 +316,7 @@ def handleCharacters(characters: dict, textmap: dict):
         # print(textVer)
 
         result = write_to_file(char_id, new_character, True)
-        print(result)
+        # print(result)
         results.append(result)
     return results
 
@@ -303,7 +324,8 @@ def handleLightCones(lightcones: dict, textmap: dict):
     results = []
     for lightcone in lightcones.values():
         id = str(lightcone["id"])
-        name = textmap.get(str(lightcone["name"]), None)
+        # name = textmap.get(str(lightcone["name"]), None)
+        name = lightcone["name"]
         rarity = lightcone["rarity"]
         path = path_map[lightcone["path"]]
         
@@ -327,9 +349,9 @@ def handleLightCones(lightcones: dict, textmap: dict):
         }
 
         result = write_to_file(id, new_lightcone, True)
-        print(result)
+        # print(result)
         results.append(result)
-    return result
+    return results
 
 def handleStatCalcs(stats: dict):
     types = ["hp", "atk", "def"]
@@ -343,7 +365,7 @@ def handleRelics(relics: dict, textmap: dict):
     results = []
     for relic in relics.values():
         id = str(relic["id"])
-        name = textmap.get(str(relic["name"]), None)
+        name = relic["name"] #textmap.get(str(relic["name"]), None)
         effects = {}
         for number in relic["set_bonus"]:
             bonus = relic["set_bonus"][number]
@@ -358,6 +380,6 @@ def handleRelics(relics: dict, textmap: dict):
         }
 
         result = write_to_file(id, new_relic, True)
-        print(result)
+        # print(result)
         results.append(result)
     return results

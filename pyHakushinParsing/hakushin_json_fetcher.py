@@ -192,7 +192,7 @@ def blackListedItem(param: str, data: dict):
     #TODO: convert Traces to tree with Major traces hidden.
     abridgedData[c.TRACE_TREE] = removeMajorTraceNames(data[c.TRACE_TREE])
     abridgedData[c.RELICS] = data[c.RELICS]
-    return write_to_file(f"{param}", abridgedData, simplified=True)
+    return write_to_file(f"{param}", abridgedData, srTools=True)
 
 def removeMajorTraceNames(traces : dict):
     for trace in traces:
