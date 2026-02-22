@@ -47,7 +47,7 @@ def write_to_file(item_id: str, dictionary, simplified = False):
         output = f"{name}.json created."
     else:
         old_as_json = json.loads(old_file)
-        difference = DeepDiff(old_as_json, dictionary, ignore_type_in_groups=[dict]).to_dict() # type: ignore
+        difference = DeepDiff(old_as_json, dictionary, ignore_type_in_groups=[dict], verbose_level=2).to_dict() # type: ignore
         if difference == {}:
             output = f"No changes for {name}."
             return output

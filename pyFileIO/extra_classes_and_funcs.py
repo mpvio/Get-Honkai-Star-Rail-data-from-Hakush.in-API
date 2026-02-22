@@ -7,7 +7,7 @@ class Skill_Counter(dict):
         super().__init__()
         self.__dict__ = self
 
-    def add_skill(self, skill_type : str):
+    def add_skill(self, skill_type : str) -> int:
         if skill_type in self:
             self[skill_type] += 1
         else:

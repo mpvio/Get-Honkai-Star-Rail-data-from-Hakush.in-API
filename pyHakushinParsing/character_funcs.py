@@ -253,21 +253,27 @@ def add_params_to_desc(desc: str, l1_params : List[int | float], max_params : Li
         for i in range (len(words)):
             if "[" in words[i]:
                 percent = "%" if "%" in words[i] else ""
-                words[i] = insert_numbers_into_place(words[i], l1_params, max_params, whale_params) + percent
+                words[i] = insert_numbers_into_place(words[i], percent, l1_params, max_params, whale_params)
         return "".join(words)
     except: 
         words = desc
         return ""
     
-def insert_numbers_into_place(word: str, l1_params : List[int | float], max_params : List[int | float] = None, whale_params : List[int | float] = None):
+def insert_numbers_into_place(word: str, percent: str, l1_params : List[int | float], max_params : List[int | float] = None, whale_params : List[int | float] = None):
     param_position = int(word.split("[")[0].split("#")[1])-1
+    # make sure floats are properly formatted
+    multiplier = 100 if percent == "%" else 1
+    if type(l1_params[param_position]) == float: l1_params[param_position] = int(l1_params[param_position] * multiplier)
+    if max_params and type(max_params[param_position]) == float: max_params[param_position] = int(max_params[param_position] * multiplier)
+    if whale_params and type(whale_params[param_position]) == float: whale_params[param_position] = int(whale_params[param_position] * multiplier)
+    # generate strings
     if max_params == None or l1_params[param_position] == max_params[param_position]:
         value = str(l1_params[param_position])
     elif whale_params == None:
         value = f"[{l1_params[param_position]}|{max_params[param_position]}]"
     else:
         value = f"[{l1_params[param_position]}|{max_params[param_position]}|{whale_params[param_position]}]"
-    return value
+    return value + percent
 
 def get_min_max_params(skill: dict, alreadyParsed: bool = False):
     #so far, "alreadyParsed" is only for Remembrance chars
@@ -331,7 +337,7 @@ def mainskills(my_data : dict, data : dict, summonSkillNum : str = None) -> dict
         else: skillAlreadyParsed = False
 
         level1_params, levelmax_params, whale_params = get_min_max_params(skill, skillAlreadyParsed)
-        skill_description : str = skill[c.DESC]
+        skill_description : str = c.TEXTMAP[skill[c.DESC]]
 
         #handle extras (i.e. explanations of tags)
         extras: dict = skill[c.EXTRA]
@@ -342,7 +348,7 @@ def mainskills(my_data : dict, data : dict, summonSkillNum : str = None) -> dict
         else:
             new_desc = create_parameter_tuple_without_desc(level1_params, levelmax_params, whale_params) # possibly just use empty string instead of this?
 
-        my_data["Kit"][skill_type][c.NAME] = skill[c.NAME] #na.abbreviate_string(skill[c.NAME])
+        my_data["Kit"][skill_type][c.NAME] = c.TEXTMAP[skill[c.NAME]] #na.abbreviate_string(skill[c.NAME])
         my_data["Kit"][skill_type][c.DESC] = new_desc #na.abbreviate_quoted_text(new_desc)
         my_data["Kit"][skill_type]["Tag"] = skill["Tag"]
         energy = skill["SPBase"]
@@ -371,13 +377,13 @@ def eidolons(character_dict : dict, json_dict : dict) -> set:
     for num in raw_eidolons:
         eidolon = raw_eidolons[num]
         e_num = eidolon["Id"] % 10
-        description : str = eidolon[c.DESC]
+        description : str = c.TEXTMAP[eidolon[c.DESC]]
         parameters = eidolon[c.PARAMLIST]
-        extras = eidolon[c.EXTRA]
-        #handle extras (i.e. explanations of tags)
-        for e in extras:
-            extra = extras[e]
-            extrasDict[extra[c.NAME]] = noUnbreakDesc(extra[c.DESC])
+        # extras = eidolon[c.EXTRA]
+        # #handle extras (i.e. explanations of tags)
+        # for e in extras:
+        #     extra = extras[e]
+        #     extrasDict[extra[c.NAME]] = noUnbreakDesc(extra[c.DESC])
         if parameters == []:
             eidolon_desc = noUnbreakDesc(description) 
             # : dict = {

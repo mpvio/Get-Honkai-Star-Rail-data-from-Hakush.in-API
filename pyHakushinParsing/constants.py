@@ -2,8 +2,11 @@ from datetime import datetime
 import os
 import pathlib
 
+import requests
+
 WEEKLY_BOSSES = 7 # TODO: move to file to allow user input
 FIRST_WEEKLY_BOSS = 110501
+TEXTMAP : dict = {}
 
 #types of items
 CHARACTER = "character"
@@ -14,11 +17,11 @@ RELICSET = "relicset"
 NEEDRELICS = [4, 5]
 
 #dict keys:
-NAME = "Name"
-RARITY = "Rarity"
-PATH = "Path"
-DESC = "Desc"
-STATS = "Stats"
+NAME = "name"
+RARITY = "rarity"
+PATH = "path"
+DESC = "desc"
+STATS = "stats"
 MEMOSPRITE = "Memosprite"
 MATERIALS = "Materials"
 MINOR_TRACES = "Minor Traces"
@@ -141,3 +144,14 @@ def writeTxtList(page: str, content: list[str]):
             file.writelines(content)
     except Exception as e:
          print(e)
+
+# get textmap from srtools data
+def setTextMap(version: str):
+    global TEXTMAP
+    url = f"https://cdn.neonteam.dev/neonteam/{version}/textmaps.json"
+    response = requests.get(url)
+    if response.status_code == 200:
+        data: dict = response.json()
+        TEXTMAP = data["EN"]
+    else:
+        print(f"Failed to fetch text maps. Status code: {response.status_code}")

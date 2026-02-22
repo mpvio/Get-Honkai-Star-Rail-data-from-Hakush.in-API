@@ -8,6 +8,7 @@ from pyHakushinParsing import character_funcs as cf
 from pyHakushinParsing import buildRecommendations as br
 from pyCheckNewPages import compareListsToManualInput
 from pyFileIO.extra_classes_and_funcs import get_material_names, neatenDesc, getAllItems, convertCharToBetterName
+from pyFileIO.srToolsData import getCurrentVersion, getTextMaps, getAllData
 from . import constants as c
 from concurrent.futures import ThreadPoolExecutor
 
@@ -33,6 +34,9 @@ element_map : defaultdict = {
 }
 
 relicEffects : dict = None
+# add info from srTools
+currentVersion : str = None
+allData: dict = None
 
 blackList : list[str] = []
 
@@ -123,12 +127,12 @@ def lightcone(param):
         return False, output
 
 def character(param):
-    req_string = f"https://api.hakush.in/hsr/data/en/character/{param}.json"
-    #if param in v1TempList: req_string = f"https://api.hakush.in/hsr/{version}/en/character/{param}.json"
-    response = requests.get(req_string)
+    # req_string = f"https://api.hakush.in/hsr/data/en/character/{param}.json"
+    # #if param in v1TempList: req_string = f"https://api.hakush.in/hsr/{version}/en/character/{param}.json"
+    # response = requests.get(req_string)
 
-    if response.status_code == 200:
-        data = response.json()
+    # endpoints = ["avatars", "lightcones", "relic-sets"]
+    with allData["avatars"][param] as data:
         my_data = {}
         extras : dict = {}
 
@@ -144,18 +148,10 @@ def character(param):
         my_data["Kit"] = {}
         summoner_talent_id = None
 
-        if data["Enhanced"] != {}:
-            enhancements : dict = data["Enhanced"]
-            latestEnh : dict = enhancements.get(list(enhancements)[-1])
-            for key in latestEnh.keys():
-                data[key] = latestEnh[key]
-            # get description of changes
-            enhancementDesc = []
-            descs: dict = data["Descs"]
-            for desc in descs:
-                enhancementDesc.append(neatenDesc(desc))
-            # add desc to main file
-            my_data["Enhanced"] = enhancementDesc
+        if data["max_sp_enhanced"]: data["max_sp"] = data["max_sp_enhanced"]
+        if data["ranks_enhanced"]: data["ranks"] = data["ranks_enhanced"]
+        if data["skills_enhanced"]: data["skills"] = data["skills_enhanced"]
+        if data["skill_trees_enhanced"]: data["skill_trees"] = data["skill_trees_enhanced"]
 
         if data[c.MEMOSPRITE] != {}:
             my_data[c.MEMOSPRITE], summoner_talent_id, memoExtras = cf.parse_memosprite(data)
@@ -180,10 +176,10 @@ def character(param):
             writeToFileResult += "\n" + blackListResult
             #return True, blackListResult
         return True, writeToFileResult
-    else: 
-        output = f"Character {param} not found."
-        #print(output)
-        return False, output
+    # else: 
+    #     output = f"Character {param} not found."
+    #     #print(output)
+    #     return False, output
     
 def blackListedItem(param: str, data: dict):
     #if len(param) == 4: 
@@ -237,6 +233,7 @@ def main(args: List[str]):
         try: args = c.get_shortlist() #["1301"]  #["1304", "1305", "1308", "1309", "1310", "1314", "23025"] #
         except: args = ["8001", "1308", "1310"]
 
+    getSrToolsData()
     getRelicsIfNeeded(args)
 
     with ThreadPoolExecutor(8) as exe:
@@ -265,6 +262,12 @@ def mainloopLogic(arg: str) -> tuple[bool, str]:
     valid, result = func(arg) # type: ignore
     return valid, result
 
+def getSrToolsData():
+    global currentVersion, allData
+    currentVersion = getCurrentVersion()
+    # textMaps = getTextMaps(currentVersion)
+    allData = getAllData(currentVersion)
+    c.setTextMap(currentVersion)
 
 def setupRelics():
     """Should only be called once."""

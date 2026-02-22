@@ -9,7 +9,10 @@
       "type": "debugpy",
       "request": "launch",
       "program": "main.py",
-      "console": "integratedTerminal"
+      "console": "integratedTerminal",
+      "env": {
+        "PYDEVD_CONTAINER_RANDOM_ACCESS_MAX_ITEMS": "8000",
+      }
     },
   ]
 }
