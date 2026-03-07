@@ -218,7 +218,7 @@ def handleCharacters(characters: dict, textmap: dict):
             skillCount = skill_counter.add_skill(skillType)
             if skillCount > 1: skillType = f"{skillType} #{str(skillCount)}"
 
-            name = skill["name"]
+            name = add_params_to_desc(skill["name"], [])
             desc = skill["desc"]
             params = skill["params"]
             if len(params) == 1:
@@ -260,7 +260,7 @@ def handleCharacters(characters: dict, textmap: dict):
                 skillType = "Skill" if trace["id"] % 10 == 1 else "Talent"
                 for ms_skill in memosprite_info.values():
                     addTextToMemosprites(ms_skill, textmap)
-                    name = ms_skill["name"]
+                    name = add_params_to_desc(ms_skill["name"], [])
                     desc = ms_skill["desc"]
                     params = ms_skill["params"]
                     new_desc = add_params_to_desc(desc, params[0], params[5], params[6])
