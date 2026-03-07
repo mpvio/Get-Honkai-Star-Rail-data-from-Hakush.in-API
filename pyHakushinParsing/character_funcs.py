@@ -3,6 +3,7 @@ import traceback
 from typing import List
 
 from pyFileIO.extra_classes_and_funcs import Skill_Counter, get_material_names, noUnbreakDesc, neatenDesc
+from pyHakushinParsing.handle_descs_with_regex import parseDesc
 from . import constants as c
 
 skill_names = {
@@ -248,6 +249,7 @@ def parse_memosprite_value(value: str, l1_params: List[float], max_params: List[
     return value
 
 def add_params_to_desc(desc: str, l1_params : List[int | float], max_params : List[int | float] = None, whale_params : List[int | float] = None):
+    # return parseDesc(desc, l1_params, max_params, whale_params)
     try:
         words = neatenDesc(desc).split("</unbreak>")
         for i in range (len(words)):

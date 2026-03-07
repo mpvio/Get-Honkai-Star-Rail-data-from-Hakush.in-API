@@ -44,6 +44,7 @@ def getTextMaps(version: str) -> dict:
     response = requests.get(url)
     if response.status_code == 200:
         data: dict = response.json()
+        data["EN"]["371857150"] = None
         return data["EN"]
     else:
         print(f"Failed to fetch text maps. Status code: {response.status_code}")
@@ -123,14 +124,19 @@ def addTextToCharacters(character: dict, textmap: dict):
         for item in character[category]:
             name_id = str(character[category][item]["name"])
             desc_id = str(character[category][item]["desc"])
-            character[category][item]["name"] = textmap.get(name_id, None)
-            character[category][item]["desc"] = textmap.get(desc_id, None)
+            character[category][item]["name"] = None if name_id == "371857150" else textmap.get(name_id, name_id)
+            # if character[category][item]["name"] == "Bloom! Winner Takes All":
+            #     print("HEY!")
+            character[category][item]["desc"] = None if desc_id == "0" or desc_id == "None" or desc_id == "371857150" else textmap.get(desc_id, desc_id)
+            # if character[category][item]["name"] == "Bloom! Winner Takes All":
+            #     thisDesc = character[category][item]["desc"]
+            #     print(thisDesc)
 
 def addTextToMemosprites(memosprite: dict, textmap: dict):
     name_id = str(memosprite["name"])
     desc_id = str(memosprite["desc"])
-    memosprite["name"] = textmap.get(name_id, None)
-    memosprite["desc"] = textmap.get(desc_id, None)
+    memosprite["name"] = None if name_id == "371857150" else textmap.get(name_id, name_id)
+    memosprite["desc"] = None if desc_id == "371857150" else textmap.get(desc_id, desc_id)
 
 skill_names = {
     "Normal": "Basic",
@@ -303,6 +309,9 @@ def handleCharacters(characters: dict, textmap: dict):
                     parent[c.UNLOCKS] = {name: trace}
             else:
                 traceTree[name] = trace
+
+        for mtKey in minorTraces:
+            minorTraces[mtKey] = formatNumber(minorTraces[mtKey])
         
         new_character["Minor Traces"] = minorTraces
         new_character["Trace Tree"] = traceTree
