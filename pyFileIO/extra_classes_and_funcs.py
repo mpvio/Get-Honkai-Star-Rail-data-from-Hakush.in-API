@@ -42,16 +42,17 @@ def customCharNames(names: dict):
 
 def convertCharToBetterName(id: str) -> str:
     if len(id) != 4: return None
-    march7th: dict = {
+    uniqueCases: dict = {
 		"1001": "March 7th (Ice, Preservation)",
-		"1224": "March 7th (Imaginary, Hunt)"
+		"1224": "March 7th (Imaginary, Hunt)",
+        "1506": "Silver Wolf LV.999"
     }
-    if id in march7th:
-        return march7th[id]
+    if id in uniqueCases:
+        return uniqueCases[id]
     num = int(id)
     if num > 8000:
         gender = "F" if num%2==0 else "M" # F if even, M if not
-        element = "Des" if num < 8003 else "Pre" if num < 8005 else "Har" if num < 8007 else "Rem" if num < 8009 else "NEW"
+        element = "Des" if num < 8003 else "Pre" if num < 8005 else "Har" if num < 8007 else "Rem" if num < 8009 else "Ela" if num < 8011 else "NEW"
         return f"Trailblazer {element} ({gender})"
     return None
 

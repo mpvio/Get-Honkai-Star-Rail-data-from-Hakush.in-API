@@ -294,6 +294,8 @@ def handleCharacters(characters: dict, textmap: dict):
             # ignore Memosprite & Elation Skills
             if trace.pop("max_level") != 1: continue
             name = trace.pop("Name")
+            # ignore empty traces
+            if name == "None": continue
             # add to minor trace
             if "Value" in trace:
                 value = trace["Value"]
