@@ -20,19 +20,31 @@ NEEDRELICS = [4, 5]
 #dict keys:
 NAME = "name"
 RARITY = "rarity"
-PATH = "Path"
 DESC = "desc"
 STATS = "stats"
 MEMOSPRITE = "memosprite"
 MATERIALS = "materials"
+RELICS = "relics"
+PARAMLIST = "param_list"
+EXTRA = "extra"
+
+PATH = "Path"
 MINOR_TRACES = "Minor Traces"
 TRACE = "Trace"
 TRACE_TREE = "Trace Tree"
-RELICS = "relics"
 UNLOCKS = "Unlocks"
-PARAMLIST = "param_list"
 REQUIRES = "Requires"
-EXTRA = "extra"
+
+# for own files
+NAMEC = "Name"
+RARITYC = "Rarity"
+DESCC = "Desc"
+STATSC = "Stats"
+MEMOSPRITEC = "Memosprite"
+MATERIALSC = "Materials"
+RELICSC = "Relics"
+PARAMLISTC = "Param_list"
+EXTRAC = "Extra"
 
 # list names
 shortlist = "shortlist"

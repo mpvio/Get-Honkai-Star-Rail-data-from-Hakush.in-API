@@ -145,9 +145,9 @@ def skilltreesAndMaterials(character : dict, response : dict) -> dict:
                     formattedParams = parse_params(description, params)
                     description = add_params_to_desc(description, formattedParams)
                 trace: dict = {
-                    c.NAME: name,
+                    c.NAMEC: name,
                     c.TRACE: formatNumber(traceNo),
-                    c.DESC: description,
+                    c.DESCC: description,
                     c.REQUIRES: requirement
                 } 
             else:
@@ -168,7 +168,7 @@ def skilltreesAndMaterials(character : dict, response : dict) -> dict:
                 minorTraceSummary[name] += value
                 
                 trace: dict = {
-                    c.NAME: name,
+                    c.NAMEC: name,
                     unlock: traceNo,
                     "Value": formatNumber(value),
                     c.REQUIRES: requirement
@@ -179,19 +179,34 @@ def skilltreesAndMaterials(character : dict, response : dict) -> dict:
             for material in currentSkill["material_list"]:
                 materials.add(material["item_id"])
     
-    #turn skillsTemp into trees of skills (rootTracesOnly)
+    # trace tree using trace names/ stat names as keys
     for key in skillsTemp:
         skill: dict = skillsTemp[key]
+        name = skill.pop(c.NAMEC)
         try:
             requires = skill.pop(c.REQUIRES)
             parent = skillsTemp[requires]
             if c.UNLOCKS not in parent:
-                children : dict = {key: skill}
+                children : dict = {name: skill}
                 parent[c.UNLOCKS] = children
             else:
-                parent[c.UNLOCKS][key] = skill
+                parent[c.UNLOCKS][name] = skill
         except:
-            rootTracesOnly[key] = skill
+            rootTracesOnly[name] = skill
+
+    #turn skillsTemp into trees of skills (rootTracesOnly)
+    # for key in skillsTemp:
+    #     skill: dict = skillsTemp[key]
+    #     try:
+    #         requires = skill.pop(c.REQUIRES)
+    #         parent = skillsTemp[requires]
+    #         if c.UNLOCKS not in parent:
+    #             children : dict = {key: skill}
+    #             parent[c.UNLOCKS] = children
+    #         else:
+    #             parent[c.UNLOCKS][key] = skill
+    #     except:
+    #         rootTracesOnly[key] = skill
     
     #convert material set into list of names
     materialsList = get_material_names(materials)
@@ -203,7 +218,7 @@ def skilltreesAndMaterials(character : dict, response : dict) -> dict:
     #add to character object
     character[c.MINOR_TRACES] = minorTracesNeater
     character[c.TRACE_TREE] = rootTracesOnly
-    character[c.MATERIALS] = materialsList
+    character[c.MATERIALSC] = materialsList
 
     return extrasDict
 
@@ -236,13 +251,13 @@ def parse_memosprite(data: dict):
     memosprite: dict = {}
     memosprite[c.NAME] = data[c.MEMOSPRITE][c.NAME] #na.abbreviate_string(data[c.MEMOSPRITE][c.NAME])
     summoner_talent_id = get_summoner_talent_id(data)
-    # if "avatar_vo_tag" in data and data["avatar_vo_tag"] == "playergirl4":
-    #     summoner_talent_id = 800704 # female TB's Mem uses male TB's tag
-    # else:
-    #     summoner_talent_id = data[c.MEMOSPRITE]["hp_skill"]
-    # if summoner_talent_id == None: 
-    #     summoner_talent_id = data[c.MEMOSPRITE]["SpeedSkill"] # use map for remembrance units OR look for "summon" tag
-    talent : dict = data["Skills"][str(summoner_talent_id)]
+    if "avatar_vo_tag" in data and data["avatar_vo_tag"] == "playergirl4":
+        summoner_talent_id = 800704 # female TB's Mem uses male TB's tag
+    else:
+        summoner_talent_id = data[c.MEMOSPRITE]["hp_skill"]
+    if summoner_talent_id == None: 
+        summoner_talent_id = get_summoner_talent_id(data) # use map for remembrance units OR look for "summon" tag
+    talent : dict = data["skills"][str(summoner_talent_id)]
     l1_params, l6_params, l7_params = get_min_max_params(talent) #e.g. [60, 10]
     memosprite["BaseHP"] = parse_memosprite_value(data[c.MEMOSPRITE]["hp_base"], l1_params, l6_params, l7_params)
     memosprite["BonusHP"] = parse_memosprite_value(data[c.MEMOSPRITE]["hp_inherit"], l1_params, l6_params, l7_params)+"%"
@@ -371,7 +386,7 @@ def mainskills(my_data : dict, data : dict, summonSkillNum : str = None) -> dict
         # elation participation id
         if "elation_priority_value" in skill:
             # my_data["Kit"][skill_type]["Participation ID"] = skill["ElationPriorityValue"]
-            my_data[c.STATS]["Participation ID"] = skill["elation_priority_value"] # adds to main stats instead of skill
+            my_data[c.STATSC]["Participation ID"] = skill["elation_priority_value"] # adds to main stats instead of skill
     my_data["Kit"] = reorder_base_kit(my_data["Kit"])
 
     return extrasDict

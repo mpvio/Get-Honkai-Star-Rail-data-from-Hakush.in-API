@@ -45,7 +45,7 @@ def relic(param):
         data: dict = relicEffects[param]
         my_data = {}
 
-        my_data[c.NAME] = data['en']
+        my_data[c.NAMEC] = data['en']
         my_data["Relic Effect/s"] = {}
         effects: dict = data["set"]
         for setBonus in effects:
@@ -65,7 +65,7 @@ def relic(param):
         data = response.json()
         my_data = {}
         
-        my_data[c.NAME] = data[c.NAME]       
+        my_data[c.NAMEC] = data[c.NAME]       
         my_data["Relic Effect/s"] = {}
         for effect in data["require_num"]:
             old_desc = data["require_num"][effect][c.DESC]
@@ -89,11 +89,11 @@ def lightcone(param):
         my_data = {}
         material_set = set()
 
-        my_data[c.NAME] = data[c.NAME]
+        my_data[c.NAMEC] = data[c.NAME]
         #my_data[c.RARITY] = 5 if data[c.RARITY] == "CombatPowerLightconeRarity5" else 4
-        if data[c.RARITY] == "CombatPowerLightconeRarity5": my_data[c.RARITY] = 5
-        elif data[c.RARITY] == "CombatPowerLightconeRarity4": my_data[c.RARITY] = 4
-        else: my_data[c.RARITY] = 3
+        if data[c.RARITY] == "CombatPowerLightconeRarity5": my_data[c.RARITYC] = 5
+        elif data[c.RARITY] == "CombatPowerLightconeRarity4": my_data[c.RARITYC] = 4
+        else: my_data[c.RARITYC] = 3
         my_data[c.PATH] = path_map[data["base_type"]] if data["base_type"] in path_map else data["base_type"]
         
         description = data["refinements"][c.DESC]
@@ -102,7 +102,7 @@ def lightcone(param):
         s5_params = cf.parse_params(description, data["refinements"]["level"]["5"]["param_list"])
         new_desc = cf.add_params_to_desc(description, s1_params, s5_params)
 
-        my_data[c.DESC] = new_desc #data["refinements"][c.DESC]
+        my_data[c.DESCC] = new_desc #data["refinements"][c.DESC]
         #my_data["S1"] = data["refinements"]["level"]["1"]["param_list"]
         #my_data["S5"] = data["refinements"]["level"]["5"]["param_list"]
         #get stats at Lv80
@@ -114,7 +114,7 @@ def lightcone(param):
             cost = stat["promotion_cost_list"]
             for material in cost:
                 material_set.add(material["item_id"])
-        my_data[c.MATERIALS] = get_material_names(material_set)
+        my_data[c.MATERIALSC] = get_material_names(material_set)
         
         return True, write_to_file(f"{param}", my_data)
     else: 
@@ -133,13 +133,13 @@ def character(param):
         extras : dict = {}
 
         better = convertCharToBetterName(param)
-        my_data[c.NAME] = better if better != None else data[c.NAME]
+        my_data[c.NAMEC] = better if better != None else data[c.NAME]
         get_stats(my_data, data, True)
 
-        my_data[c.STATS][c.RARITY] = 5 if data[c.RARITY] == "CombatPowerAvatarRarityType5" else 4
-        my_data[c.STATS]["Energy"] = data["sp_need"]
-        my_data[c.STATS][c.PATH] = path_map[data["base_type"]] if data["base_type"] in path_map else data["base_type"]
-        my_data[c.STATS]["Element"] = "Lightning" if data["damage_type"] == "Thunder" else data["damage_type"]
+        my_data[c.STATSC][c.RARITYC] = 5 if data[c.RARITY] == "CombatPowerAvatarRarityType5" else 4
+        my_data[c.STATSC]["Energy"] = data["sp_need"]
+        my_data[c.STATSC][c.PATH] = path_map[data["base_type"]] if data["base_type"] in path_map else data["base_type"]
+        my_data[c.STATSC]["Element"] = "Lightning" if data["damage_type"] == "Thunder" else data["damage_type"]
 
         my_data["Kit"] = {}
         summoner_talent_id = None
@@ -158,7 +158,7 @@ def character(param):
             my_data["Enhanced"] = enhancementDesc
 
         if data[c.MEMOSPRITE] != {}:
-            my_data[c.MEMOSPRITE], summoner_talent_id, memoExtras = cf.parse_memosprite(data)
+            my_data[c.MEMOSPRITEC], summoner_talent_id, memoExtras = cf.parse_memosprite(data)
             extras.update(memoExtras)
 
         # add main + unique skills, traces, materials & eidolons to myData
@@ -169,14 +169,14 @@ def character(param):
         extras.update(cf.eidolons(my_data, data))
 
         my_data["Terms"] = extras
-        my_data[c.RELICS] = br.getBuildRecommendations(data[c.RELICS], relicEffects)
+        my_data[c.RELICSC] = br.getBuildRecommendations(data[c.RELICS], relicEffects)
 
         blackListResult : str = None
         blacklisted = param in blackList
         writeToFileResult = write_to_file(f"{param}", my_data)
         if blacklisted:
             blackListResult = blackListedItem(param, my_data)
-            writeToFileResult = writeToFileResult.replace(my_data[c.NAME], f"X{param}")
+            writeToFileResult = writeToFileResult.replace(my_data[c.NAMEC], f"X{param}")
             writeToFileResult += "\n" + blackListResult
             #return True, blackListResult
         return True, writeToFileResult
@@ -226,7 +226,7 @@ def get_stats(my_dict : dict, data : dict, character : bool):
      if character:
           stat_dict["Speed"] = stats["speed_base"]
           stat_dict["Aggro"] = stats["base_aggro"]
-     my_dict[c.STATS] = stat_dict
+     my_dict[c.STATSC] = stat_dict
 
 def main(args: List[str]):
     global blackList

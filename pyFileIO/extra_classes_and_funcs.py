@@ -64,7 +64,7 @@ def get_material_names(materials : set):
                matString = str(material)
                #use this instead of following if statement to fake boss material if desired
                #if matString.startswith('1105') and matString not in weeklyBossMats: matString = weeklyBossMats[-1]
-               item_name = items_dict[matString]["ItemName"]
+               item_name = items_dict[matString]["item_name"]
                if matString.startswith('1105') and matString not in weeklyBossMats and item_name != "...": item_name = "???"
                material_names.append(removeItalics(item_name))
           except: pass

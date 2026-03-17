@@ -37,7 +37,7 @@ def getTagFromID(itemID: str):
 def write_to_file(item_id: str, dictionary, simplified = False):
     # consider restoring this if a name needs to be hidden
     # name: str = item_id if blackListed else dictionary["Name"]
-    name: str = dictionary["name"]
+    name: str = dictionary[c.NAMEC]
     if simplified: name += " (Simple)"
     prefix = getTagFromID(item_id)
     fileName = prefix + name
