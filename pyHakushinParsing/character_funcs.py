@@ -112,29 +112,29 @@ def skilltreesAndMaterials(character : dict, response : dict) -> dict:
     extrasDict: dict = {}
 
     #level up materials
-    for material in response[c.STATS]["5"]["Cost"]:
-        materials.add(material["ItemID"])
+    for material in response[c.STATS]["5"]["cost"]:
+        materials.add(material["item_id"])
 
-    skillTree : dict = response["SkillTrees"]
+    skillTree : dict = response["skill_trees"]
     for skill in skillTree:
-        if skill in ["Point01", "Point02", "Point03", "Point04", "Point05", "Point19", "Point20"]:
+        if skill in ["point01", "point02", "point03", "point04", "point05", "point19", "point20"]:
             continue
         else:
             currentSkill : dict = skillTree[skill]["1"]
-            pointId : int = currentSkill["PointID"] #e.g. 8007101
+            pointId : int = currentSkill["point_id"] #e.g. 8007101
 
             #[] means no other skills are needed to get this skill
-            requirementsList: list[int] = currentSkill["PrePoint"]
+            requirementsList: list[int] = currentSkill["pre_point"]
             if requirementsList == []:
                 requirement = None
             else:
                 requirement = str(requirementsList[0])
 
-            if currentSkill["StatusAddList"] == []:
+            if currentSkill["status_add_list"] == []:
                 #major trace
-                name : str = currentSkill["PointName"]
-                traceNo : int = currentSkill["AvatarPromotionLimit"]
-                description: str = neatenDesc(currentSkill["PointDesc"])
+                name : str = currentSkill["point_name"]
+                traceNo : int = currentSkill["avatar_promotion_limit"]
+                description: str = neatenDesc(currentSkill["point_desc"])
 
                 # handle extras (term explanation)
                 extras : dict = handleExtras(currentSkill[c.EXTRA])
@@ -152,16 +152,16 @@ def skilltreesAndMaterials(character : dict, response : dict) -> dict:
                 } 
             else:
                 #minor trace
-                statusAddList = currentSkill["StatusAddList"][0]
+                statusAddList = currentSkill["status_add_list"][0]
                 name: str = statusAddList[c.NAME]
-                value: float = statusAddList["Value"]
+                value: float = statusAddList["value"]
                 if name != "SPD": value = round(value * 100, 1)
                 
                 # get unlock requirement (either level or ascension)
-                traceNo : int = currentSkill["AvatarPromotionLimit"]
+                traceNo : int = currentSkill["avatar_promotion_limit"]
                 if traceNo: unlock = c.TRACE
                 else:
-                    traceNo: int = currentSkill["AvatarLevelLimit"]
+                    traceNo: int = currentSkill["avatar_level_limit"]
                     unlock = "Level"
 
                 #add minor trace value to summary:
@@ -176,8 +176,8 @@ def skilltreesAndMaterials(character : dict, response : dict) -> dict:
             # (post if-statement:) add trace to list and get its materials
             skillsTemp[str(pointId)] = trace
             #trace materials
-            for material in currentSkill["MaterialList"]:
-                materials.add(material["ItemID"])
+            for material in currentSkill["material_list"]:
+                materials.add(material["item_id"])
     
     #turn skillsTemp into trees of skills (rootTracesOnly)
     for key in skillsTemp:
@@ -222,22 +222,33 @@ def parse_weakness_breaks(wb_list : List[int]):
     if wb_list[2] != 0: weaknesses["Blast"] = wb_list[2]
     return weaknesses
 
+def get_summoner_talent_id(data: dict) -> int:
+    match data["name"]:
+        case "Aglaea": return 140202
+        case "{NICKNAME}": return 800704
+        case "Castorice": return 140703
+        case "Hyacine": return 140904
+        case "Evernight": return 141304
+        case "Cyrene": return 141503
+
 def parse_memosprite(data: dict):
     #data_memosprite = data[c.MEMOSPRITE]
     memosprite: dict = {}
     memosprite[c.NAME] = data[c.MEMOSPRITE][c.NAME] #na.abbreviate_string(data[c.MEMOSPRITE][c.NAME])
-    if "AvatarVOTag" in data and data["AvatarVOTag"] == "playergirl4":
-        summoner_talent_id = 800804 # female TB's Mem uses male TB's tag
-    else:
-        summoner_talent_id = data[c.MEMOSPRITE]["HPSkill"]
-    if summoner_talent_id == None: summoner_talent_id = data[c.MEMOSPRITE]["SpeedSkill"]
+    summoner_talent_id = get_summoner_talent_id(data)
+    # if "avatar_vo_tag" in data and data["avatar_vo_tag"] == "playergirl4":
+    #     summoner_talent_id = 800704 # female TB's Mem uses male TB's tag
+    # else:
+    #     summoner_talent_id = data[c.MEMOSPRITE]["hp_skill"]
+    # if summoner_talent_id == None: 
+    #     summoner_talent_id = data[c.MEMOSPRITE]["SpeedSkill"] # use map for remembrance units OR look for "summon" tag
     talent : dict = data["Skills"][str(summoner_talent_id)]
     l1_params, l6_params, l7_params = get_min_max_params(talent) #e.g. [60, 10]
-    memosprite["BaseHP"] = parse_memosprite_value(data[c.MEMOSPRITE]["HPBase"], l1_params, l6_params, l7_params)
-    memosprite["BonusHP"] = parse_memosprite_value(data[c.MEMOSPRITE]["HPInherit"], l1_params, l6_params, l7_params)+"%"
-    memosprite["BaseSpeed"] = parse_memosprite_value(data[c.MEMOSPRITE]["SpeedBase"], l1_params, l6_params, l7_params)
-    memosprite["BonusSpeed"] = parse_memosprite_value(data[c.MEMOSPRITE]["SpeedInherit"], l1_params, l6_params, l7_params)+"%"
-    memosprite["Aggro"] = data[c.MEMOSPRITE]["Aggro"]
+    memosprite["BaseHP"] = parse_memosprite_value(data[c.MEMOSPRITE]["hp_base"], l1_params, l6_params, l7_params)
+    memosprite["BonusHP"] = parse_memosprite_value(data[c.MEMOSPRITE]["hp_inherit"], l1_params, l6_params, l7_params)+"%"
+    memosprite["BaseSpeed"] = parse_memosprite_value(data[c.MEMOSPRITE]["speed_base"], l1_params, l6_params, l7_params)
+    memosprite["BonusSpeed"] = parse_memosprite_value(data[c.MEMOSPRITE]["speed_inherit"], l1_params, l6_params, l7_params)+"%"
+    memosprite["Aggro"] = data[c.MEMOSPRITE]["aggro"]
     memosprite["Kit"] = {}
     extras = mainskills(memosprite, data[c.MEMOSPRITE])
     return memosprite, summoner_talent_id, extras
@@ -272,7 +283,7 @@ def insert_numbers_into_place(word: str, l1_params : List[int | float], max_para
 def get_min_max_params(skill: dict, alreadyParsed: bool = False):
     #so far, "alreadyParsed" is only for Remembrance chars
     skill_description : str = skill[c.DESC]
-    levels : dict = skill["Level"]
+    levels : dict = skill["level"]
     level1_params = parse_params(skill_description, levels["1"][c.PARAMLIST], alreadyParsed)
 
     if "15" in levels.keys(): 
@@ -288,7 +299,7 @@ def get_min_max_params(skill: dict, alreadyParsed: bool = False):
     return level1_params, levelmax_params, whale_params
   
 def uniqueSkills(my_data: dict, data: dict) -> dict:
-    uniqueSkills = data["Unique"]
+    uniqueSkills = data["unique"]
     extrasDict : dict = {}
     if uniqueSkills == {}: 
         return extrasDict
@@ -305,7 +316,7 @@ def uniqueSkills(my_data: dict, data: dict) -> dict:
         #my_data["Kit"]["Unique"][strCounter] = {}
         skillPointer[c.NAME] = skill[c.NAME] #na.abbreviate_string(skill[c.NAME]) #my_data["Kit"]["Unique"][strCounter] 
         skillPointer[c.DESC] = skill[c.DESC] #my_data["Kit"]["Unique"][strCounter]
-        skillPointer["Tag"] = skill["Tag"] #my_data["Kit"]["Unique"][strCounter]
+        skillPointer["Tag"] = skill["tag"] #my_data["Kit"]["Unique"][strCounter]
         #handle extras (i.e. explanations of tags)
         extras = skill[c.EXTRA]
         extras : dict = handleExtras(extras)
@@ -314,13 +325,14 @@ def uniqueSkills(my_data: dict, data: dict) -> dict:
     return extrasDict
 
 def mainskills(my_data : dict, data : dict, summonSkillNum : str = None) -> dict:
-    skills = data["Skills"]
+    skills = data["skills"]
     #reset_skill_occurrences()
     skill_counts = Skill_Counter()
     extrasDict : dict = {}
     for skillnum in skills:
         skill = skills[skillnum]
-        skill_type = skill_names[skill["Type"]] if skill["Type"] in skill_names else skill["Type"]       
+        # TODO: skill["type_name"] <- use this instead
+        skill_type = skill_names[skill["type"]] if skill["type"] in skill_names else skill["type"]    
         skill_count = skill_counts.add_skill(skill_type)
         if skill_count > 1: skill_type = f"{skill_type} #{str(skill_count)}"
 
@@ -344,33 +356,33 @@ def mainskills(my_data : dict, data : dict, summonSkillNum : str = None) -> dict
 
         my_data["Kit"][skill_type][c.NAME] = skill[c.NAME] #na.abbreviate_string(skill[c.NAME])
         my_data["Kit"][skill_type][c.DESC] = new_desc #na.abbreviate_quoted_text(new_desc)
-        my_data["Kit"][skill_type]["Tag"] = skill["Tag"]
-        energy = skill["SPBase"]
+        my_data["Kit"][skill_type]["Tag"] = skill["tag"]
+        energy = skill["sp_base"]
         if energy != None:
             my_data["Kit"][skill_type]["Energy"] = energy
-        if skill["BPAdd"] != None:
-            my_data["Kit"][skill_type]["SP"] = skill["BPAdd"]
-        elif skill["BPNeed"] != None:
-            my_data["Kit"][skill_type]["SP"] = abs(skill["BPNeed"]) * -1
-        weakness_break_types : List[int] = skill["ShowStanceList"]
+        if skill["bp_add"] != None:
+            my_data["Kit"][skill_type]["SP"] = skill["bp_add"]
+        elif skill["bp_need"] != None:
+            my_data["Kit"][skill_type]["SP"] = abs(skill["bp_need"]) * -1
+        weakness_break_types : List[int] = skill["show_stance_list"]
         if weakness_break_types != [0,0,0]:
             my_data["Kit"][skill_type]["Weakness Break"] = parse_weakness_breaks(weakness_break_types) #single target, aoe, blast
         
         # elation participation id
-        if "ElationPriorityValue" in skill:
+        if "elation_priority_value" in skill:
             # my_data["Kit"][skill_type]["Participation ID"] = skill["ElationPriorityValue"]
-            my_data[c.STATS]["Participation ID"] = skill["ElationPriorityValue"] # adds to main stats instead of skill
+            my_data[c.STATS]["Participation ID"] = skill["elation_priority_value"] # adds to main stats instead of skill
     my_data["Kit"] = reorder_base_kit(my_data["Kit"])
 
     return extrasDict
 
 def eidolons(character_dict : dict, json_dict : dict) -> set:
-    raw_eidolons = json_dict["Ranks"]
+    raw_eidolons = json_dict["ranks"]
     character_dict["Eidolons"] = {}
     extrasDict : dict = {}
     for num in raw_eidolons:
         eidolon = raw_eidolons[num]
-        e_num = eidolon["Id"] % 10
+        e_num = eidolon["id"] % 10
         description : str = eidolon[c.DESC]
         parameters = eidolon[c.PARAMLIST]
         extras = eidolon[c.EXTRA]

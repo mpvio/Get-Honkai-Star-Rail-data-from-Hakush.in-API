@@ -57,7 +57,7 @@ def relic(param):
         return True, write_to_file(f"{param}", my_data)
 
     # call the specific relic file otherwise
-    req_string = f"https://api.hakush.in/hsr/data/en/relicset/{param}.json"
+    req_string = f"https://static.nanoka.cc/hsr/{c.CURRENTVERSION}/en/relicset/{param}.json"
     #if param in v1TempList: req_string = f"https://api.hakush.in/hsr/{version}/en/relicset/{param}.json"
     response = requests.get(req_string)
     
@@ -67,9 +67,9 @@ def relic(param):
         
         my_data[c.NAME] = data[c.NAME]       
         my_data["Relic Effect/s"] = {}
-        for effect in data["RequireNum"]:
-            old_desc = data["RequireNum"][effect][c.DESC]
-            params = cf.parse_params(old_desc, data["RequireNum"][effect]["ParamList"])
+        for effect in data["require_num"]:
+            old_desc = data["require_num"][effect][c.DESC]
+            params = cf.parse_params(old_desc, data["require_num"][effect]["param_list"])
             new_desc = cf.add_params_to_desc(old_desc, params)
             my_data["Relic Effect/s"][effect] = new_desc
 
@@ -80,7 +80,7 @@ def relic(param):
         return False, output
 
 def lightcone(param):
-    req_string = f"https://api.hakush.in/hsr/data/en/lightcone/{param}.json"
+    req_string = f"https://static.nanoka.cc/hsr/{c.CURRENTVERSION}/en/lightcone/{param}.json"
     #if param in v1TempList: req_string = f"https://api.hakush.in/hsr/{version}/en/lightcone/{param}.json"
     response = requests.get(req_string)
 
@@ -94,26 +94,26 @@ def lightcone(param):
         if data[c.RARITY] == "CombatPowerLightconeRarity5": my_data[c.RARITY] = 5
         elif data[c.RARITY] == "CombatPowerLightconeRarity4": my_data[c.RARITY] = 4
         else: my_data[c.RARITY] = 3
-        my_data[c.PATH] = path_map[data["BaseType"]] if data["BaseType"] in path_map else data["BaseType"]
+        my_data[c.PATH] = path_map[data["base_type"]] if data["base_type"] in path_map else data["base_type"]
         
-        description = data["Refinements"][c.DESC]
+        description = data["refinements"][c.DESC]
         #S1 and S5 values
-        s1_params = cf.parse_params(description, data["Refinements"]["Level"]["1"]["ParamList"])
-        s5_params = cf.parse_params(description, data["Refinements"]["Level"]["5"]["ParamList"])
+        s1_params = cf.parse_params(description, data["refinements"]["level"]["1"]["param_list"])
+        s5_params = cf.parse_params(description, data["refinements"]["level"]["5"]["param_list"])
         new_desc = cf.add_params_to_desc(description, s1_params, s5_params)
 
-        my_data[c.DESC] = new_desc #data["Refinements"][c.DESC]
-        #my_data["S1"] = data["Refinements"]["Level"]["1"]["ParamList"]
-        #my_data["S5"] = data["Refinements"]["Level"]["5"]["ParamList"]
+        my_data[c.DESC] = new_desc #data["refinements"][c.DESC]
+        #my_data["S1"] = data["refinements"]["level"]["1"]["param_list"]
+        #my_data["S5"] = data["refinements"]["level"]["5"]["param_list"]
         #get stats at Lv80
         get_stats(my_data, data, False)
 
         #get materials
         stats = data[c.STATS]
         for stat in stats:
-            cost = stat["PromotionCostList"]
+            cost = stat["promotion_cost_list"]
             for material in cost:
-                material_set.add(material["ItemID"])
+                material_set.add(material["item_id"])
         my_data[c.MATERIALS] = get_material_names(material_set)
         
         return True, write_to_file(f"{param}", my_data)
@@ -123,7 +123,7 @@ def lightcone(param):
         return False, output
 
 def character(param):
-    req_string = f"https://api.hakush.in/hsr/data/en/character/{param}.json"
+    req_string = f"https://static.nanoka.cc/hsr/{c.CURRENTVERSION}/en/character/{param}.json"
     #if param in v1TempList: req_string = f"https://api.hakush.in/hsr/{version}/en/character/{param}.json"
     response = requests.get(req_string)
 
@@ -137,21 +137,21 @@ def character(param):
         get_stats(my_data, data, True)
 
         my_data[c.STATS][c.RARITY] = 5 if data[c.RARITY] == "CombatPowerAvatarRarityType5" else 4
-        my_data[c.STATS]["Energy"] = data["SPNeed"]
-        my_data[c.STATS][c.PATH] = path_map[data["BaseType"]] if data["BaseType"] in path_map else data["BaseType"]
-        my_data[c.STATS]["Element"] = "Lightning" if data["DamageType"] == "Thunder" else data["DamageType"]
+        my_data[c.STATS]["Energy"] = data["sp_need"]
+        my_data[c.STATS][c.PATH] = path_map[data["base_type"]] if data["base_type"] in path_map else data["base_type"]
+        my_data[c.STATS]["Element"] = "Lightning" if data["damage_type"] == "Thunder" else data["damage_type"]
 
         my_data["Kit"] = {}
         summoner_talent_id = None
 
-        if data["Enhanced"] != {}:
-            enhancements : dict = data["Enhanced"]
+        if data["enhanced"] != {}:
+            enhancements : dict = data["enhanced"]
             latestEnh : dict = enhancements.get(list(enhancements)[-1])
             for key in latestEnh.keys():
                 data[key] = latestEnh[key]
             # get description of changes
             enhancementDesc = []
-            descs: dict = data["Descs"]
+            descs: dict = data["descs"]
             for desc in descs:
                 enhancementDesc.append(neatenDesc(desc))
             # add desc to main file
@@ -212,24 +212,26 @@ def get_stats(my_dict : dict, data : dict, character : bool):
      stat_dict : dict = {}
      if character:
         stats = data[c.STATS]["6"]
-        hp, hpAdd = "HPBase", "HPAdd"
-        atk, atkAdd = "AttackBase", "AttackAdd"
-        defe, defAdd = "DefenceBase", "DefenceAdd"
+        hp, hpAdd = "hp_base", "hp_add"
+        atk, atkAdd = "attack_base", "attack_add"
+        defe, defAdd = "defence_base", "defence_add"
      else:
         stats = data[c.STATS][-1]
-        hp, hpAdd = "BaseHP", "BaseHPAdd"
-        atk, atkAdd = "BaseAttack", "BaseAttackAdd"
-        defe, defAdd = "BaseDefence", "BaseDefenceAdd"
+        hp, hpAdd = "base_hp", "base_hp_add"
+        atk, atkAdd = "base_attack", "base_attack_add"
+        defe, defAdd = "base_defence", "base_defence_add"
      stat_dict["HP"] = round(stats[hp] + (stats[hpAdd]*79))
      stat_dict["ATK"] = round(stats[atk] + (stats[atkAdd]*79))
      stat_dict["DEF"] = round(stats[defe] + (stats[defAdd]*79))
      if character:
-          stat_dict["Speed"] = stats["SpeedBase"]
-          stat_dict["Aggro"] = stats["BaseAggro"]
+          stat_dict["Speed"] = stats["speed_base"]
+          stat_dict["Aggro"] = stats["base_aggro"]
      my_dict[c.STATS] = stat_dict
 
 def main(args: List[str]):
     global blackList
+    # get correct version of nanoka
+    c.getCurrentVersion()
     outputs : List[str] = []
     manualChecks : List[str] = []
     blackList = c.get_blackList()

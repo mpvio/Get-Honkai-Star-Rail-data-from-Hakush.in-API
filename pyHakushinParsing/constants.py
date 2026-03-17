@@ -2,8 +2,12 @@ from datetime import datetime
 import os
 import pathlib
 
+import requests
+
 WEEKLY_BOSSES = 7 # TODO: move to file to allow user input
 FIRST_WEEKLY_BOSS = 110501
+
+CURRENTVERSION = None
 
 #types of items
 CHARACTER = "character"
@@ -14,21 +18,21 @@ RELICSET = "relicset"
 NEEDRELICS = [4, 5]
 
 #dict keys:
-NAME = "Name"
-RARITY = "Rarity"
+NAME = "name"
+RARITY = "rarity"
 PATH = "Path"
-DESC = "Desc"
-STATS = "Stats"
-MEMOSPRITE = "Memosprite"
-MATERIALS = "Materials"
+DESC = "desc"
+STATS = "stats"
+MEMOSPRITE = "memosprite"
+MATERIALS = "materials"
 MINOR_TRACES = "Minor Traces"
 TRACE = "Trace"
 TRACE_TREE = "Trace Tree"
-RELICS = "Relics"
+RELICS = "relics"
 UNLOCKS = "Unlocks"
-PARAMLIST = "ParamList"
+PARAMLIST = "param_list"
 REQUIRES = "Requires"
-EXTRA = "Extra"
+EXTRA = "extra"
 
 # list names
 shortlist = "shortlist"
@@ -141,3 +145,10 @@ def writeTxtList(page: str, content: list[str]):
             file.writelines(content)
     except Exception as e:
          print(e)
+
+def getCurrentVersion():
+    global CURRENTVERSION
+    if CURRENTVERSION == None:
+        data = requests.get("https://static.nanoka.cc/manifest.json")
+        if data.status_code == 200:
+            CURRENTVERSION = data.json()["hsr"]["latest"]

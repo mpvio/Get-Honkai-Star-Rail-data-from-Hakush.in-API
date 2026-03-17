@@ -22,14 +22,14 @@ def getBuildRecommendations(data : dict, relics: dict = None):
     global relicsets
     # should only be called once: set relicsets to full relics json and get names from there
     if relics != None and relicsets == {}: relicsets = relics
-    cavern = getRelicSetNames(data["Set4IDList"])
-    planar = getRelicSetNames(data["Set2IDList"]) #search relicsets for names
+    cavern = getRelicSetNames(data["set4_id_list"])
+    planar = getRelicSetNames(data["set2_id_list"]) #search relicsets for names
     # replace "AddedRatio" and remove "Delta", then use Dict for other values
-    body = translateStatNames(data["PropertyList3"])
-    feet = translateStatNames(data["PropertyList4"])
-    sphere = translateStatNames(data["PropertyList5"])
-    rope = translateStatNames(data["PropertyList6"])
-    substats = translateStatNames(data["SubAffixPropertyList"])
+    body = translateStatNames(data["property_list3"])
+    feet = translateStatNames(data["property_list4"])
+    sphere = translateStatNames(data["property_list5"])
+    rope = translateStatNames(data["property_list6"])
+    substats = translateStatNames(data["sub_affix_property_list"])
     recommendations : dict = {
         f"{recommendedStr}Cavern{relicSetStr}": cavern,
         f"{recommendedStr}Planar{relicSetStr}": planar,

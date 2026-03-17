@@ -10,3 +10,4 @@ pyUi/hakushinUIv2.py
 _old results/
 *.txt
 dist/
+Hakushin Versions/*.json
