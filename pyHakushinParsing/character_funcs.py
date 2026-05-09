@@ -113,7 +113,7 @@ def skilltreesAndMaterials(character : dict, response : dict) -> dict:
 
     #level up materials
     for material in response[c.STATS]["5"]["cost"]:
-        materials.add(material["item_id"])
+        materials.add(material["item_id"]) # also add item_sub_type?
 
     skillTree : dict = response["skill_trees"]
     for skill in skillTree:
@@ -177,7 +177,7 @@ def skilltreesAndMaterials(character : dict, response : dict) -> dict:
             skillsTemp[str(pointId)] = trace
             #trace materials
             for material in currentSkill["material_list"]:
-                materials.add(material["item_id"])
+                materials.add(material["item_id"]) # also add item_sub_type?
     
     # trace tree using trace names/ stat names as keys
     for key in skillsTemp:
