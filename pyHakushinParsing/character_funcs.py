@@ -140,7 +140,7 @@ def skilltreesAndMaterials(character : dict, response : dict) -> dict:
                 extras : dict = handleExtras(currentSkill[c.EXTRA])
                 extrasDict.update(extras)
                 
-                params: list[float] = currentSkill[c.PARAMLIST]
+                params: list[float] = currentSkill[c.PARAMLISTC]
                 if params != []:
                     formattedParams = parse_params(description, params)
                     description = add_params_to_desc(description, formattedParams)
@@ -299,14 +299,14 @@ def get_min_max_params(skill: dict, alreadyParsed: bool = False):
     #so far, "alreadyParsed" is only for Remembrance chars
     skill_description : str = skill[c.DESC]
     levels : dict = skill["level"]
-    level1_params = parse_params(skill_description, levels["1"][c.PARAMLIST], alreadyParsed)
+    level1_params = parse_params(skill_description, levels["1"][c.PARAMLISTC], alreadyParsed)
 
     if "15" in levels.keys(): 
-        levelmax_params = parse_params(skill_description, levels["10"][c.PARAMLIST], alreadyParsed)
-        whale_params = parse_params(skill_description, levels["12"][c.PARAMLIST], alreadyParsed)
+        levelmax_params = parse_params(skill_description, levels["10"][c.PARAMLISTC], alreadyParsed)
+        whale_params = parse_params(skill_description, levels["12"][c.PARAMLISTC], alreadyParsed)
     elif "6" in levels.keys(): 
-        levelmax_params = parse_params(skill_description, levels["6"][c.PARAMLIST], alreadyParsed)
-        whale_params = parse_params(skill_description, levels["7"][c.PARAMLIST], alreadyParsed)
+        levelmax_params = parse_params(skill_description, levels["6"][c.PARAMLISTC], alreadyParsed)
+        whale_params = parse_params(skill_description, levels["7"][c.PARAMLISTC], alreadyParsed)
     else: 
         levelmax_params = None
         whale_params = None
@@ -399,7 +399,7 @@ def eidolons(character_dict : dict, json_dict : dict) -> set:
         eidolon = raw_eidolons[num]
         e_num = eidolon["id"] % 10
         description : str = eidolon[c.DESC]
-        parameters = eidolon[c.PARAMLIST]
+        parameters = eidolon[c.PARAMLISTC]
         extras = eidolon[c.EXTRA]
         #handle extras (i.e. explanations of tags)
         for e in extras:

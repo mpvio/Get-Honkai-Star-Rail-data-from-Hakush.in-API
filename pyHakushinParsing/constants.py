@@ -25,7 +25,7 @@ STATS = "stats"
 MEMOSPRITE = "memosprite"
 MATERIALS = "materials"
 RELICS = "relics"
-PARAMLIST = "param_list"
+PARAMLIST = "ParamList"
 EXTRA = "extra"
 
 PATH = "Path"
@@ -43,7 +43,7 @@ STATSC = "Stats"
 MEMOSPRITEC = "Memosprite"
 MATERIALSC = "Materials"
 RELICSC = "Relics"
-PARAMLISTC = "Param_list"
+PARAMLISTC = "param_list"
 EXTRAC = "Extra"
 
 # list names
