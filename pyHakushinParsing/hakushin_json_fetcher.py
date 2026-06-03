@@ -44,7 +44,7 @@ def relic(param):
         # use relicEffects if possible
         data: dict = relicEffects[param]
         my_data = {}
-
+        # TODO: dictionary entries are updated when called, so recalling the same set in a session recalculates (and breaks) non-constant values
         my_data[c.NAMEC] = data['en']
         my_data["Relic Effect/s"] = {}
         effects: dict = data["set"]
