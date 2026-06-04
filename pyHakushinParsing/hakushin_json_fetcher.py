@@ -44,16 +44,19 @@ def relic(param):
         # use relicEffects if possible
         data: dict = relicEffects[param]
         my_data = {}
-        # TODO: dictionary entries are updated when called, so recalling the same set in a session recalculates (and breaks) non-constant values
         my_data[c.NAMEC] = data['en']
         my_data["Relic Effect/s"] = {}
         effects: dict = data["set"]
         for setBonus in effects:
             effect: dict = effects[setBonus]
             oldDesc = effect['en']
+            # make backup of original values
+            effectBackup = effect[c.PARAMLIST][:]
             params = cf.parse_params(oldDesc, effect[c.PARAMLIST])
             newDesc = cf.add_params_to_desc(oldDesc, params)
             my_data["Relic Effect/s"][setBonus] = newDesc
+            # restore backup
+            effect[c.PARAMLIST] = effectBackup
         return True, write_to_file(f"{param}", my_data)
 
     # call the specific relic file otherwise
