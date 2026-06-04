@@ -256,7 +256,7 @@ def start_up():
     _, hakuApi_entry = set_up_hakuApi_frame(window)
 
     #checkNewPages.py integration
-    _ = set_up_checkNewPages_frame(window, hakuApi_entry)
+    #_ = set_up_checkNewPages_frame(window, hakuApi_entry)
 
     # text lists panel
     _ = getTextLists(window)

@@ -13,6 +13,7 @@ lightcone = "lightcone"
 relicset = "relicset"
 
 def getAll(type : str, via_ui = False):
+	c.getCurrentVersion()
 	data: dict = getAllItems(type)
 	items: dict = {}
 	for key in data:
